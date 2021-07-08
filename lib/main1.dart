@@ -1,6 +1,5 @@
 import 'package:trainertimer/Locale/languageCubit.dart';
 import 'package:trainertimer/Pages/Home/Drawer/changeLanguage.dart';
-import 'package:trainertimer/Pages/Home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -42,8 +41,7 @@ class FitZone extends StatelessWidget {
             ],
             locale: locale,
             theme: appTheme,
-            // home: Language(true),
-            home: HomePage(),
+            home: Language(true),
             debugShowCheckedModeBanner: false,
             routes: PageRoutes().routes(),
           );
