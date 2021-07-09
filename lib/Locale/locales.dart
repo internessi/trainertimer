@@ -957,6 +957,22 @@ class AppLocalizations {
   String? get turk {
     return _localizedValues[locale.languageCode]!['turkish'];
   }
+
+  String? get headline1 {
+    return _localizedValues[locale.languageCode]!['headlineFirst'];
+  }
+
+  String? get headline2 {
+    return _localizedValues[locale.languageCode]!['headlineSecond'];
+  }
+
+  String? get headline3 {
+    return _localizedValues[locale.languageCode]!['headlineThird'];
+  }
+
+
+
+
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

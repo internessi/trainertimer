@@ -131,5 +131,8 @@ Map<String, String> german() {
     'swahili': 'swaheli',
     'turkish': 'türkisch',
     'german': 'deutsch',
+    'headlineFirst': 'Timer Training',
+    'headlineSecond': 'Fight Training',
+    'headlineThird': 'Fitness Training',
   };
 }
