@@ -3,6 +3,7 @@ import 'package:animation_wrappers/Animations/faded_scale_animation.dart';
 import 'package:animation_wrappers/Animations/faded_slide_animation.dart';
 import '/Locale/locales.dart';
 import '/Pages/Home/workoutDetails.dart';
+import '/Pages/Home/Timers/simpleTimerSetup.dart';
 import '/Theme/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -127,7 +128,13 @@ class TimerSetup extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WorkoutDetails(index)));
+                              builder:  index == 0
+                                        ? (context) => SimpleTimerSetup(index)
+                                        : (context) => WorkoutDetails(index)
+                          ));
+
+
+
                     },
                     child: ClipRRect(
                       child: BackdropFilter(
