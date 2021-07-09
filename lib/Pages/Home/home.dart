@@ -3,6 +3,8 @@ import 'package:animation_wrappers/animation_wrappers.dart';
 import '/Locale/locales.dart';
 import '/Pages/Home/Drawer/setAlarm.dart';
 import '/Pages/Home/workouts.dart';
+import 'Timers/timerSetup.dart';
+import '/Pages/Home/Sub/sub.dart';
 import '/Theme/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -86,17 +88,10 @@ class HomePage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                   child: ListView(
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            locale.headline1!.toUpperCase(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2!
-                                .copyWith(color: darkGrey, letterSpacing: 1),
-                          ),
-                        ],
+                      SubListTitle (
+                        locale.headline1!.toUpperCase() as String,
                       ),
+
                       Container(
                         child: ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
@@ -108,7 +103,7 @@ class HomePage extends StatelessWidget {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Workouts(
+                                        builder: (context) => TimerSetup(
                                             locale.chest, typeTimer[index])));
                               },
                               child: ClipRect(
@@ -116,7 +111,7 @@ class HomePage extends StatelessWidget {
                                   filter: ImageFilter.blur(
                                       sigmaX: 4.0, sigmaY: 4.0),
                                   child: Container(
-                                    margin: EdgeInsets.only(top: 15),
+                                    margin: EdgeInsets.only(top: 10),
                                     height: 103,
                                     width: MediaQuery.of(context).size.width,
                                     decoration: BoxDecoration(
@@ -224,31 +219,12 @@ class HomePage extends StatelessWidget {
                           },
                         ),
                       ),
-
                       SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
 
-                      Row(
-                        children: [
-                          Text(
-                            locale.chest!.toUpperCase(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2!
-                                .copyWith(color: darkGrey, letterSpacing: 1),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            locale.workout!.toUpperCase(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2!
-                                .copyWith(color: darkGrey, letterSpacing: 1),
-                          ),
-                        ],
+                      SubListTitle (
+                        locale.headline2!.toUpperCase() as String,
                       ),
                       Container(
                         child: ListView.builder(
@@ -269,7 +245,7 @@ class HomePage extends StatelessWidget {
                                   filter: ImageFilter.blur(
                                       sigmaX: 4.0, sigmaY: 4.0),
                                   child: Container(
-                                    margin: EdgeInsets.only(top: 15),
+                                    margin: EdgeInsets.only(top: 10),
                                     height: 103,
                                     width: MediaQuery.of(context).size.width,
                                     decoration: BoxDecoration(
@@ -357,29 +333,11 @@ class HomePage extends StatelessWidget {
                       ),
 
                       SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
 
-                      Row(
-                        children: [
-                          Text(
-                            locale.arm!.toUpperCase(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2!
-                                .copyWith(color: darkGrey, letterSpacing: 1),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            locale.workout!.toUpperCase(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2!
-                                .copyWith(color: darkGrey, letterSpacing: 1),
-                          ),
-                        ],
+                      SubListTitle (
+                        locale.headline3!.toUpperCase() as String,
                       ),
                       Container(
                         child:
@@ -402,7 +360,7 @@ class HomePage extends StatelessWidget {
                                   ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
+                                      borderRadius: BorderRadius.circular(10),
                                       color: Colors.grey[800]!.withOpacity(0.3),
                                     ),
                                     margin: EdgeInsets.only(top: 15),

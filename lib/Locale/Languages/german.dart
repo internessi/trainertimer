@@ -134,5 +134,11 @@ Map<String, String> german() {
     'headlineFirst': 'Timer Training',
     'headlineSecond': 'Fight Training',
     'headlineThird': 'Fitness Training',
+    'timer01': 'einfach',
+    'timer02': 'einstellbar',
+    'timer03': 'Kampfsport',
+    'timer04': 'Pyramide ',
+    'timer05': 'Mein Timer 1',
+    'timer06': 'Mein Timer 2',
   };
 }

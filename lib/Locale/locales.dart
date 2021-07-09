@@ -970,6 +970,29 @@ class AppLocalizations {
     return _localizedValues[locale.languageCode]!['headlineThird'];
   }
 
+  String? get timer1 {
+    return _localizedValues[locale.languageCode]!['timer01'];
+  }
+
+  String? get timer2 {
+    return _localizedValues[locale.languageCode]!['timer02'];
+  }
+
+  String? get timer3 {
+    return _localizedValues[locale.languageCode]!['timer03'];
+  }
+
+  String? get timer4 {
+    return _localizedValues[locale.languageCode]!['timer04'];
+  }
+
+  String? get timer5 {
+    return _localizedValues[locale.languageCode]!['timer05'];
+  }
+
+  String? get timer6 {
+    return _localizedValues[locale.languageCode]!['timer06'];
+  }
 
 
 
