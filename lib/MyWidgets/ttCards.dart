@@ -138,13 +138,15 @@ class TimerCard extends StatelessWidget {
 
 class TraierTimerCard extends StatelessWidget {
   final String? title;
-  TraierTimerCard(this.title);
+  final String image;
+  final int index;
+
+  TraierTimerCard(this.title, this.image, this.index);
 
   @override
   Widget build(BuildContext context) {
 
     var locale = AppLocalizations.of(context)!;
-    int index = 0;
     List imgFitness = [
       "assets/imgs/Cropped/crop21.png",
       "assets/imgs/Cropped/crop23.png"
@@ -180,7 +182,7 @@ class TraierTimerCard extends StatelessWidget {
                     Container(
                       height: 110,
                       child: Image.asset(
-                        imgFight[index],
+                        image,
                         fit: BoxFit.cover,
                       ),
                     ),

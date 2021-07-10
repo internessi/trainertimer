@@ -125,95 +125,11 @@ class HomePage extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => Workouts(
-                                            locale.chest, imgFight[index])));
+                                            locale.chest, typeFight[index])));
                               },
-                              child: ClipRect(
-                                child: BackdropFilter(
-                                  filter: ImageFilter.blur(
-                                      sigmaX: 4.0, sigmaY: 4.0),
-                                  child: Container(
-                                    margin: EdgeInsets.only(top: 10),
-                                    height: 103,
-                                    width: MediaQuery.of(context).size.width,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      color: Colors.grey[800]!.withOpacity(0.3),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        FadedScaleAnimation(
-                                          Container(
-                                            height: 110,
-                                            child: Image.asset(
-                                              imgFight[index],
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                          durationInMilliseconds: 1000,
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    right: 10,
-                                                    top: 7,
-                                                    left: 10),
-                                                child: Row(
-                                                  children: [
-                                                    Spacer(),
-                                                    Container(
-                                                      height: 18,
-                                                      child:
-                                                      Image.asset(
-                                                          "assets/imgs/ger1.png",
-                                                          fit: BoxFit.scaleDown
-                                                      ),
-                                                    ),
-                                                    SizedBox(width: 7),
-                                                    Container(
-                                                      height: 18,
-                                                      child:
-                                                      Image.asset(
-                                                          "assets/imgs/uk1.png",
-                                                          fit: BoxFit.scaleDown
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(textFight[index]!
-                                                      .toUpperCase()),
-                                                  Text(typeFight[index]
-                                                      .toUpperCase()),
-                                                  SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text(
-                                                    "13 " + locale.workouts!,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyText2!
-                                                        .copyWith(
-                                                            fontSize: 11,
-                                                            color: darkGrey),
-                                                  )
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              child:
+                              TraierTimerCard(locale.signIn, imgFight[index], index),
+
                             );
                           },
                         ),
