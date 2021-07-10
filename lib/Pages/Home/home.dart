@@ -3,6 +3,7 @@ import 'package:animation_wrappers/animation_wrappers.dart';
 import '/Locale/locales.dart';
 import '/Pages/Home/Drawer/setAlarm.dart';
 import '/Pages/Home/workouts.dart';
+import '/MyWidgets/ttCards.dart';
 import 'Timers/timerSetup.dart';
 import '/Pages/Home/Sub/sub.dart';
 import '/Theme/colors.dart';
@@ -92,136 +93,22 @@ class HomePage extends StatelessWidget {
                         locale.headline1!.toUpperCase() as String,
                       ),
 
-                      Container(
-                        child: ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: 1,
-                          itemBuilder: (BuildContext context, int index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => TimerSetup(
-                                            locale.chest, typeTimer[index])));
-                              },
-                              child: ClipRect(
-                                child: BackdropFilter(
-                                  filter: ImageFilter.blur(
-                                      sigmaX: 4.0, sigmaY: 4.0),
-                                  child: Container(
-                                    margin: EdgeInsets.only(top: 10),
-                                    height: 103,
-                                    width: MediaQuery.of(context).size.width,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      color: Colors.grey[800]!.withOpacity(0.3),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        FadedScaleAnimation(
-                                          Container(
-                                            height: 110,
-                                            child: Image.asset(
-                                              imgTimer[index],
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                          durationInMilliseconds: 1000,
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    right: 10,
-                                                    top: 7,
-                                                    left: 10),
-                                                child: Row(
-                                                  children: [
-                                                    Spacer(),
-                                                    Container(
-                                                      height: 18,
-                                                      child:
-                                                      Icon(
-                                                        Icons.timer,
-                                                        color: index == 1 ||
-                                                            index == 2
-                                                            ? buttonColor
-                                                            : greyColor,
-                                                        size: 15,
-                                                      ),
-                                                    ),
-                                                    SizedBox(width: 5),
-                                                    Container(
-                                                      height: 18,
-                                                      child:
-                                                      Icon(
-                                                        Icons.access_time_rounded,
-                                                        color: index == 1 ||
-                                                            index == 2
-                                                            ? buttonColor
-                                                            : greyColor,
-                                                        size: 15,
-                                                      ),
-                                                    ),
-                                                    SizedBox(width: 5),
-                                                    Container(
-                                                      height: 18,
-                                                      child:
-                                                      Icon(
-                                                        Icons.timelapse_sharp,
-                                                        color: index == 1 ||
-                                                            index == 2
-                                                            ? buttonColor
-                                                            : greyColor,
-                                                        size: 15,
-                                                      ),
-                                                    ),
-                                                    SizedBox(width: 5),
-                                                  ],
-                                                ),
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                                children: [
-                                                  Text('TIMER'
-                                                      .toUpperCase()),
-                                                  Text('TRAINING'
-                                                      .toUpperCase()),
-                                                  SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text(
-                                                    lineTimer[index]!,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyText2!
-                                                        .copyWith(
-                                                        fontSize: 11,
-                                                        color: darkGrey),
-                                                  )
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TimerSetup(
+                                      locale.chest, typeTimer[0])));
+                        },
+                        child:
+                        TimerCard(locale.signIn),
                       ),
                       SizedBox(
                         height: 15,
                       ),
+
+
 
                       SubListTitle (
                         locale.headline2!.toUpperCase() as String,
