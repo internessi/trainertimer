@@ -3,14 +3,14 @@ import 'package:animation_wrappers/Animations/faded_scale_animation.dart';
 import 'package:animation_wrappers/Animations/faded_slide_animation.dart';
 import '/Locale/locales.dart';
 import '/Pages/Home/workoutDetails.dart';
-import '/Pages/Home/Timers/simpleTimerSetup.dart';
+import '/Pages/Home/Timers/timerSimple.dart';
 import '/Theme/colors.dart';
 import 'package:flutter/material.dart';
 
-class TimerSetup extends StatelessWidget {
+class TimerSelection extends StatelessWidget {
   final String? type;
   final String? level;
-  TimerSetup(this.type, this.level);
+  TimerSelection(this.type, this.level);
   final List excercise = [
     "assets/workouts/Layer 749.png",
     "assets/workouts/Layer 750.png",
@@ -87,7 +87,7 @@ class TimerSetup extends StatelessWidget {
                                   .copyWith(fontSize: 20),
                             ),
                             Text(
-                                'TRAINING',
+                              'TRAINING',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText2!
@@ -103,7 +103,6 @@ class TimerSetup extends StatelessWidget {
               ),
             ],
           ),
-
         ),
         preferredSize: Size.fromHeight(115),
       ),
@@ -129,8 +128,8 @@ class TimerSetup extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder:  index == 0
-                                        ? (context) => SimpleTimerSetup(index)
-                                        : (context) => WorkoutDetails(index)
+                                  ? (context) => TimerSimple()
+                                  : (context) => WorkoutDetails(index)
                           ));
 
 
@@ -153,14 +152,14 @@ class TimerSetup extends StatelessWidget {
                                 Container(
                                   height: 60,
                                   child:
-                                    Icon(
-                                      iconTimer[index],
-                                      color: index ==  2||
-                                          index == 2
-                                          ? buttonColor
-                                          : greyColor,
-                                      size: 40,
-                                    ),
+                                  Icon(
+                                    iconTimer[index],
+                                    color: index ==  2||
+                                        index == 2
+                                        ? buttonColor
+                                        : greyColor,
+                                    size: 40,
+                                  ),
                                 ),
                                 durationInMilliseconds: 1000,
                               ),
