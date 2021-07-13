@@ -1,4 +1,3 @@
-import 'package:animation_wrappers/Animations/faded_scale_animation.dart';
 import '/Locale/locales.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,7 +14,12 @@ class TimerSimple extends StatefulWidget {
 class _TimerSimpleState extends State<TimerSimple>
     with TickerProviderStateMixin {
   late AnimationController controller;
-  int lastDuration = 0;
+  int lastDuration = 0, timerDuration = 3, timerType = 2, timerRounds = 0, timerRound = 0 ;
+  Color timerColor = timerColorPrep, timerColorBg = timerColorPrepBg;
+
+  List timerTypeColor = [timerColorFight,  timerColorPause, timerColorPrep];
+  List timerTypeColorBg = [timerColorFightBg, timerColorPauseBg,  timerColorPrepBg];
+  List timerTypeText = ['Aktivzeit', 'Erholungszeit',  'Vorbereitung'];
 
   String get timerString {
     Duration duration = controller.duration! * controller.value;
@@ -28,7 +32,7 @@ class _TimerSimpleState extends State<TimerSimple>
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 18),
+      duration: Duration(seconds: timerDuration),
     )
       ..addListener(() {
         setState(() {
@@ -40,6 +44,18 @@ class _TimerSimpleState extends State<TimerSimple>
         });
       })
       ..addStatusListener((AnimationStatus status) {
+        if (controller.isDismissed) {
+          timerType = timerType + 1;
+          if (timerType > 1)
+            timerType = 0;
+          controller.duration = Duration(seconds: 5);
+          timerColor = timerTypeColor[timerType];
+          timerColorBg = timerTypeColorBg[timerType];
+          controller.reverse(
+              from: controller.value == 0.0
+                  ? 1.0
+                  : controller.value);
+        }
         print(status);
       });
   }
@@ -107,9 +123,6 @@ class _TimerSimpleState extends State<TimerSimple>
             ),
           ),
           preferredSize: Size.fromHeight(AppBar().preferredSize.height)),
-
-
-
       backgroundColor: Colors.white10,
       body:
       Stack(
@@ -152,27 +165,29 @@ class _TimerSimpleState extends State<TimerSimple>
                                     controller.value * (MediaQuery.of(context).size.height - 200),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
-                                        color: Colors.green[900],
+                                        color: timerColorBg,
                                     ),
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.all(26.0),//groessere zahl, kleinerer Kreis
+                                  padding: EdgeInsets.all(15),//groessere zahl, kleinerer Kreis
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Expanded(
                                         child: Align(
-                                          alignment: FractionalOffset.center,
+                                          alignment: FractionalOffset.topCenter,
                                           child: AspectRatio(
                                             aspectRatio: 1.0,
-                                            child: Stack(
+                                            child: Padding(
+                                            padding: EdgeInsets.all(15),//groessere zahl, kleinerer Kreis
+                                              child: Stack(
                                               children: <Widget>[
                                                 Positioned.fill(
                                                   child: CustomPaint(
                                                       painter: CustomTimerPainter(
                                                         animation: controller,
-                                                        backgroundColor: Colors.green,
+                                                        backgroundColor: timerColor,
                                                         color: themeData.indicatorColor,
                                                       )),
                                                 ),
@@ -185,7 +200,7 @@ class _TimerSimpleState extends State<TimerSimple>
                                                     CrossAxisAlignment.center,
                                                     children: <Widget>[
                                                       Text(
-                                                        "Erholungszeit",
+                                                        timerTypeText[timerType],
                                                         style: TextStyle(
                                                             fontSize: 28.0,
                                                             color: Colors.white),
@@ -201,29 +216,145 @@ class _TimerSimpleState extends State<TimerSimple>
                                                 ),
                                               ],
                                             ),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                      AnimatedBuilder(
-                                          animation: controller,
-                                          builder: (context, child) {
-                                            return FloatingActionButton.extended(
-                                                onPressed: () {
-                                                  if (controller.isAnimating)
-                                                    controller.stop();
-                                                  else {
-                                                    controller.reverse(
-                                                        from: controller.value == 0.0
-                                                            ? 1.0
-                                                            : controller.value);
-                                                  }
-                                                },
-                                                icon: Icon(controller.isAnimating
-                                                    ? Icons.pause
-                                                    : Icons.play_arrow),
-                                                label: Text(
-                                                    controller.isAnimating ? "Pause" : "Play"));
-                                          }),
+                                      Text(
+                                        'RUNDEN',
+                                        style: TextStyle(
+                                            fontSize: 28.0,
+                                            color: Colors.white),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          IconButton(
+                                            icon: Icon(Icons.remove_circle_outline),
+                                            color: Colors.white,
+                                            iconSize: 50,
+                                            splashRadius: 40,
+                                            disabledColor: Colors.blueAccent,
+                                            onPressed: () {},
+                                          ),
+                                          ElevatedButton(
+                                              child: Text(
+                                                  timerRound.toString(),
+                                                  style: TextStyle(fontSize: 38.0, fontWeight: FontWeight.bold)
+                                              ),
+                                              style: ButtonStyle(
+                                                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                                                  backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!.withOpacity(0.5)),
+                                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                      RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(18.0),
+                                                          side: BorderSide(color: timerTypeColor[timerType], width: 5)
+                                                      )
+                                                  )
+                                              ),
+                                              onPressed: () => null
+                                        ),
+                                          Text(
+                                              " / ".toUpperCase(),
+                                              style: TextStyle(fontSize: 38.0, fontWeight: FontWeight.bold)
+                                          ),
+                                          ElevatedButton(
+                                              child: Text(
+                                                  timerRounds.toString(),
+                                                  style: TextStyle(fontSize: 38.0, fontWeight: FontWeight.bold)
+                                              ),
+                                              style: ButtonStyle(
+                                                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                                                  backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!.withOpacity(0.5)),
+                                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                      RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(18.0),
+                                                          side: BorderSide(color: timerTypeColor[timerType], width: 5)
+                                                      )
+                                                  )
+                                              ),
+                                              onPressed: () => null
+                                          ),
+                                          IconButton(
+                                            icon: Icon(Icons.add_circle_outline),
+                                            color: Colors.white,
+                                            iconSize: 50,
+                                            splashRadius: 40,
+                                            disabledColor: Colors.blueAccent,
+                                            onPressed: () {},
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 25,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          AnimatedBuilder(
+                                              animation: controller,
+                                              builder: (context, child) {
+                                                return FloatingActionButton.extended(
+                                                    heroTag: 'Pause/Start',
+                                                    backgroundColor: timerTypeColor[timerType],
+                                                    foregroundColor: Colors.black87,
+                                                    splashColor: Colors.white,
+                                                    onPressed: () {
+                                                      if (controller.isAnimating)
+                                                        controller.stop();
+                                                      else {
+                                                        controller.reverse(
+                                                            from: controller.value == 0.0
+                                                                ? 1.0
+                                                                : controller.value);
+                                                      }
+                                                    },
+                                                    icon: Icon(controller.isAnimating
+                                                        ? Icons.pause
+                                                        : Icons.play_arrow),
+                                                    label: Text(
+                                                        controller.isAnimating ? "Pause" : "Start")
+                                                );
+                                              }),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          AnimatedBuilder(
+                                              animation: controller,
+                                              builder: (context, child) {
+                                                return FloatingActionButton.extended(
+                                                    heroTag: 'Reset/Settings',
+                                                    backgroundColor: timerTypeColor[timerType],
+                                                    foregroundColor: Colors.black87,
+                                                    splashColor: Colors.white,
+                                                    onPressed: () {
+                                                      if (controller.isAnimating){
+                                                        controller.stop();
+                                                        timerType = 2;
+                                                        timerColor = timerTypeColor[2];
+                                                        timerColorBg = timerTypeColorBg[2];
+                                                        controller.reset();
+                                                        controller.stop();
+
+                                                      }
+                                                      else {
+                                                        controller.reverse(
+                                                            from: controller.value == 0.0
+                                                                ? 1.0
+                                                                : controller.value);
+                                                      }
+                                                    },
+                                                    icon: Icon(controller.isAnimating
+                                                        ? Icons.replay_sharp
+                                                        : Icons.settings),
+                                                    label: Text(
+                                                        controller.isAnimating ? "Reset" : "Einstellung")
+                                                );
+                                              }),
+                                        ],),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -234,7 +365,62 @@ class _TimerSimpleState extends State<TimerSimple>
                       ),
                     ),
                   ),
-                  Text('footer menu?'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                        child: Text(
+                            "0:05".toUpperCase(),
+                            style: TextStyle(fontSize: 38.0, fontWeight: FontWeight.bold)
+                        ),
+                        style: ButtonStyle(
+                            foregroundColor: MaterialStateProperty.all<Color>(timerTypeColorBg[2]),
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!.withOpacity(0.5)),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                    side: BorderSide(color: Colors.grey[800]!.withOpacity(0.5), width: 5)
+                                )
+                            )
+                        ),
+                        onPressed: () => null
+                    ),
+                    ElevatedButton(
+                        child: Text(
+                            "0:10".toUpperCase(),
+                            style: TextStyle(fontSize: 38.0, fontWeight: FontWeight.bold)
+                        ),
+                        style: ButtonStyle(
+                            foregroundColor: MaterialStateProperty.all<Color>(timerTypeColorBg[0]),
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!.withOpacity(0.5)),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                    side: BorderSide(color: Colors.grey[800]!.withOpacity(0.5), width: 5)
+                                )
+                            )
+                        ),
+                        onPressed: () => null
+                    ),
+                    ElevatedButton(
+                        child: Text(
+                            "0:10".toUpperCase(),
+                            style: TextStyle(fontSize: 38.0, fontWeight: FontWeight.bold)
+                        ),
+                        style: ButtonStyle(
+                            foregroundColor: MaterialStateProperty.all<Color>(timerTypeColorBg[1]),
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!.withOpacity(0.5)),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                    side: BorderSide(color: Colors.grey[800]!.withOpacity(0.5), width: 5)
+                                )
+                            )
+                        ),
+                        onPressed: () => null
+                    ),
+                    ],
+                ),
                 ],
               ),
             ),
@@ -262,7 +448,7 @@ class CustomTimerPainter extends CustomPainter {
       ..strokeCap = StrokeCap.butt
       ..style = PaintingStyle.stroke;
 
-    canvas.drawCircle(size.center(Offset.zero), size.width / 2.0, paint);
+    canvas.drawCircle(size.center(Offset.zero), size.width / 2, paint);
     paint.color = Colors.black54;
 
     double progress = (1.0 - animation.value) * 2 * math.pi;

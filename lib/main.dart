@@ -4,7 +4,6 @@ import 'package:trainertimer/Pages/Home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
 import 'Locale/locales.dart';
 import 'Routes/routes.dart';
 import 'Theme/style.dart';
