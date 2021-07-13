@@ -1,7 +1,5 @@
 import 'package:animation_wrappers/Animations/faded_scale_animation.dart';
 import '/Locale/locales.dart';
-import '/Pages/Home/startExercise.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '/Theme/colors.dart';
@@ -139,141 +137,109 @@ class _TimerSimpleState extends State<TimerSimple>
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.grey[800]!.withOpacity(0.5),
                         ),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 20),
-                        child:
-
-
-
-                            AnimatedBuilder(
-          animation: controller,
-          builder: (context, child) {
-            return Stack(
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child:
-                  Container(
-                    color: Colors.green[900],
-                    height:
-                    controller.value * MediaQuery.of(context).size.height,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(26.0),//groessere zahl, kleinerer Kreis
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Expanded(
-                        child: Align(
-                          alignment: FractionalOffset.center,
-                          child: AspectRatio(
-                            aspectRatio: 1.0,
-                            child: Stack(
+                        // padding: EdgeInsets.symmetric(
+                        //    horizontal: 20, vertical: 20),
+                        child: AnimatedBuilder(
+                          animation: controller,
+                          builder: (context, child) {
+                            return Stack(
                               children: <Widget>[
-                                Positioned.fill(
-                                  child: CustomPaint(
-                                      painter: CustomTimerPainter(
-                                        animation: controller,
-                                        backgroundColor: Colors.green,
-                                        color: themeData.indicatorColor,
-                                      )),
-                                ),
                                 Align(
-                                  alignment: FractionalOffset.center,
+                                  alignment: Alignment.bottomCenter,
+                                  child:
+                                  Container(
+                                    height:
+                                    controller.value * (MediaQuery.of(context).size.height - 200),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.green[900],
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(26.0),//groessere zahl, kleinerer Kreis
                                   child: Column(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
-                                      Text(
-                                        "Erholungszeit",
-                                        style: TextStyle(
-                                            fontSize: 32.0,
-                                            color: Colors.white),
+                                      Expanded(
+                                        child: Align(
+                                          alignment: FractionalOffset.center,
+                                          child: AspectRatio(
+                                            aspectRatio: 1.0,
+                                            child: Stack(
+                                              children: <Widget>[
+                                                Positioned.fill(
+                                                  child: CustomPaint(
+                                                      painter: CustomTimerPainter(
+                                                        animation: controller,
+                                                        backgroundColor: Colors.green,
+                                                        color: themeData.indicatorColor,
+                                                      )),
+                                                ),
+                                                Align(
+                                                  alignment: FractionalOffset.center,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      Text(
+                                                        "Erholungszeit",
+                                                        style: TextStyle(
+                                                            fontSize: 28.0,
+                                                            color: Colors.white),
+                                                      ),
+                                                      Text(
+                                                        timerString,
+                                                        style: TextStyle(
+                                                            fontSize: 102.0,
+                                                            color: Colors.white),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                      Text(
-                                        timerString,
-                                        style: TextStyle(
-                                            fontSize: 112.0,
-                                            color: Colors.white),
-                                      ),
+                                      AnimatedBuilder(
+                                          animation: controller,
+                                          builder: (context, child) {
+                                            return FloatingActionButton.extended(
+                                                onPressed: () {
+                                                  if (controller.isAnimating)
+                                                    controller.stop();
+                                                  else {
+                                                    controller.reverse(
+                                                        from: controller.value == 0.0
+                                                            ? 1.0
+                                                            : controller.value);
+                                                  }
+                                                },
+                                                icon: Icon(controller.isAnimating
+                                                    ? Icons.pause
+                                                    : Icons.play_arrow),
+                                                label: Text(
+                                                    controller.isAnimating ? "Pause" : "Play"));
+                                          }),
                                     ],
                                   ),
                                 ),
                               ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      AnimatedBuilder(
-                          animation: controller,
-                          builder: (context, child) {
-                            return FloatingActionButton.extended(
-                                onPressed: () {
-                                  if (controller.isAnimating)
-                                    controller.stop();
-                                  else {
-                                    controller.reverse(
-                                        from: controller.value == 0.0
-                                            ? 1.0
-                                            : controller.value);
-                                  }
-                                },
-                                icon: Icon(controller.isAnimating
-                                    ? Icons.pause
-                                    : Icons.play_arrow),
-                                label: Text(
-                                    controller.isAnimating ? "Pause" : "Play"));
+                            );
                           }),
-                    ],
-                  ),
-                ),
-              ],
-            );
-          }),
-
-
-
-
-
-
                         ),
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: FadedScaleAnimation(
-                      Container(
-                        height: 55,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          color: buttonColor,
-                        ),
-                        child: Center(
-                            child: Text(
-                              locale.letsStart!,
-                              style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                                  fontSize: 17,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal),
-                            )),
-                      ),
-                      durationInMilliseconds: 500,
-                    ),
-                  ),
+                  Text('footer menu?'),
                 ],
               ),
             ),
           ],
         )
-
-
-
     );
   }
 }
@@ -292,7 +258,7 @@ class CustomTimerPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
       ..color = backgroundColor
-      ..strokeWidth = 10.0
+      ..strokeWidth = 12.0
       ..strokeCap = StrokeCap.butt
       ..style = PaintingStyle.stroke;
 

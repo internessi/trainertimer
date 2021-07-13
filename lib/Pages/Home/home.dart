@@ -5,7 +5,6 @@ import '/Pages/Home/Drawer/setAlarm.dart';
 import '/Pages/Home/workouts.dart';
 import '/MyWidgets/ttCards.dart';
 import 'Timers/timerSelection.dart';
-import '/Pages/Home/Sub/sub.dart';
 import '/Theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'Drawer/drawer.dart';
@@ -122,9 +121,13 @@ class HomePage extends StatelessWidget {
                     children: [
 
                       // TIMER TRAINING
-                      SubListTitle (
-                        locale.headline1!.toUpperCase() as String,
-                      ),
+                  Text(
+                      locale.headline1!.toUpperCase(),
+                      style: Theme.of(context)
+                        .textTheme
+                        .bodyText2!
+                        .copyWith(color: Colors.white60, letterSpacing: 1),
+                  ),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -141,8 +144,12 @@ class HomePage extends StatelessWidget {
                       ),
 
                       // FIGHT TRAINING
-                      SubListTitle (
-                        locale.headline2!.toUpperCase() as String,
+                      Text(
+                        locale.headline2!.toUpperCase(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2!
+                            .copyWith(color: Colors.white60, letterSpacing: 1),
                       ),
                       Container(
                         child: ListView.builder(
@@ -170,8 +177,12 @@ class HomePage extends StatelessWidget {
                       ),
 
                       // FITNESS TRAINING
-                      SubListTitle (
-                        locale.headline3!.toUpperCase() as String,
+                      Text(
+                        locale.headline3!.toUpperCase(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2!
+                            .copyWith(color: Colors.white60, letterSpacing: 1),
                       ),
                       Container(
                         child: ListView.builder(

@@ -1,10 +1,8 @@
 import 'dart:ui';
-
 import 'package:animation_wrappers/animation_wrappers.dart';
 import '/Components/colorButton.dart';
 import '/Locale/languageCubit.dart';
 import '/Locale/locales.dart';
-import '/Pages/Auth/Login/login.dart';
 import '/Theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -135,14 +133,7 @@ class _LanguageState extends State<Language> {
                               //  } else if (_selectedLanguage == 8) {
                               //     _languageCubit.selectTurkishLanguage();
                             }
-                            if (widget.isStart) {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Login()));
-                            } else {
                               Navigator.pop(context);
-                            }
                           },
                           child: FadedScaleAnimation(
                             ColorButton(locale.submit),

@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'basrutten_mp3.dart';
-import '../later/trainer_db.dart';
 import 'training_process.dart';
 
 class TrainerPage extends StatelessWidget {
