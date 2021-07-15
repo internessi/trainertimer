@@ -91,10 +91,12 @@ class _TimerSimpleState extends State<TimerSimple>
                       icon: Icon(Icons.chevron_left),
                       iconSize: 30,
                       onPressed: () {
+                        if (controller.isAnimating)
+                          controller.stop();
                         Navigator.pop(context);
                       }),
                   titleSpacing: 0,
-                  backgroundColor: Colors.grey[800]!.withOpacity(0.3),
+                  backgroundColor: Colors.grey[800]!.withOpacity(0.3), // Bereich Appbar
                   title: Text(
                     ' ',  //locale.workout!,
                     style: TextStyle(fontWeight: FontWeight.normal),
@@ -182,11 +184,11 @@ class _TimerSimpleState extends State<TimerSimple>
               ),
             ),
             preferredSize: Size.fromHeight(AppBar().preferredSize.height)),
-        backgroundColor: Colors.white10,
+        backgroundColor: Colors.white10, // keine Auswirkung
         body:
         Stack(
           children: [
-            Container(
+            Container( // gesamter Bildschirm
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: Image.asset(
@@ -198,12 +200,12 @@ class _TimerSimpleState extends State<TimerSimple>
               child: Stack(
                 alignment: Alignment.bottomCenter,
                 children: [
-                  Container(
+                  Container( // gesamter Innenbereich (Bildschirm - AppBar)
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                     child: ClipRRect(
                       child: BackdropFilter(
                         filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
-                        child: Container(
+                        child: Container(  // innenbereich Insel
                           margin: EdgeInsets.only(bottom: 0),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
@@ -219,7 +221,7 @@ class _TimerSimpleState extends State<TimerSimple>
                                     Align(
                                       alignment: Alignment.bottomCenter,
                                       child:
-                                      Container(
+                                      Container(    // Zeiteffekt innenbereich Insel
                                         height:
                                         controller.value * (MediaQuery.of(context).size.height - 200),
                                         decoration: BoxDecoration(
@@ -229,11 +231,11 @@ class _TimerSimpleState extends State<TimerSimple>
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.all(15),//groessere zahl, kleinerer Kreis
+                                      padding: EdgeInsets.all(15), //groessere zahl, kleinerer Kreis
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
-                                          Expanded(
+                                          Expanded(  // TimerKreis
                                             child: Align(
                                               alignment: FractionalOffset.topCenter,
                                               child: AspectRatio(
@@ -279,6 +281,7 @@ class _TimerSimpleState extends State<TimerSimple>
                                               ),
                                             ),
                                           ),
+
                                           SizedBox(
                                             height: 15,
                                           ),
