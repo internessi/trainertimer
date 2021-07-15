@@ -213,7 +213,7 @@ class _TimerSimpleState extends State<TimerSimple>
                                                       Text(
                                                         timerString,
                                                         style: TextStyle(
-                                                            fontSize: 102.0,
+                                                            fontSize: 100,
                                                             color: Colors.white),
                                                       ),
                                                     ],
