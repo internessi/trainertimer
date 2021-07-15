@@ -1,4 +1,5 @@
 import '/Locale/locales.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '/Theme/colors.dart';
@@ -14,6 +15,10 @@ class TimerSimple extends StatefulWidget {
 class _TimerSimpleState extends State<TimerSimple>
     with TickerProviderStateMixin {
   late AnimationController controller;
+
+  AudioCache audioCache= AudioCache();
+  AudioPlayer audioPlayer = AudioPlayer();
+
   int lastDuration = 0, timerDuration = 3, timerType = 2, timerRounds = 0, timerRound = 0 ;
   Color timerColor = timerColorPrep, timerColorBg = timerColorPrepBg;
 
@@ -220,12 +225,7 @@ class _TimerSimpleState extends State<TimerSimple>
                                           ),
                                         ),
                                       ),
-                                      Text(
-                                        'RUNDEN',
-                                        style: TextStyle(
-                                            fontSize: 28.0,
-                                            color: Colors.white),
-                                      ),
+
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
@@ -281,7 +281,9 @@ class _TimerSimpleState extends State<TimerSimple>
                                             iconSize: 50,
                                             splashRadius: 40,
                                             disabledColor: Colors.blueAccent,
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              playSound('mp3/basrutten/round1.mp3');
+                                            },
                                           ),
                                         ],
                                       ),
@@ -428,6 +430,31 @@ class _TimerSimpleState extends State<TimerSimple>
         )
     );
   }
+  void initSounds() async {
+    audioPlayer = AudioPlayer();
+    audioCache = AudioCache(fixedPlayer: audioPlayer);
+    // audioCache.loadAll(mp3);
+  }
+
+  void playSound(_mp3) async {
+    var fileName = _mp3;
+    if ( audioPlayer.state.index == 1) {
+      audioPlayer.stop();
+    }
+    audioPlayer = await audioCache.play(fileName);
+  }
+
+  void stopSound(_mp3) {
+    audioPlayer.stop();
+  }
+
+
+
+
+
+
+
+
 }
 
 class CustomTimerPainter extends CustomPainter {
