@@ -83,7 +83,7 @@ class _TimerSimpleState extends State<TimerSimple>
                 titleSpacing: 0,
                 backgroundColor: Colors.grey[800]!.withOpacity(0.3),
                 title: Text(
-                  locale.workout!,
+                  ' ', // locale.workout!,
                   style: TextStyle(fontWeight: FontWeight.normal),
                 ),
                 actions: [
@@ -147,6 +147,17 @@ class _TimerSimpleState extends State<TimerSimple>
                           ),
                           onPressed: () => null
                       ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      IconButton(
+                          padding: EdgeInsets.zero,
+                          color: Colors.white12,
+                          icon: Icon(Icons.settings),
+                          iconSize: 30,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          }),
                       SizedBox(
                         width: 5,
                       ),
