@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:audioplayers/audioplayers.dart';
+import '/Pages/Home/Timers/timerDialog.dart';
 import '/Locale/locales.dart';
 import '/Theme/colors.dart';
 
@@ -120,7 +121,14 @@ class _TimerSimpleState extends State<TimerSimple>
                                     )
                                 )
                             ),
-                            onPressed: () => null
+                          onPressed: () {
+                            Navigator.of(context).push(new MaterialPageRoute<Null>(
+                                builder: (BuildContext context) {
+                                  return new TimerDialog();
+                                },
+                                fullscreenDialog: true
+                            ));
+                          },
                         ),
                         SizedBox(
                           width: 5,
@@ -140,7 +148,14 @@ class _TimerSimpleState extends State<TimerSimple>
                                     )
                                 )
                             ),
-                            onPressed: () => null
+                          onPressed: () {
+                            Navigator.of(context).push(new MaterialPageRoute<Null>(
+                                builder: (BuildContext context) {
+                                  return new TimerDialog();
+                                },
+                                fullscreenDialog: true
+                            ));
+                          },
                         ),
                         SizedBox(
                           width: 5,
@@ -160,7 +175,14 @@ class _TimerSimpleState extends State<TimerSimple>
                                     )
                                 )
                             ),
-                            onPressed: () => null
+                          onPressed: () {
+                            Navigator.of(context).push(new MaterialPageRoute<Null>(
+                                builder: (BuildContext context) {
+                                  return new TimerDialog();
+                                },
+                                fullscreenDialog: true
+                            ));
+                          },
                         ),
                         SizedBox(
                           width: 25,
@@ -171,7 +193,14 @@ class _TimerSimpleState extends State<TimerSimple>
                           iconSize: 30,
                           splashRadius: 30,
                           disabledColor: Colors.blueAccent,
-                          onPressed: () {},
+                          onPressed: () {
+                              Navigator.of(context).push(new MaterialPageRoute<Null>(
+                                  builder: (BuildContext context) {
+                                    return new TimerDialog();
+                                  },
+                                  fullscreenDialog: true
+                              ));
+                          },
                         ),
                         SizedBox(
                           width: 10,
@@ -403,11 +432,16 @@ class _TimerSimpleState extends State<TimerSimple>
                                                         onPressed: () {
                                                           if (controller.isAnimating){
                                                             controller.stop();
+                                                            print('nach stop');
+                                                            controller.reset();
+                                                            print('nach reset');
                                                             timerType = 2;
                                                             timerColor = timerTypeColor[2];
                                                             timerColorBg = timerTypeColorBg[2];
-                                                            controller.reset();
+                                                          print('nach set');
+
                                                             controller.stop();
+                                                          print('nach stop');
                                                             setState(() {
 
                                                             });
