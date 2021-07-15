@@ -235,8 +235,7 @@ class _TimerSimpleState extends State<TimerSimple>
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
-                                          Expanded(  // TimerKreis
-                                            child: Align(
+                                          Align(
                                               alignment: FractionalOffset.topCenter,
                                               child: AspectRatio(
                                                 aspectRatio: 1.0,
@@ -280,11 +279,13 @@ class _TimerSimpleState extends State<TimerSimple>
                                                 ),
                                               ),
                                             ),
-                                          ),
 
-                                          SizedBox(
-                                            height: 15,
-                                          ),
+
+                                          Column(
+                                           mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+
+
                                           Text(
                                               'Runden',
                                               style: TextStyle(fontSize: 38.0)
@@ -355,9 +356,11 @@ class _TimerSimpleState extends State<TimerSimple>
                                               ),
                                             ],
                                           ),
-                                          SizedBox(
-                                            height: 25,
+                                           ],
                                           ),
+
+
+
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
@@ -405,6 +408,9 @@ class _TimerSimpleState extends State<TimerSimple>
                                                             timerColorBg = timerTypeColorBg[2];
                                                             controller.reset();
                                                             controller.stop();
+                                                            setState(() {
+
+                                                            });
 
                                                           }
                                                           else {
@@ -422,9 +428,7 @@ class _TimerSimpleState extends State<TimerSimple>
                                                     );
                                                   }),
                                             ],),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
+
                                         ],
                                       ),
                                     ),
