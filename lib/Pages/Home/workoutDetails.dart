@@ -69,7 +69,7 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                                   child: FadedScaleAnimation(
                                     Container(
                                       width: 190,
-                                      child: Image.asset(excercise[index]),
+                                      child: Text('oben'),
                                     ),
                                     durationInMilliseconds: 500,
                                   ),
@@ -98,14 +98,14 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                                     ),
                               Row(
                                 children: [
-                                  Text(name[widget.currentExcercise],
+                                  Text('liste',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyText2!
                                           .copyWith(
                                               fontSize: 17,
                                               fontWeight: FontWeight.bold)),
-                                  Text("  x 16",
+                                  Text(' unten',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyText2!
@@ -142,7 +142,7 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: Image.asset(
-                "assets/bg.png",
+                "assets/bg1.png",
                 fit: BoxFit.cover,
               ),
             ),
@@ -165,7 +165,7 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                               horizontal: 20, vertical: 20),
                           child: ListView(
                             children: [
-                              Text(locale.lorem!,
+                              Text(' ',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText2!
@@ -173,12 +173,12 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                               SizedBox(
                                 height: 10,
                               ),
-                              Text(locale.lorem!,
+                              Text(' ',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText2!
                                       .copyWith(fontSize: 13)),
-                              Text(locale.lorem!,
+                              Text(' ',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText2!
@@ -191,11 +191,7 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  StartWorkout(widget.currentExcercise)));
+
                     },
                     child: FadedScaleAnimation(
                       Container(
@@ -206,7 +202,7 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                         ),
                         child: Center(
                             child: Text(
-                          locale.letsStart!,
+                          'button',
                           style: Theme.of(context).textTheme.bodyText1!.copyWith(
                               fontSize: 17,
                               color: Colors.white,

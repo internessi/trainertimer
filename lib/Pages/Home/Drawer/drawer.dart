@@ -4,7 +4,6 @@ import 'package:animation_wrappers/animation_wrappers.dart';
 import '/Locale/locales.dart';
 import '/Pages/Home/Drawer/changeLanguage.dart';
 import '/Pages/Home/Drawer/privacyPolicy.dart';
-import '/Pages/Home/Drawer/setAlarm.dart';
 import '/Pages/Home/home.dart';
 import '/Theme/colors.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +21,7 @@ class MyDrawer extends StatelessWidget {
 
   final List routes = [
     HomePage(),
-    SetAlarm(),
+    HomePage(),
     Blogs(),
     PrivacyPolicy(),
     Language(),

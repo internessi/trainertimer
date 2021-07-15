@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:animation_wrappers/animation_wrappers.dart';
 import '/Locale/locales.dart';
-import '/Pages/Home/Drawer/setAlarm.dart';
 import '/Pages/Home/workouts.dart';
 import '/MyWidgets/ttCards.dart';
 import 'Timers/timerSelection.dart';
@@ -90,10 +89,7 @@ class HomePage extends StatelessWidget {
                         size: 18,
                       ),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SetAlarm()));
+
                       })
                 ],
               ),

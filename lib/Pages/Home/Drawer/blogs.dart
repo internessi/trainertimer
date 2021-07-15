@@ -4,7 +4,7 @@ import 'package:animation_wrappers/Animations/faded_scale_animation.dart';
 import 'package:animation_wrappers/Animations/faded_slide_animation.dart';
 import '/Locale/locales.dart';
 import '/Pages/Home/Drawer/readBlog.dart';
-import '/Pages/Home/Drawer/setAlarm.dart';
+
 import '/Theme/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -62,10 +62,6 @@ class Blogs extends StatelessWidget {
                         size: 18,
                       ),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SetAlarm()));
                       })
                 ],
               ),

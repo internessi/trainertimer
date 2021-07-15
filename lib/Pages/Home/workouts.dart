@@ -162,7 +162,7 @@ class Workouts extends StatelessWidget {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: Image.asset(
-                "assets/bg.png",
+                "assets/bg1.png",
                 fit: BoxFit.cover,
               ),
             ),
