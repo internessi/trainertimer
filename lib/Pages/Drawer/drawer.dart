@@ -1,11 +1,11 @@
 import 'dart:ui';
 import 'package:animation_wrappers/Animations/faded_slide_animation.dart';
 import 'package:animation_wrappers/animation_wrappers.dart';
-import '/Locale/locales.dart';
-import '/Pages/Home/Drawer/changeLanguage.dart';
-import '/Pages/Home/Drawer/privacyPolicy.dart';
-import '/Pages/Home/home.dart';
-import '/Theme/colors.dart';
+import 'package:trainertimer/Locale/locales.dart';
+import 'package:trainertimer/Pages/Drawer/changeLanguage.dart';
+import 'package:trainertimer/Pages/Drawer/privacyPolicy.dart';
+import 'package:trainertimer/Pages/home.dart';
+import 'package:trainertimer/Theme/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'blogs.dart';

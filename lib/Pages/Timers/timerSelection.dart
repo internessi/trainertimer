@@ -1,16 +1,17 @@
 import 'dart:ui';
-
+import 'package:flutter/material.dart';
 import 'package:animation_wrappers/Animations/faded_scale_animation.dart';
 import 'package:animation_wrappers/Animations/faded_slide_animation.dart';
-import '/Locale/locales.dart';
-import '/Pages/Home/workoutDetails.dart';
-import '/Theme/colors.dart';
-import 'package:flutter/material.dart';
+import 'package:trainertimer/Locale/locales.dart';
+import 'package:trainertimer/Pages/workoutDetails.dart';
+import 'package:trainertimer/Pages/Timers/timerSimple.dart';
+import 'package:trainertimer/Theme/colors.dart';
 
-class Workouts extends StatelessWidget {
+
+class TimerSelection extends StatelessWidget {
   final String? type;
   final String? level;
-  Workouts(this.type, this.level);
+  TimerSelection(this.type, this.level);
   final List excercise = [
     "assets/workouts/Layer 749.png",
     "assets/workouts/Layer 750.png",
@@ -25,13 +26,23 @@ class Workouts extends StatelessWidget {
     var locale = AppLocalizations.of(context)!;
 
     List name = [
-      locale.jumpingJacks,
-      locale.inclinePushUps,
-      locale.pushups,
-      locale.benchpressPushups,
-      locale.wideHandPushUps,
-      locale.shortHand
+      locale.timer1,
+      locale.timer2,
+      locale.timer3,
+      locale.timer4,
+      locale.timer5,
+      locale.timer6,
     ];
+
+    final  List<IconData> iconTimer =
+    [Icons.timer,
+      Icons.alarm,
+      Icons.sports_mma,
+      Icons.change_history,
+      Icons.alarm_on,
+      Icons.alarm_on];
+
+    List  footerTimer= ['einfacher Intervalltimer', 'Workout/Erholung, Wiederholungen/Sets', 'Kampf/Ecke, Runden', 'Pyramidentimer auf-/absteigend', 'einstellbarer Timer', 'einstellbarer Timer'];
 
     return Scaffold(
       backgroundColor: scaffoldBg,
@@ -53,7 +64,7 @@ class Workouts extends StatelessWidget {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(
-                          "assets/imgs/Cropped/Header.png",
+                          "assets/imgs/Cropped/Header1.png",
                         ),
                         fit: BoxFit.cover)),
               ),
@@ -70,14 +81,14 @@ class Workouts extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              type!,
+                              'TIMER',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText2!
                                   .copyWith(fontSize: 20),
                             ),
                             Text(
-                              level!,
+                              'TRAINING',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText2!
@@ -85,72 +96,13 @@ class Workouts extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                locale.level!,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText2!
-                                    .copyWith(fontSize: 12, color: darkGrey),
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.show_chart,
-                                    color: buttonColor,
-                                    size: 12,
-                                  ),
-                                  Icon(
-                                    Icons.show_chart,
-                                    color: level == locale.intermediate ||
-                                            level == locale.advanced
-                                        ? buttonColor
-                                        : greyColor,
-                                    size: 12,
-                                  ),
-                                  Icon(
-                                    Icons.show_chart,
-                                    color: level == locale.advanced
-                                        ? buttonColor
-                                        : greyColor,
-                                    size: 12,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
+
                       ],
                     ),
                   ],
                 ),
               ),
             ],
-          ),
-          bottom: PreferredSize(
-            preferredSize: Size.fromHeight(10),
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 15),
-              child: Padding(
-                padding: const EdgeInsetsDirectional.only(start: 60),
-                child: Row(
-                  children: [
-                    Text(
-                      "11 " + locale.workouts!,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText2!
-                          .copyWith(fontSize: 12, color: darkGrey),
-                    ),
-                  ],
-                ),
-              ),
-            ),
           ),
         ),
         preferredSize: Size.fromHeight(115),
@@ -176,7 +128,13 @@ class Workouts extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WorkoutDetails(index)));
+                              builder:  index == 0
+                                  ? (context) => TimerSimple()
+                                  : (context) => WorkoutDetails(index)
+                          ));
+
+
+
                     },
                     child: ClipRRect(
                       child: BackdropFilter(
@@ -194,7 +152,15 @@ class Workouts extends StatelessWidget {
                               FadedScaleAnimation(
                                 Container(
                                   height: 60,
-                                  child: Image.asset(excercise[index]),
+                                  child:
+                                  Icon(
+                                    iconTimer[index],
+                                    color: index ==  2||
+                                        index == 2
+                                        ? buttonColor
+                                        : greyColor,
+                                    size: 40,
+                                  ),
                                 ),
                                 durationInMilliseconds: 1000,
                               ),
@@ -212,17 +178,17 @@ class Workouts extends StatelessWidget {
                                     SizedBox(
                                       height: 5,
                                     ),
-                                    index != 5
-                                        ? Text("x 15",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyText2!
-                                                .copyWith(
-                                                    fontSize: 12,
-                                                    color: darkGrey))
+                                    index != 6
+                                        ? Text(footerTimer[index],
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2!
+                                            .copyWith(
+                                            fontSize: 12,
+                                            color: darkGrey))
                                         : SizedBox(
-                                            height: 20,
-                                          )
+                                      height: 20,
+                                    )
                                   ],
                                 ),
                               )

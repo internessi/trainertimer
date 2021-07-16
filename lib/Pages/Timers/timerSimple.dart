@@ -3,9 +3,9 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:audioplayers/audioplayers.dart';
-import '/Pages/Home/Timers/timerDialog.dart';
-import '/Locale/locales.dart';
-import '/Theme/colors.dart';
+import 'package:trainertimer/Pages/Timers/timerDialog.dart';
+import 'package:trainertimer/Locale/locales.dart';
+import 'package:trainertimer/Theme/colors.dart';
 
 
 class TimerSimple extends StatefulWidget {

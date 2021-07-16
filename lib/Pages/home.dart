@@ -1,12 +1,12 @@
 import 'dart:ui';
 import 'package:animation_wrappers/animation_wrappers.dart';
-import '/Locale/locales.dart';
-import '/Pages/Home/workouts.dart';
-import '/MyWidgets/ttCards.dart';
-import 'Timers/timerSelection.dart';
-import '/Theme/colors.dart';
 import 'package:flutter/material.dart';
-import 'Drawer/drawer.dart';
+import 'package:trainertimer/Locale/locales.dart';
+import 'package:trainertimer/Pages/workouts.dart';
+import 'package:trainertimer/MyWidgets/ttCards.dart';
+import 'package:trainertimer/Pages/Timers/timerSelection.dart';
+import 'package:trainertimer/Theme/colors.dart';
+import 'package:trainertimer/Pages/Drawer/drawer.dart';
 
 class HomePage extends StatelessWidget {
   @override

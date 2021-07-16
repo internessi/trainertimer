@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:animation_wrappers/Animations/faded_scale_animation.dart';
 import '/Locale/locales.dart';
-import '/Pages/Home/rest.dart';
+import 'rest.dart';
 import '/Theme/colors.dart';
 import 'package:flutter/material.dart';
 

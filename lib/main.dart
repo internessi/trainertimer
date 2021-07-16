@@ -1,6 +1,6 @@
 import 'package:trainertimer/Locale/languageCubit.dart';
-import 'package:trainertimer/Pages/Home/Drawer/changeLanguage.dart';
-import 'package:trainertimer/Pages/Home/home.dart';
+import 'package:trainertimer/Pages/Drawer/changeLanguage.dart';
+import 'package:trainertimer/Pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
