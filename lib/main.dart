@@ -1,19 +1,18 @@
 import 'package:trainertimer/Locale/languageCubit.dart';
-import 'package:trainertimer/Pages/Drawer/changeLanguage.dart';
-import 'package:trainertimer/Pages/home.dart';
+import 'package:trainertimer/Pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'Locale/locales.dart';
-import 'Routes/routes.dart';
+import 'MySubs/routes.dart';
 import 'Theme/style.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(FitZone());
+  runApp(TrainerTimer());
 }
 
-class FitZone extends StatelessWidget {
+class TrainerTimer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<LanguageCubit>(
@@ -42,7 +41,7 @@ class FitZone extends StatelessWidget {
             locale: locale,
             theme: appTheme,
             // home: Language(true),
-            home: HomePage(),
+            home: Login(),
             debugShowCheckedModeBanner: false,
             routes: PageRoutes().routes(),
           );

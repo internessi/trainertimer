@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:animation_wrappers/animation_wrappers.dart';
-import '/Components/colorButton.dart';
+import '../../MySubs/colorButton.dart';
 import '/Locale/languageCubit.dart';
 import '/Locale/locales.dart';
 import '/Theme/colors.dart';
