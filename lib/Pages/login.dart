@@ -6,13 +6,33 @@ import 'package:trainertimer/MySubs/colorButton.dart';
 import 'package:trainertimer/MySubs/textfield.dart';
 import 'package:trainertimer/Locale/locales.dart';
 import 'package:trainertimer/Theme/colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
+
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
+  String name = '';
+  String _keyUsername = 'username';
+
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<int> _counter;
+
+  Future<void> _incrementCounter() async {
+    final SharedPreferences prefs = await _prefs;
+    final int counter = (prefs.getInt('counter') ?? 0) + 1;
+
+    setState(() {
+      _counter = prefs.setInt("counter", counter).then((bool success) {
+        return counter;
+      });
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     var locale = AppLocalizations.of(context)!;
@@ -38,7 +58,7 @@ class _LoginState extends State<Login> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 260,
+                      height: 126,
                     ),
                     FadedScaleAnimation(
                       Container(
@@ -87,38 +107,36 @@ class _LoginState extends State<Login> {
                       foregroundColor: Colors.white,
                     ),
                     SizedBox(
+                      height: 5,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child:
+
+                      TextFormField(
+                        initialValue: name,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+
+                          border: OutlineInputBorder(),
+                          hintText:  'name',
+                        ),
+                        onChanged: (name) => setState(() => this.name = name),
+                      )
+                    ),
+                    SizedBox(
                       height: 10,
                     ),
-                    Spacer(),
-                    Text(locale.notRegisteredYet!,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2!
-                            .copyWith(fontSize: 12)),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomePage()));
+                     FloatingActionButton(
+                      onPressed: () async {
+
                       },
-                      child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 20),
-                        height: 55,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: Colors.white, width: 1)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(locale.createAccount!,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(fontSize: 16))
-                          ],
-                        ),
-                      ),
+                      child: const Icon(Icons.navigation),
+                      backgroundColor: Colors.green,
                     ),
                   ],
                 ),

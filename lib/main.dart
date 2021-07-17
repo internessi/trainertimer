@@ -6,9 +6,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'Locale/locales.dart';
 import 'MySubs/routes.dart';
 import 'Theme/style.dart';
+import 'package:trainertimer/User/mainUsers.dart';
+import 'package:trainertimer/User/utils/user_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await UserPreferences.init();
   runApp(TrainerTimer());
 }
 
@@ -41,7 +44,7 @@ class TrainerTimer extends StatelessWidget {
             locale: locale,
             theme: appTheme,
             // home: Language(true),
-            home: Login(),
+            home: MainUserApp(),
             debugShowCheckedModeBanner: false,
             routes: PageRoutes().routes(),
           );
