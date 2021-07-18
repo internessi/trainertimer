@@ -8,10 +8,12 @@ import 'MySubs/routes.dart';
 import 'Theme/style.dart';
 import 'package:trainertimer/User/mainUsers.dart';
 import 'package:trainertimer/User/utils/user_preferences.dart';
+import 'package:trainertimer/MySubs/preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await UserPreferences.init();
+  await StoreTimerPreferences.init();
   runApp(TrainerTimer());
 }
 
@@ -44,7 +46,7 @@ class TrainerTimer extends StatelessWidget {
             locale: locale,
             theme: appTheme,
             // home: Language(true),
-            home: MainUserApp(),
+            home:Login(),
             debugShowCheckedModeBanner: false,
             routes: PageRoutes().routes(),
           );

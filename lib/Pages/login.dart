@@ -7,6 +7,7 @@ import 'package:trainertimer/MySubs/textfield.dart';
 import 'package:trainertimer/Locale/locales.dart';
 import 'package:trainertimer/Theme/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:trainertimer/MySubs/preferences.dart';
 
 class Login extends StatefulWidget {
 
@@ -15,6 +16,9 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+  final timer = StoreTimerPreferences.getTimer();
+
   String name = '';
   String _keyUsername = 'username';
 
@@ -105,6 +109,23 @@ class _LoginState extends State<Login> {
                       icon: const Icon(Icons.sports_mma),
                       backgroundColor: timerColorPauseBg,
                       foregroundColor: Colors.white,
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(timer.lab1),
+                        SizedBox(width: 2),
+                        Text(timer.pre1),
+                        SizedBox(width: 2),
+                        Text(timer.act1),
+                        SizedBox(width: 2),
+                        Text(timer.reg1),
+                        SizedBox(width: 2),
+                        Text(timer.rnd1),
+                      ],
                     ),
                     SizedBox(
                       height: 5,
