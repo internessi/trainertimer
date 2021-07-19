@@ -20,13 +20,17 @@ class _TimerSimpleState extends State<TimerSimple>
   AudioCache audioCache= AudioCache();
   AudioPlayer audioPlayer = AudioPlayer();
 
-  int lastDuration = 0, timerDuration = 3, timerType = 2, timerRounds = 0, timerRound = 0 ;
+  int lastDuration = 0, timerType = 2, timerRounds = 0, timerRound = 0 ;
+  int preDuration = 5, actDuration = 10, pauDuraution = 10;
+  bool resetPressed = false, timerRunning = false;
+
   Color timerColor = timerColorPrep, timerColorBg = timerColorPrepBg;
 
   List timerTypeColor = [timerColorFight,  timerColorPause, timerColorPrep];
   List timerTypeColorBg = [timerColorFightBg, timerColorPauseBg,  timerColorPrepBg];
   List timerTypeColorR = [timerColorFightR, timerColorPauseR,  timerColorPrepR];
   List timerTypeText = ['Aktivzeit', 'Erholungszeit',  'Vorbereitung'];
+  List timerDuration = [10, 10, 5];
 
   String get timerString {
     Duration duration = controller.duration! * controller.value;
@@ -40,7 +44,7 @@ class _TimerSimpleState extends State<TimerSimple>
     initSounds();
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: timerDuration),
+      duration: Duration(seconds: preDuration),
     )
       ..addListener(() {
         setState(() {
@@ -50,7 +54,7 @@ class _TimerSimpleState extends State<TimerSimple>
               if (timerType == 0){
                 playSound('mp3/bell3x.mp3');
               } else {
-                playSound('mp3/bell.mp3');
+                playSound('mp3/bell3x.mp3');
               }
             }
             lastDuration = duration.inSeconds;
@@ -59,11 +63,11 @@ class _TimerSimpleState extends State<TimerSimple>
         });
       })
       ..addStatusListener((AnimationStatus status) {
-        if (controller.isDismissed) {
+        if (controller.isDismissed && timerRunning) {
           timerType = timerType + 1;
           if (timerType > 1)
             timerType = 0;
-          controller.duration = Duration(seconds: 5);
+          controller.duration = Duration(seconds: timerDuration[timerType]);
           timerColor = timerTypeColor[timerType];
           timerColorBg = timerTypeColorBg[timerType];
           controller.reverse(
@@ -252,7 +256,7 @@ class _TimerSimpleState extends State<TimerSimple>
                                       child:
                                       Container(    // Zeiteffekt innenbereich Insel
                                         height:
-                                        controller.value * (MediaQuery.of(context).size.height - 200),
+                                            controller.value * (MediaQuery.of(context).size.height - 100),
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10),
                                           color: timerColorBg,
@@ -405,11 +409,15 @@ class _TimerSimpleState extends State<TimerSimple>
                                                           if (controller.isAnimating)
                                                             controller.stop();
                                                           else {
+                                                            timerRunning = true;
                                                             controller.reverse(
                                                                 from: controller.value == 0.0
                                                                     ? 1.0
                                                                     : controller.value);
                                                           }
+                                                          setState(() {
+
+                                                          });
                                                         },
                                                         icon: Icon(controller.isAnimating
                                                             ? Icons.pause
@@ -430,7 +438,8 @@ class _TimerSimpleState extends State<TimerSimple>
                                                         foregroundColor: Colors.black87,
                                                         splashColor: Colors.white,
                                                         onPressed: () {
-                                                          if (controller.isAnimating){
+                                                          if (timerRunning){
+                                                            timerRunning = false;
                                                             controller.stop();
                                                             print('nach stop');
                                                             controller.reset();
@@ -438,10 +447,11 @@ class _TimerSimpleState extends State<TimerSimple>
                                                             timerType = 2;
                                                             timerColor = timerTypeColor[2];
                                                             timerColorBg = timerTypeColorBg[2];
-                                                          print('nach set');
+                                                            print('nach set');
 
                                                             controller.stop();
-                                                          print('nach stop');
+                                                            print('nach stop');
+
                                                             setState(() {
 
                                                             });
@@ -454,11 +464,11 @@ class _TimerSimpleState extends State<TimerSimple>
                                                                     : controller.value);
                                                           }
                                                         },
-                                                        icon: Icon(controller.isAnimating
+                                                        icon: Icon(timerRunning
                                                             ? Icons.replay_sharp
                                                             : Icons.settings),
                                                         label: Text(
-                                                            controller.isAnimating ? "Reset" : "Einstellung")
+                                                            timerRunning ? "Reset" : "Einstellung")
                                                     );
                                                   }),
                                             ],),

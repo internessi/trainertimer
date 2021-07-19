@@ -9,6 +9,7 @@ import 'Theme/style.dart';
 import 'package:trainertimer/User/mainUsers.dart';
 import 'package:trainertimer/User/utils/user_preferences.dart';
 import 'package:trainertimer/MySubs/preferences.dart';
+import 'package:trainertimer/Pages/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,7 +47,7 @@ class TrainerTimer extends StatelessWidget {
             locale: locale,
             theme: appTheme,
             // home: Language(true),
-            home:Login(),
+            home:HomePage(),
             debugShowCheckedModeBanner: false,
             routes: PageRoutes().routes(),
           );
