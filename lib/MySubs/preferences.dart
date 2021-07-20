@@ -8,10 +8,17 @@ class StoreTimerPreferences {
   static const _keyTimer = 'storeTimer';
   static const myTimer = StoreTimer(
     lab1: 'Tabata',
-    pre1: '10',
-    act1: '20',
-    reg1: '10',
+    pre1: '0:10',
+    act1: '0:20',
+    reg1: '0:10',
     rnd1: '8',
+    ico1: '1',
+    lab2: 'Fight 3/1',
+    pre2: '0:20',
+    act2: '3:00',
+    reg2: '1:00',
+    rnd2: '12',
+    ico2: '2',
   );
 
   static Future init() async =>
