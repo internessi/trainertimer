@@ -384,6 +384,7 @@ class _TimerSimpleState extends State<TimerSimple>
                                                 disabledColor: Colors.blueAccent,
                                                 onPressed: () {
                                                   timerRounds = timerRounds + 1;
+
                                                   setState(() {});
                                                 },
                                               ),
