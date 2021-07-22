@@ -7,11 +7,8 @@ import 'package:trainertimer/Pages/workoutDetails.dart';
 import 'package:trainertimer/Pages/Timers/timerSimple.dart';
 import 'package:trainertimer/Pages/Timers/TimerSetting.dart';
 import 'package:trainertimer/Theme/colors.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:trainertimer/MySubs/preferences.dart';
-
-
-
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 
 class TimerSelection extends StatefulWidget {
   final String? type;
@@ -25,12 +22,35 @@ class TimerSelection extends StatefulWidget {
 
 class _TimerSelectionState extends State<TimerSelection> {
 
-  final sTimer = StoreTimerPreferences.getTimer();
-  int timerDuration = 155;
+  List sTimer =  [
+    ['loading...',  '10',  '10',  '10',  '10',  '1',]
+  ];
+  int timerDuration = 155, tBoxLength = 0;
 
   String durationString(String sec) {
     Duration duration = Duration(seconds: int. parse(sec));
     return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+  }
+
+  void loadBox() async{
+    await Hive.openBox('TimersBox');
+    var tBox = Hive.box('TimersBox');
+    sTimer.clear();
+    if (tBox.length == 0){
+      sTimer = [
+        ['Tabata',  '10',  '20',  '10',  '8',  '1',],
+        ['Fight 3/1',  '20',  '180',  '60',  '12',  '1',],
+      ];
+      tBox.add(sTimer);
+    }
+    sTimer = tBox.get(0);
+    setState(() {});
+  }
+
+  void initState() {
+    super.initState();
+    print('timerSelection -> initState()');
+    loadBox();
   }
 
   @override
@@ -38,20 +58,6 @@ class _TimerSelectionState extends State<TimerSelection> {
     var locale = AppLocalizations.of(context)!;
 
     List timerTypeColor = [timerColorFight,  timerColorPause, timerColorPrep];
-
-    List name = [
-      sTimer.lab1, sTimer.lab2, locale.timer3, locale.timer4, locale.timer5, locale.timer6,
-    ];
-
-    List Timer = [
-      [sTimer.lab1,  sTimer.pre1,  sTimer.act1,  sTimer.reg1,  sTimer.rnd1,  sTimer.ico1,],
-      [sTimer.lab2,  sTimer.pre2,  sTimer.act2,  sTimer.reg2,  sTimer.rnd2,  sTimer.ico2,],
-      ['Intervalltimer',  '10',  '30',  '10',  '10',  '3',],
-      ['Pyramide',  '10',  '30',  '10',  '10',  '1',],
-      ['Mein Timer 1',  '10',  '30',  '10',  '10',  '2',],
-      ['Mein Timer 2',  '10',  '30',  '10',  '10',  '3',]
-    ];
-
 
     final  List<IconData> iconTimer =
     [Icons.timer, Icons.alarm, Icons.sports_mma, Icons.change_history, Icons.alarm_on, Icons.alarm_on];
@@ -135,7 +141,7 @@ class _TimerSelectionState extends State<TimerSelection> {
             Container(
               padding: EdgeInsets.only(left: 15, right: 15, top: 10),
               child: ListView.builder(
-                itemCount: 6,
+                itemCount: sTimer.length,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
@@ -166,7 +172,7 @@ class _TimerSelectionState extends State<TimerSelection> {
                                   height: 60,
                                   child:
                                   Icon(
-                                    iconTimer[int. parse(Timer[index][5])],
+                                    iconTimer[int. parse(sTimer[index][5])],
                                     color: greyColor,
                                     size: 40,
                                   ),
@@ -182,23 +188,23 @@ class _TimerSelectionState extends State<TimerSelection> {
                                   children: [
                                     Text(
 
-                                        Timer[index][0].toUpperCase(),
+                                        sTimer[index][0].toUpperCase(),
                                         style: Theme.of(context).textTheme .bodyText2! .copyWith(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold,)
                                     ),
                                     SizedBox(
                                       height: 2,
                                     ),
                                     Row(children: [
-                                      Text('V ' + durationString(Timer[index][1]) + '  ',
+                                      Text('V ' + durationString(sTimer[index][1]) + '  ',
                                           style: Theme.of(context).textTheme .bodyText2! .copyWith(color: timerTypeColor[2], fontSize: 14, fontWeight: FontWeight.bold,)
                                       ),
-                                      Text('A ' + durationString(Timer[index][2]) + '  ',
+                                      Text('A ' + durationString(sTimer[index][2]) + '  ',
                                           style: Theme.of(context).textTheme .bodyText2! .copyWith(color: timerTypeColor[0], fontSize: 14, fontWeight: FontWeight.bold,)
                                       ),
-                                      Text('P ' + durationString(Timer[index][3]) + '  ',
+                                      Text('P ' + durationString(sTimer[index][3]) + '  ',
                                           style: Theme.of(context).textTheme .bodyText2! .copyWith(color: timerTypeColor[1], fontSize: 14, fontWeight: FontWeight.bold,)
                                       ),
-                                      Text('R ' + Timer[index][4] + '  ',
+                                      Text('R ' + sTimer[index][4] + '  ',
                                           style: Theme.of(context).textTheme .bodyText2! .copyWith(color: greyColor, fontSize: 14, fontWeight: FontWeight.bold,)
                                       ),
                                     ],),
@@ -216,7 +222,7 @@ class _TimerSelectionState extends State<TimerSelection> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => TimerSetting(index)
+                                          builder: (context) => TimerSetting(index, sTimer)
                                       )
                                   );
                                 },
@@ -237,7 +243,26 @@ class _TimerSelectionState extends State<TimerSelection> {
         endOffset: Offset(0, 0),
         slideCurve: Curves.linearToEaseOut,
       ),
+      floatingActionButton:
+      Container(
+        height: 45.0,
+        width: 45.0,
+        child: FittedBox(
+          child: FloatingActionButton(
+            backgroundColor: Colors.white38  ,
+            onPressed: (){},
+            tooltip: 'Increment',
+            child: Icon(Icons.add),
+            ),
+         ),
+        ),
     );
+  }
+  @override
+  void dispose() {
+    Hive.box('TimersBox').close();
+    print('timerSelection -> dispose()');
+    super.dispose();
   }
 }
 

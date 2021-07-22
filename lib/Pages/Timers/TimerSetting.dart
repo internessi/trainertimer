@@ -2,12 +2,15 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import '/Locale/locales.dart';
 import '/Theme/colors.dart';
-import 'package:trainertimer/MySubs/preferences.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
+
 
 class TimerSetting extends StatefulWidget {
   final int index;
+  List sTimer;
 
-  TimerSetting(this.index);
+  TimerSetting(this.index, this.sTimer);
 
   @override
   _TimerSettingState createState() => new _TimerSettingState();
@@ -15,10 +18,7 @@ class TimerSetting extends StatefulWidget {
 
 class _TimerSettingState extends State<TimerSetting> {
 
-  final sTimer = StoreTimerPreferences.getTimer();
-
   int preTime = 0, actTime = 0, regTime = 0, rndTime = 0;
-
 
   double labSize = 28, icoSize = 44, boxSize = 38;
   List timerTypeColor = [timerColorFight,  timerColorPause, timerColorPrep];
@@ -33,31 +33,25 @@ class _TimerSettingState extends State<TimerSetting> {
     }
   }
 
-
-
   void initState() {
     super.initState();
 
-    preTime = int. parse(sTimer.pre1);
-    actTime = int. parse(sTimer.act1);
-    regTime = int. parse(sTimer.reg1);
-    rndTime = int. parse(sTimer.rnd1);
+    var tBox = Hive.box('TimersBox');
+    print(tBox.get(0));
+    print(widget.index);
+    print(widget.sTimer);
 
-
+    preTime = int. parse(widget.sTimer[widget.index][1]);
+    actTime = int. parse(widget.sTimer[widget.index][2]);
+    regTime = int. parse(widget.sTimer[widget.index][3]);
+    rndTime = int. parse(widget.sTimer[widget.index][4]);
   }
+
   @override
   Widget build(BuildContext context) {
     var locale = AppLocalizations.of(context)!;
     ThemeData themeData = Theme.of(context);
 
-    List Timer = [
-      [sTimer.lab1,  sTimer.pre1,  sTimer.act1,  sTimer.reg1,  sTimer.rnd1,  sTimer.ico1,],
-      [sTimer.lab2,  sTimer.pre2,  sTimer.act2,  sTimer.reg2,  sTimer.rnd2,  sTimer.ico2,],
-      ['Intervalltimer',  '10',  '30',  '10',  '10',  '3',],
-      ['Pyramide',  '10',  '30',  '10',  '10',  '1',],
-      ['Mein Timer 1',  '10',  '30',  '10',  '10',  '2',],
-      ['Mein Timer 2',  '10',  '30',  '10',  '10',  '3',]
-    ];
     int index = widget.index;
     String labTime = '';
     
@@ -79,7 +73,7 @@ class _TimerSettingState extends State<TimerSetting> {
                 backgroundColor: Colors.grey[800]!.withOpacity(0.3),
                 // Bereich Appbar
                 title: Text(
-                  Timer[widget.index][0], //locale.workout!,
+                  widget.sTimer[widget.index][0], //locale.workout!,
                   style: TextStyle(fontWeight: FontWeight.normal),
                 ),
                 actions: [
