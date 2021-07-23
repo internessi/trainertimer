@@ -8,7 +8,6 @@ import 'package:trainertimer/Pages/Timers/timerSimple.dart';
 import 'package:trainertimer/Pages/Timers/TimerSetting.dart';
 import 'package:trainertimer/Theme/colors.dart';
 import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart';
 
 class TimerSelection extends StatefulWidget {
   final String? type;
@@ -21,25 +20,45 @@ class TimerSelection extends StatefulWidget {
 }
 
 class _TimerSelectionState extends State<TimerSelection> {
-
-  List sTimer =  [
-    ['loading...',  '10',  '10',  '10',  '10',  '1',]
+  List sTimer = [
+    [
+      'loading...',
+      '10',
+      '10',
+      '10',
+      '10',
+      '1',
+    ]
   ];
   int timerDuration = 155, tBoxLength = 0;
 
   String durationString(String sec) {
-    Duration duration = Duration(seconds: int. parse(sec));
+    Duration duration = Duration(seconds: int.parse(sec));
     return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
   }
 
-  void loadBox() async{
+  void loadBox() async {
     await Hive.openBox('TimersBox');
     var tBox = Hive.box('TimersBox');
     sTimer.clear();
-    if (tBox.length == 0){
+    if (tBox.length == 0) {
       sTimer = [
-        ['Tabata',  '10',  '20',  '10',  '8',  '1',],
-        ['Fight 3/1',  '20',  '180',  '60',  '12',  '1',],
+        [
+          'Tabata',
+          '10',
+          '20',
+          '10',
+          '8',
+          '1',
+        ],
+        [
+          'Fight 3/1',
+          '20',
+          '180',
+          '60',
+          '12',
+          '1',
+        ],
       ];
       tBox.add(sTimer);
     }
@@ -57,12 +76,25 @@ class _TimerSelectionState extends State<TimerSelection> {
   Widget build(BuildContext context) {
     var locale = AppLocalizations.of(context)!;
 
-    List timerTypeColor = [timerColorFight,  timerColorPause, timerColorPrep];
+    List timerTypeColor = [timerColorFight, timerColorPause, timerColorPrep];
 
-    final  List<IconData> iconTimer =
-    [Icons.timer, Icons.alarm, Icons.sports_mma, Icons.change_history, Icons.alarm_on, Icons.alarm_on];
+    final List<IconData> iconTimer = [
+      Icons.timer,
+      Icons.alarm,
+      Icons.sports_mma,
+      Icons.change_history,
+      Icons.alarm_on,
+      Icons.alarm_on
+    ];
 
-    List  footerTimer= ['einfacher Intervalltimer', 'Workout/Erholung, Wiederholungen/Sets', 'Kampf/Ecke, Runden', 'Pyramidentimer auf-/absteigend', 'einstellbarer Timer', 'einstellbarer Timer'];
+    List footerTimer = [
+      'einfacher Intervalltimer',
+      'Workout/Erholung, Wiederholungen/Sets',
+      'Kampf/Ecke, Runden',
+      'Pyramidentimer auf-/absteigend',
+      'einstellbarer Timer',
+      'einstellbarer Timer'
+    ];
 
     return Scaffold(
       backgroundColor: scaffoldBg,
@@ -116,7 +148,6 @@ class _TimerSelectionState extends State<TimerSelection> {
                             ),
                           ],
                         ),
-
                       ],
                     ),
                   ],
@@ -148,83 +179,159 @@ class _TimerSelectionState extends State<TimerSelection> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder:  index == 0
+                              builder: index == 0
                                   ? (context) => TimerSimple()
-                                  : (context) => WorkoutDetails(index)
-                          ));
+                                  : (context) => WorkoutDetails(index)));
                     },
-                    child:
-                    ClipRRect(
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
-                        child: Container(
-                          margin: EdgeInsets.only(top: 10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.grey[800]!.withOpacity(0.5),
+                    child: Dismissible(
+                      onDismissed: (direction) {
+                        //TODO ADD THE FUNCTION TO REMOVE THE ITEM FROM THE LIST HER
+                      },
+                      key: UniqueKey(),
+                      background: Container(
+                        padding: EdgeInsets.only(left: 10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.red,
+                        ),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Icon(
+                            Icons.delete,
+                            color: Colors.white,
+                            size: 42,
                           ),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          child: Row(
+                        ),
+                      ),
+                      child: ClipRRect(
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
+                          child: Stack(
                             children: [
-                              FadedScaleAnimation(
-                                Container(
-                                  height: 60,
-                                  child:
-                                  Icon(
-                                    iconTimer[int. parse(sTimer[index][5])],
-                                    color: greyColor,
-                                    size: 40,
-                                  ),
+                              Container(
+                                margin: EdgeInsets.only(top: 10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.grey[800]!.withOpacity(0.5),
                                 ),
-                                durationInMilliseconds: 1500,
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                                child: Row(
                                   children: [
-                                    Text(
-                                        sTimer[index][0].toUpperCase(),
-                                        style: Theme.of(context).textTheme .bodyText2! .copyWith(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold,)
+                                    FadedScaleAnimation(
+                                      Container(
+                                        height: 60,
+                                        child: Icon(
+                                          iconTimer[
+                                              int.parse(sTimer[index][5])],
+                                          color: greyColor,
+                                          size: 40,
+                                        ),
+                                      ),
+                                      durationInMilliseconds: 1500,
                                     ),
                                     SizedBox(
-                                      height: 2,
+                                      width: 20,
                                     ),
-                                    Row(children: [
-                                      Text('V ' + durationString(sTimer[index][1]) + '  ',
-                                          style: Theme.of(context).textTheme .bodyText2! .copyWith(color: timerTypeColor[2], fontSize: 14, fontWeight: FontWeight.bold,)
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(sTimer[index][0].toUpperCase(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2!
+                                                  .copyWith(
+                                                    color: Colors.white,
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold,
+                                                  )),
+                                          SizedBox(
+                                            height: 2,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                  'V ' +
+                                                      durationString(
+                                                          sTimer[index][1]) +
+                                                      '  ',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText2!
+                                                      .copyWith(
+                                                        color:
+                                                            timerTypeColor[2],
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      )),
+                                              Text(
+                                                  'A ' +
+                                                      durationString(
+                                                          sTimer[index][2]) +
+                                                      '  ',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText2!
+                                                      .copyWith(
+                                                        color:
+                                                            timerTypeColor[0],
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      )),
+                                              Text(
+                                                  'P ' +
+                                                      durationString(
+                                                          sTimer[index][3]) +
+                                                      '  ',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText2!
+                                                      .copyWith(
+                                                        color:
+                                                            timerTypeColor[1],
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      )),
+                                              Text(
+                                                  'R ' +
+                                                      sTimer[index][4] +
+                                                      '  ',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText2!
+                                                      .copyWith(
+                                                        color: greyColor,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      )),
+                                            ],
+                                          ),
+                                        ],
                                       ),
-                                      Text('A ' + durationString(sTimer[index][2]) + '  ',
-                                          style: Theme.of(context).textTheme .bodyText2! .copyWith(color: timerTypeColor[0], fontSize: 14, fontWeight: FontWeight.bold,)
-                                      ),
-                                      Text('P ' + durationString(sTimer[index][3]) + '  ',
-                                          style: Theme.of(context).textTheme .bodyText2! .copyWith(color: timerTypeColor[1], fontSize: 14, fontWeight: FontWeight.bold,)
-                                      ),
-                                      Text('R ' + sTimer[index][4] + '  ',
-                                          style: Theme.of(context).textTheme .bodyText2! .copyWith(color: greyColor, fontSize: 14, fontWeight: FontWeight.bold,)
-                                      ),
-                                    ],),
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.settings),
+                                      color: Colors.white12,
+                                      iconSize: 25,
+                                      splashRadius: 25,
+                                      disabledColor: Colors.blueAccent,
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    TimerSetting(
+                                                        index, sTimer)));
+                                      },
+                                    ),
                                   ],
                                 ),
-                              ),
-
-                              IconButton(
-                                icon: Icon(Icons.settings),
-                                color: Colors.white12,
-                                iconSize: 25,
-                                splashRadius: 25,
-                                disabledColor: Colors.blueAccent,
-                                onPressed: ()  {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => TimerSetting(index, sTimer)
-                                      )
-                                  );
-                                },
                               ),
                             ],
                           ),
@@ -241,15 +348,21 @@ class _TimerSelectionState extends State<TimerSelection> {
         endOffset: Offset(0, 0),
         slideCurve: Curves.linearToEaseOut,
       ),
-      floatingActionButton:
-      Container(
+      floatingActionButton: Container(
         height: 45.0,
         width: 45.0,
         child: FittedBox(
           child: FloatingActionButton(
-            backgroundColor: Colors.white38  ,
-            onPressed: (){
-              sTimer.add(['mein Timer',  '10',  '10',  '10',  '3',  '1',]);
+            backgroundColor: Colors.white38,
+            onPressed: () {
+              sTimer.add([
+                'mein Timer',
+                '10',
+                '10',
+                '10',
+                '3',
+                '1',
+              ]);
               print(sTimer);
               var tBox = Hive.box('TimersBox');
               tBox.put(0, sTimer);
@@ -258,11 +371,12 @@ class _TimerSelectionState extends State<TimerSelection> {
             },
             tooltip: 'Increment',
             child: Icon(Icons.add),
-            ),
-         ),
+          ),
         ),
+      ),
     );
   }
+
   @override
   void dispose() {
     Hive.box('TimersBox').close();
@@ -270,6 +384,3 @@ class _TimerSelectionState extends State<TimerSelection> {
     super.dispose();
   }
 }
-
-
-
