@@ -187,7 +187,6 @@ class _TimerSelectionState extends State<TimerSelection> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-
                                         sTimer[index][0].toUpperCase(),
                                         style: Theme.of(context).textTheme .bodyText2! .copyWith(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold,)
                                     ),
@@ -227,7 +226,6 @@ class _TimerSelectionState extends State<TimerSelection> {
                                   );
                                 },
                               ),
-
                             ],
                           ),
                         ),
@@ -250,7 +248,14 @@ class _TimerSelectionState extends State<TimerSelection> {
         child: FittedBox(
           child: FloatingActionButton(
             backgroundColor: Colors.white38  ,
-            onPressed: (){},
+            onPressed: (){
+              sTimer.add(['mein Timer',  '10',  '10',  '10',  '3',  '1',]);
+              print(sTimer);
+              var tBox = Hive.box('TimersBox');
+              tBox.put(0, sTimer);
+              print(tBox.get(0));
+              setState(() {});
+            },
             tooltip: 'Increment',
             child: Icon(Icons.add),
             ),
