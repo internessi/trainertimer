@@ -185,7 +185,7 @@ class _TimerSelectionState extends State<TimerSelection> {
                         child: Dismissible(
                           key: UniqueKey(),
                           onDismissed: (direction) {
-                            //TODO ADD THE FUNCTION TO REMOVE THE ITEM FROM THE LIST HER
+                            deleteTimer();
                           },
                           background: Container(
                             padding: EdgeInsets.only(left: 10),
