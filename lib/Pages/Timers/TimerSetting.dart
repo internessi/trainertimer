@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import '/Locale/locales.dart';
@@ -18,11 +19,18 @@ class TimerSetting extends StatefulWidget {
 
 class _TimerSettingState extends State<TimerSetting> {
 
+  int index = 0;
+  List sTimer =  [
+    ['loading...',  '10',  '10',  '10',  '10',  '1',]
+  ];
+
   int preTime = 0, actTime = 0, regTime = 0, rndTime = 0;
 
-  double labSize = 28, icoSize = 44, boxSize = 38;
+  double labSize = 24, icoSize = 40, boxSize = 36;
   List timerTypeColor = [timerColorFight,  timerColorPause, timerColorPrep];
   List timerTypeText = ['Aktivzeit', 'Erholungszeit',  'Vorbereitung'];
+
+
 
   String durationString(String sec) {
     Duration duration = Duration(seconds: int. parse(sec));
@@ -33,18 +41,14 @@ class _TimerSettingState extends State<TimerSetting> {
     }
   }
 
+
+
   void initState() {
     super.initState();
 
-    var tBox = Hive.box('TimersBox');
-    print(tBox.get(0));
-    print(widget.index);
-    print(widget.sTimer);
+    index = widget.index;
+    sTimer = widget.sTimer;
 
-    preTime = int. parse(widget.sTimer[widget.index][1]);
-    actTime = int. parse(widget.sTimer[widget.index][2]);
-    regTime = int. parse(widget.sTimer[widget.index][3]);
-    rndTime = int. parse(widget.sTimer[widget.index][4]);
   }
 
   @override
@@ -52,9 +56,6 @@ class _TimerSettingState extends State<TimerSetting> {
     var locale = AppLocalizations.of(context)!;
     ThemeData themeData = Theme.of(context);
 
-    int index = widget.index;
-    String labTime = '';
-    
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
@@ -73,7 +74,7 @@ class _TimerSettingState extends State<TimerSetting> {
                 backgroundColor: Colors.grey[800]!.withOpacity(0.3),
                 // Bereich Appbar
                 title: Text(
-                  widget.sTimer[widget.index][0], //locale.workout!,
+                  sTimer[index][0], //locale.workout!,
                   style: TextStyle(fontWeight: FontWeight.normal),
                 ),
                 actions: [
@@ -91,7 +92,8 @@ class _TimerSettingState extends State<TimerSetting> {
                               style: TextStyle(color: Colors.white70,  fontWeight: FontWeight.normal)
                           ),
                           onPressed: () {
-                            print('Pressed');
+                            var tBox = Hive.box('TimersBox');
+                            tBox.put(0, sTimer);
                           },
                           style: ButtonStyle(
                               foregroundColor: MaterialStateProperty.all<Color>(
@@ -134,8 +136,57 @@ class _TimerSettingState extends State<TimerSetting> {
             SafeArea(
                 child: Container(
                   padding: EdgeInsets.only(left: 15, right: 15, top: 5),
-                  child: Column(
+                  child: ListView(
                     children: [
+                      ClipRRect(
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
+                          child: Container(
+                            margin: EdgeInsets.only(top: 5, bottom: 5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.grey[800]!.withOpacity(0.5),
+                            ),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          width: 220,
+                                          child: TextFormField(
+                                            textAlign: TextAlign.center,
+                                            textAlignVertical: TextAlignVertical.center,
+                                            style: TextStyle(fontSize: labSize, fontWeight: FontWeight.normal, color: Colors.white),
+                                            initialValue: sTimer[index][0],
+                                            decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                                contentPadding: EdgeInsets.zero
+                                            ),
+                                            onChanged: (text) {
+                                              sTimer[index][0] = text;
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                       ClipRRect(
                         child: BackdropFilter(
                         filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
@@ -172,7 +223,15 @@ class _TimerSettingState extends State<TimerSetting> {
                                           splashRadius: 40,
                                           disabledColor: Colors.blueAccent,
                                           onPressed: () {
-
+                                            if (int. parse(sTimer[index][1]) > 4) { // not below 0!
+                                              int i = 5;
+                                              if (int.parse(sTimer[index][1]) > 69)
+                                                i = 10;
+                                              if (int.parse(sTimer[index][1]) > 209)
+                                                i = 30;
+                                              sTimer[index][1] =
+                                                  (int.parse(sTimer[index][1]) - i).toString();
+                                            }
                                             setState(() {});
                                           },
                                         ),
@@ -181,7 +240,7 @@ class _TimerSettingState extends State<TimerSetting> {
                                         ),
                                         ElevatedButton(
                                             child: Text(
-                                                durationString(preTime.toString()),
+                                                durationString(sTimer[index][1]),
                                                 style: TextStyle(fontSize: boxSize, fontWeight: FontWeight.bold)
                                             ),
                                             style: ButtonStyle(
@@ -207,7 +266,12 @@ class _TimerSettingState extends State<TimerSetting> {
                                           splashRadius: 40,
                                           disabledColor: Colors.blueAccent,
                                           onPressed: () {
-
+                                            int i = 5;
+                                            if (int. parse(sTimer[index][1]) > 59)
+                                              i = 10;
+                                            if (int. parse(sTimer[index][1]) > 179)
+                                              i = 30;
+                                            sTimer[index][1] = (int. parse(sTimer[index][1])+i).toString();
                                             setState(() {});
                                           },
                                         ),
@@ -259,7 +323,15 @@ class _TimerSettingState extends State<TimerSetting> {
                                           splashRadius: 40,
                                           disabledColor: Colors.blueAccent,
                                           onPressed: () {
-
+                                            if (int. parse(sTimer[index][2]) > 4) { // not below 0!
+                                              int i = 5;
+                                              if (int.parse(sTimer[index][2]) > 69)
+                                                i = 10;
+                                              if (int.parse(sTimer[index][2]) > 209)
+                                                i = 30;
+                                              sTimer[index][2] =
+                                                  (int.parse(sTimer[index][2]) - i).toString();
+                                            }
                                             setState(() {});
                                           },
                                         ),
@@ -268,7 +340,7 @@ class _TimerSettingState extends State<TimerSetting> {
                                         ),
                                         ElevatedButton(
                                             child: Text(
-                                                durationString(actTime.toString()),
+                                                durationString(sTimer[index][2]),
                                                 style: TextStyle(fontSize: boxSize, fontWeight: FontWeight.bold)
                                             ),
                                             style: ButtonStyle(
@@ -294,7 +366,12 @@ class _TimerSettingState extends State<TimerSetting> {
                                           splashRadius: 40,
                                           disabledColor: Colors.blueAccent,
                                           onPressed: () {
-
+                                            int i = 5;
+                                            if (int. parse(sTimer[index][2]) > 59)
+                                              i = 10;
+                                            if (int. parse(sTimer[index][2]) > 179)
+                                              i = 30;
+                                            sTimer[index][2] = (int. parse(sTimer[index][2])+i).toString();
                                             setState(() {});
                                           },
                                         ),
@@ -346,7 +423,15 @@ class _TimerSettingState extends State<TimerSetting> {
                                           splashRadius: 40,
                                           disabledColor: Colors.blueAccent,
                                           onPressed: () {
-
+                                            if (int. parse(sTimer[index][3]) > 4) { // not below 0!
+                                              int i = 5;
+                                              if (int.parse(sTimer[index][3]) > 69)
+                                                i = 10;
+                                              if (int.parse(sTimer[index][3]) > 209)
+                                                i = 30;
+                                              sTimer[index][3] =
+                                                  (int.parse(sTimer[index][3]) - i).toString();
+                                            }
                                             setState(() {});
                                           },
                                         ),
@@ -355,7 +440,7 @@ class _TimerSettingState extends State<TimerSetting> {
                                         ),
                                         ElevatedButton(
                                             child: Text(
-                                                durationString(regTime.toString()),
+                                                durationString(sTimer[index][3]),
                                                 style: TextStyle(fontSize: boxSize, fontWeight: FontWeight.bold)
                                             ),
                                             style: ButtonStyle(
@@ -381,7 +466,12 @@ class _TimerSettingState extends State<TimerSetting> {
                                           splashRadius: 40,
                                           disabledColor: Colors.blueAccent,
                                           onPressed: () {
-
+                                            int i = 5;
+                                            if (int. parse(sTimer[index][3]) > 59)
+                                              i = 10;
+                                            if (int. parse(sTimer[index][3]) > 179)
+                                              i = 30;
+                                            sTimer[index][3] = (int. parse(sTimer[index][3])+i).toString();
                                             setState(() {});
                                           },
                                         ),
@@ -433,7 +523,8 @@ class _TimerSettingState extends State<TimerSetting> {
                                           splashRadius: 40,
                                           disabledColor: Colors.blueAccent,
                                           onPressed: () {
-                                            rndTime = rndTime - 1;
+                                            if (int. parse(sTimer[index][4]) > 0)
+                                              sTimer[index][4] = (int. parse(sTimer[index][4])-1).toString();
                                             setState(() {});
                                           },
                                         ),
@@ -442,7 +533,7 @@ class _TimerSettingState extends State<TimerSetting> {
                                         ),
                                         ElevatedButton(
                                             child: Text(
-                                                rndTime.toString(),
+                                                sTimer[index][4],
                                                 style: TextStyle(fontSize: boxSize, fontWeight: FontWeight.bold)
                                             ),
                                             style: ButtonStyle(
@@ -468,8 +559,7 @@ class _TimerSettingState extends State<TimerSetting> {
                                           splashRadius: 40,
                                           disabledColor: Colors.blueAccent,
                                           onPressed: () {
-                                            rndTime = rndTime + 1;
-                                            print(rndTime.toString());
+                                            sTimer[index][4] = (int. parse(sTimer[index][4])+1).toString();
                                             setState(() {});
                                           },
                                         ),
