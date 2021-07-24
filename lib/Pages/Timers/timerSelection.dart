@@ -178,9 +178,12 @@ class _TimerSelectionState extends State<TimerSelection> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: index == 0
-                                      ? (context) => TimerSimple()
-                                      : (context) => WorkoutDetails(index)));
+                                  builder:
+                                      (context) =>
+                                          TimerSimple(sTimer[index][0],int.parse(sTimer[index][1]),
+                                              int.parse(sTimer[index][2]),int.parse(sTimer[index][3])
+                                              ,int.parse(sTimer[index][4]))
+                              ));
                         },
                         child: Dismissible(
                           key: UniqueKey(),
@@ -194,7 +197,7 @@ class _TimerSelectionState extends State<TimerSelection> {
                               color: Colors.red,
                             ),
                             child: Align(
-                              alignment: Alignment.centerLeft,
+                              alignment: Alignment.centerRight,
                               child: Icon(
                                 Icons.delete,
                                 color: Colors.white,

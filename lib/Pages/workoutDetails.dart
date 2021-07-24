@@ -1,8 +1,6 @@
 import 'dart:ui';
-
 import 'package:animation_wrappers/Animations/faded_scale_animation.dart';
 import '/Locale/locales.dart';
-import 'startExercise.dart';
 import '/Theme/colors.dart';
 import 'package:flutter/material.dart';
 

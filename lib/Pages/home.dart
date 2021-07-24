@@ -133,7 +133,7 @@ class HomePage extends StatelessWidget {
                                       locale.chest, typeTimer[0])));
                         },
                         child:
-                        TraierTimerCard(textTimer[0],typeTimer[0], lineTimer[0], imgTimer[0], 0, 1, 1, 0, 0),
+                        TraierTimerCard(textTimer[0],typeTimer[0], lineTimer[0], imgTimer[0], 0, 1, 1, 0, 0, 0),
                       ),
                       SizedBox(
                         height: 15,
@@ -155,15 +155,18 @@ class HomePage extends StatelessWidget {
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
                               onTap: () {
+                                if (index ==1)
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => WorkoutSelection(
+                                        builder: (context) =>
+                                            WorkoutSelection(
                                             locale.chest, typeFight[index])));
                               },
                               child:
-                              TraierTimerCard(textFight[index],typeFight[index], lineFight[index],
-                                              imgFight[index], index, 0, 1, 0, 0),
+                                (index ==1)
+                                    ? TraierTimerCard(textFight[index],typeFight[index], lineFight[index], imgFight[index], index, 0, 1, 0, 0, 0)
+                                    : TraierTimerCard(textFight[index],typeFight[index], lineFight[index], imgFight[index], index, 0, 1, 0, 0, 1)
                             );
                           },
                         ),
@@ -188,15 +191,11 @@ class HomePage extends StatelessWidget {
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => WorkoutSelection(
-                                            locale.arm, typeFitness[index])));
+
                               },
                               child:
                               TraierTimerCard(textFitness[index],typeFitness[index],
-                                              lineFitness[index], imgFitness[index], index, 0, 1, 1, 0),
+                                              lineFitness[index], imgFitness[index], index, 0, 1, 1, 0, 1),
                             );
                           },
                         ),

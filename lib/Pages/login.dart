@@ -6,7 +6,7 @@ import 'package:trainertimer/MySubs/colorButton.dart';
 import 'package:trainertimer/MySubs/textfield.dart';
 import 'package:trainertimer/Locale/locales.dart';
 import 'package:trainertimer/Theme/colors.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 
 class Login extends StatefulWidget {
@@ -27,17 +27,13 @@ class _LoginState extends State<Login> {
   String name = '';
   String _keyUsername = 'username';
 
-  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  late Future<int> _counter;
+
 
   Future<void> _incrementCounter() async {
-    final SharedPreferences prefs = await _prefs;
-    final int counter = (prefs.getInt('counter') ?? 0) + 1;
+
+
 
     setState(() {
-      _counter = prefs.setInt("counter", counter).then((bool success) {
-        return counter;
-      });
     });
   }
 

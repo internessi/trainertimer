@@ -149,7 +149,7 @@ class WorkoutSelection extends StatelessWidget {
                       );
                     },
                     child: TraierTimerCard(textTrainer[0], typeTrainer[0],
-                        lineTrainer[0], imgTrainer[0], 0, 0, 1, 0, 0),
+                        lineTrainer[0], imgTrainer[0], 0, 0, 1, 0, 0, 0),
                   ),
                   SizedBox(
                     height: 15,
@@ -164,7 +164,7 @@ class WorkoutSelection extends StatelessWidget {
                       );
                     },
                     child: TraierTimerCard(textTrainer[1], typeTrainer[1],
-                        lineTrainer[1], imgTrainer[0], 0, 0, 0, 1, 0),
+                        lineTrainer[1], imgTrainer[0], 0, 0, 0, 1, 0, 0),
                   ),
                 ],
               ),

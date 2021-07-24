@@ -3,12 +3,17 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:hive/hive.dart';
 import 'package:trainertimer/Pages/Timers/timerDialog.dart';
 import 'package:trainertimer/Locale/locales.dart';
 import 'package:trainertimer/Theme/colors.dart';
 
-
 class TimerSimple extends StatefulWidget {
+
+  final String timerLabel;
+  final int preDuration, actDuration, pauDuration, timerRounds;
+  TimerSimple(this.timerLabel,this.preDuration,this.actDuration,this.pauDuration,this.timerRounds);
+
   Duration? duration;
   @override
   _TimerSimpleState createState() => _TimerSimpleState();
@@ -21,8 +26,8 @@ class _TimerSimpleState extends State<TimerSimple>
   AudioPlayer audioPlayer = AudioPlayer();
 
   int lastDuration = 0, timerType = 2, timerRounds = 0, timerRound = 0 ;
-  int preDuration = 5, actDuration = 10, pauDuraution = 10;
-  bool resetPressed = false, timerRunning = false;
+  int preDuration = 5, actDuration = 10, pauDuration = 10;
+  bool resetPressed = false, timerRunning = false, lastRound = false;
 
   Color timerColor = timerColorPrep, timerColorBg = timerColorPrepBg;
 
@@ -36,12 +41,20 @@ class _TimerSimpleState extends State<TimerSimple>
     Duration duration = controller.duration! * controller.value;
     return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
   }
-
+  String durationString(String sec) {
+    Duration duration = Duration(seconds: int.parse(sec));
+    return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+  }
 
   @override
 
   void initState() {
     super.initState();
+    preDuration = widget.preDuration;
+    actDuration = widget.actDuration;
+    pauDuration = widget.pauDuration;
+    timerRounds = widget.timerRounds;
+    timerDuration = [actDuration, pauDuration, preDuration];
     initSounds();
     controller = AnimationController(
       vsync: this,
@@ -53,9 +66,9 @@ class _TimerSimpleState extends State<TimerSimple>
           if (lastDuration != duration.inSeconds){
             if (duration.inSeconds == 0){
               if (timerType == 0){
-                playSound('mp3/bell3x.mp3');
+                playSound('mp3/bell.mp3');
               } else {
-                playSound('mp3/bell3x.mp3');
+                playSound('mp3/bell.mp3');
               }
             }
             lastDuration = duration.inSeconds;
@@ -64,10 +77,14 @@ class _TimerSimpleState extends State<TimerSimple>
         });
       })
       ..addStatusListener((AnimationStatus status) {
-        if (controller.isDismissed && timerRunning) {
+        if (controller.isDismissed && timerRunning && !lastRound) {
           timerType = timerType + 1;
           if (timerType > 1)
             timerType = 0;
+          if (timerType == 0)
+            timerRound = timerRound + 1;
+          if (timerRounds == timerRound)
+            lastRound = true;
           controller.duration = Duration(seconds: timerDuration[timerType]);
           timerColor = timerTypeColor[timerType];
           timerColorBg = timerTypeColorBg[timerType];
@@ -103,94 +120,35 @@ class _TimerSimpleState extends State<TimerSimple>
                       }),
                   titleSpacing: 0,
                   backgroundColor: Colors.grey[800]!.withOpacity(0.3), // Bereich Appbar
-                  title: Text(
-                    ' ',  //locale.workout!,
-                    style: TextStyle(fontWeight: FontWeight.normal),
-                  ),
+                  title: Row(children: [
+                    Text(
+                        widget.timerLabel + '  ',
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(color:
+                        Colors.white, fontSize: 16, fontWeight: FontWeight.bold,
+                        )),
+                    Text(
+                        'V ' + durationString(preDuration.toString()) + '  ',
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(color:
+                        timerTypeColor[2], fontSize: 16, fontWeight: FontWeight.bold,
+                        )),
+                    Text(
+                        'A ' + durationString(actDuration.toString()) + '  ',
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(color:
+                        timerTypeColor[0], fontSize: 16, fontWeight: FontWeight.bold,
+                        )),
+                    Text(
+                        'P ' + durationString(pauDuration.toString()) + '  ',
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(color:
+                        timerTypeColor[1], fontSize: 16, fontWeight: FontWeight.bold,
+                        )),
+                  ],),
                   actions: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ElevatedButton(
-                            child: Text(
-                                "0:05".toUpperCase(),
-                                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)
-                            ),
-                            style: ButtonStyle(
-                                foregroundColor: MaterialStateProperty.all<Color>(timerTypeColorBg[2]),
-                                backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!.withOpacity(0.5)),
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8.0),
-                                        side: BorderSide(color: Colors.grey[800]!.withOpacity(0.5), width: 3)
-                                    )
-                                )
-                            ),
-                          onPressed: () {
-                            Navigator.of(context).push(new MaterialPageRoute<Null>(
-                                builder: (BuildContext context) {
-                                  return new TimerDialog();
-                                },
-                                fullscreenDialog: true
-                            ));
-                          },
-                        ),
+
                         SizedBox(
                           width: 5,
-                        ),
-                        ElevatedButton(
-                            child: Text(
-                                "0:10".toUpperCase(),
-                                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)
-                            ),
-                            style: ButtonStyle(
-                                foregroundColor: MaterialStateProperty.all<Color>(timerTypeColorBg[0]),
-                                backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!.withOpacity(0.5)),
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8.0),
-                                        side: BorderSide(color: Colors.grey[800]!.withOpacity(0.5), width: 3)
-                                    )
-                                )
-                            ),
-                          onPressed: () {
-                            Navigator.of(context).push(new MaterialPageRoute<Null>(
-                                builder: (BuildContext context) {
-                                  return new TimerDialog();
-                                },
-                                fullscreenDialog: true
-                            ));
-                          },
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        ElevatedButton(
-                            child: Text(
-                                "0:10".toUpperCase(),
-                                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)
-                            ),
-                            style: ButtonStyle(
-                                foregroundColor: MaterialStateProperty.all<Color>(timerTypeColorBg[1]),
-                                backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!.withOpacity(0.5)),
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8.0),
-                                        side: BorderSide(color: Colors.grey[800]!.withOpacity(0.5), width: 3)
-                                    )
-                                )
-                            ),
-                          onPressed: () {
-                            Navigator.of(context).push(new MaterialPageRoute<Null>(
-                                builder: (BuildContext context) {
-                                  return new TimerDialog();
-                                },
-                                fullscreenDialog: true
-                            ));
-                          },
-                        ),
-                        SizedBox(
-                          width: 25,
                         ),
                         IconButton(
                           icon: Icon(Icons.settings),
@@ -449,6 +407,8 @@ class _TimerSimpleState extends State<TimerSimple>
                                                             timerType = 2;
                                                             timerColor = timerTypeColor[2];
                                                             timerColorBg = timerTypeColorBg[2];
+                                                            lastRound = false;
+                                                            timerRound = 0;
                                                             print('nach set');
 
                                                             controller.stop();
@@ -511,7 +471,6 @@ class _TimerSimpleState extends State<TimerSimple>
   void stopSound(_mp3) {
     audioPlayer.stop();
   }
-
 }
 
 class CustomTimerPainter extends CustomPainter {
@@ -550,4 +509,5 @@ class CustomTimerPainter extends CustomPainter {
         color != old.color ||
         backgroundColor != old.backgroundColor;
   }
+
 }
