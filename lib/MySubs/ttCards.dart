@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:animation_wrappers/animation_wrappers.dart';
-import '/Theme/colors.dart';
+import 'colors.dart';
 import '/Locale/locales.dart';
 
 class TraierTimerCard extends StatelessWidget {

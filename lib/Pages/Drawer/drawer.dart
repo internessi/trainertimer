@@ -5,7 +5,7 @@ import 'package:trainertimer/Locale/locales.dart';
 import 'package:trainertimer/Pages/Drawer/changeLanguage.dart';
 import 'package:trainertimer/Pages/Drawer/privacyPolicy.dart';
 import 'package:trainertimer/Pages/home.dart';
-import 'package:trainertimer/Theme/colors.dart';
+import 'package:trainertimer/MySubs/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'blogs.dart';

@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:animation_wrappers/Animations/faded_scale_animation.dart';
 import '/Locale/locales.dart';
-import '/Theme/colors.dart';
+import '../../MySubs/colors.dart';
 import 'package:flutter/material.dart';
 
 class WorkoutDetails extends StatefulWidget {

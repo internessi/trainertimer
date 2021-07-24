@@ -4,7 +4,8 @@ import 'package:animation_wrappers/Animations/faded_slide_animation.dart';
 import 'package:trainertimer/Locale/locales.dart';
 import 'package:trainertimer/Pages/Trainers/trainerFight.dart';
 import 'package:trainertimer/MySubs/ttCards.dart';
-import 'package:trainertimer/Theme/colors.dart';
+import 'package:trainertimer/MySubs/colors.dart';
+import 'package:trainertimer/Pages/Workouts/workoutBasic.dart';
 
 class WorkoutSelection extends StatelessWidget {
   final String? type;
@@ -144,7 +145,7 @@ class WorkoutSelection extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TrainerFight()
+                              builder: (context) => WorkoutBasic('Boxen 2/1',10,120,60,1)
                           )
                       );
                     },
@@ -159,7 +160,7 @@ class WorkoutSelection extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TrainerFight()
+                              builder: (context) => WorkoutBasic('Boxen 2/1',10,120,60,1)
                           )
                       );
                     },

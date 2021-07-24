@@ -3,53 +3,68 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:hive/hive.dart';
 import 'package:trainertimer/Pages/Timers/timerDialog.dart';
 import 'package:trainertimer/Locale/locales.dart';
 import 'package:trainertimer/MySubs/colors.dart';
-import 'package:trainertimer/MySubs/basRuttenMp3.dart';
-import 'package:trainertimer/Pages/Workouts/process120.dart';
+import 'process120.dart';
+import 'mp3Rutten.dart';
 
+class WorkoutBasic extends StatefulWidget {
 
-class TrainerFight extends StatefulWidget {
+  final String timerLabel;
+  final int preDuration, actDuration, pauDuration, timerRounds;
+  WorkoutBasic (this.timerLabel,this.preDuration,this.actDuration,this.pauDuration,this.timerRounds);
+
   Duration? duration;
   @override
-  _TrainerFightState createState() => _TrainerFightState();
+  _WorkoutBasicState createState() => _WorkoutBasicState();
 }
 
-class _TrainerFightState extends State<TrainerFight>
+class _WorkoutBasicState extends State<WorkoutBasic>
     with TickerProviderStateMixin {
   late AnimationController controller;
-
   AudioCache audioCache= AudioCache();
   AudioPlayer audioPlayer = AudioPlayer();
 
-  final List<int> _process120 = TrainingProcess().act120;
-  int indexIsPlaying = 0;
-  int timeStart = 0;
-  int timeSoFar = 0;
+  final List _mp3Rutten  = Mp3Rutten().mp3Rutten;
+  final List<int> _pre20 = TrainingProcess().pre20;
+  final List<int> _act120 = TrainingProcess().act120;
 
-  int lastDuration = 0, timerDuration = 3, timerType = 2, timerRounds = 0, timerRound = 0 ;
+  int lastDuration = 0, timerType = 2, timerRounds = 0, timerRound = 0 ;
+  int preDuration = 5, actDuration = 10, pauDuration = 10;
+  bool resetPressed = false, timerRunning = false, lastRound = false;
+
   Color timerColor = timerColorPrep, timerColorBg = timerColorPrepBg;
 
   List timerTypeColor = [timerColorFight,  timerColorPause, timerColorPrep];
   List timerTypeColorBg = [timerColorFightBg, timerColorPauseBg,  timerColorPrepBg];
   List timerTypeColorR = [timerColorFightR, timerColorPauseR,  timerColorPrepR];
   List timerTypeText = ['Aktivzeit', 'Erholungszeit',  'Vorbereitung'];
+  List timerDuration = [10, 10, 5];
 
   String get timerString {
     Duration duration = controller.duration! * controller.value;
     return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
   }
-
+  String durationString(String sec) {
+    Duration duration = Duration(seconds: int.parse(sec));
+    return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+  }
 
   @override
+
   void initState() {
     super.initState();
+    preDuration = widget.preDuration;
+    actDuration = widget.actDuration;
+    pauDuration = widget.pauDuration;
+    timerRounds = widget.timerRounds;
+    timerDuration = [actDuration, pauDuration, preDuration];
     initSounds();
-    timeStart = 120;
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: timerDuration),
+      duration: Duration(seconds: preDuration),
     )
       ..addListener(() {
         setState(() {
@@ -57,22 +72,45 @@ class _TrainerFightState extends State<TrainerFight>
           if (lastDuration != duration.inSeconds){
             if (duration.inSeconds == 0){
               if (timerType == 0){
-                playSound('mp3/bell3x.mp3');
+                playSound('mp3/bell.mp3');
               } else {
                 playSound('mp3/bell.mp3');
               }
             }
             lastDuration = duration.inSeconds;
-            print(duration.inSeconds);
+            int tableTime = 120 - lastDuration;
+
+            if (timerType == 2) {
+              if (_pre20[lastDuration] > 0) {
+                print(_mp3Rutten[_pre20[lastDuration]][4]);
+                playSound(_mp3Rutten[_pre20[lastDuration]][4]);
+
+
+              }
+            }
+            if (timerType == 0) {
+              if (_act120[tableTime] > 0) {
+                print(_mp3Rutten[_act120[tableTime]][4]);
+                playSound(_mp3Rutten[_act120[tableTime]][4]);
+              }
+            }
+
+
+
+            // print(duration.inSeconds);
           }
         });
       })
       ..addStatusListener((AnimationStatus status) {
-        if (controller.isDismissed) {
+        if (controller.isDismissed && timerRunning && !lastRound) {
           timerType = timerType + 1;
           if (timerType > 1)
             timerType = 0;
-          controller.duration = Duration(seconds: 10);
+          if (timerType == 0)
+            timerRound = timerRound + 1;
+          if (timerRounds == timerRound)
+            lastRound = true;
+          controller.duration = Duration(seconds: timerDuration[timerType]);
           timerColor = timerTypeColor[timerType];
           timerColorBg = timerTypeColorBg[timerType];
           controller.reverse(
@@ -80,7 +118,6 @@ class _TrainerFightState extends State<TrainerFight>
                   ? 1.0
                   : controller.value);
         }
-        print(status);
       });
   }
 
@@ -107,94 +144,35 @@ class _TrainerFightState extends State<TrainerFight>
                       }),
                   titleSpacing: 0,
                   backgroundColor: Colors.grey[800]!.withOpacity(0.3), // Bereich Appbar
-                  title: Text(
-                    ' ',  //locale.workout!,
-                    style: TextStyle(fontWeight: FontWeight.normal),
-                  ),
+                  title: Row(children: [
+                    Text(
+                        widget.timerLabel + '  ',
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(color:
+                        Colors.white, fontSize: 16, fontWeight: FontWeight.bold,
+                        )),
+                    Text(
+                        'V ' + durationString(preDuration.toString()) + '  ',
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(color:
+                        timerTypeColor[2], fontSize: 16, fontWeight: FontWeight.bold,
+                        )),
+                    Text(
+                        'A ' + durationString(actDuration.toString()) + '  ',
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(color:
+                        timerTypeColor[0], fontSize: 16, fontWeight: FontWeight.bold,
+                        )),
+                    Text(
+                        'P ' + durationString(pauDuration.toString()) + '  ',
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(color:
+                        timerTypeColor[1], fontSize: 16, fontWeight: FontWeight.bold,
+                        )),
+                  ],),
                   actions: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ElevatedButton(
-                          child: Text(
-                              "0:05".toUpperCase(),
-                              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)
-                          ),
-                          style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(timerTypeColorBg[2]),
-                              backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!.withOpacity(0.5)),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      side: BorderSide(color: Colors.grey[800]!.withOpacity(0.5), width: 3)
-                                  )
-                              )
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).push(new MaterialPageRoute<Null>(
-                                builder: (BuildContext context) {
-                                  return new TimerDialog();
-                                },
-                                fullscreenDialog: true
-                            ));
-                          },
-                        ),
+
                         SizedBox(
                           width: 5,
-                        ),
-                        ElevatedButton(
-                          child: Text(
-                              "0:10".toUpperCase(),
-                              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)
-                          ),
-                          style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(timerTypeColorBg[0]),
-                              backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!.withOpacity(0.5)),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      side: BorderSide(color: Colors.grey[800]!.withOpacity(0.5), width: 3)
-                                  )
-                              )
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).push(new MaterialPageRoute<Null>(
-                                builder: (BuildContext context) {
-                                  return new TimerDialog();
-                                },
-                                fullscreenDialog: true
-                            ));
-                          },
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        ElevatedButton(
-                          child: Text(
-                              "0:10".toUpperCase(),
-                              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)
-                          ),
-                          style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(timerTypeColorBg[1]),
-                              backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!.withOpacity(0.5)),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      side: BorderSide(color: Colors.grey[800]!.withOpacity(0.5), width: 3)
-                                  )
-                              )
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).push(new MaterialPageRoute<Null>(
-                                builder: (BuildContext context) {
-                                  return new TimerDialog();
-                                },
-                                fullscreenDialog: true
-                            ));
-                          },
-                        ),
-                        SizedBox(
-                          width: 25,
                         ),
                         IconButton(
                           icon: Icon(Icons.settings),
@@ -261,7 +239,7 @@ class _TrainerFightState extends State<TrainerFight>
                                       child:
                                       Container(    // Zeiteffekt innenbereich Insel
                                         height:
-                                        controller.value * (MediaQuery.of(context).size.height - 200),
+                                        controller.value * (MediaQuery.of(context).size.height - 100),
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10),
                                           color: timerColorBg,
@@ -389,6 +367,7 @@ class _TrainerFightState extends State<TrainerFight>
                                                     disabledColor: Colors.blueAccent,
                                                     onPressed: () {
                                                       timerRounds = timerRounds + 1;
+
                                                       setState(() {});
                                                     },
                                                   ),
@@ -414,11 +393,15 @@ class _TrainerFightState extends State<TrainerFight>
                                                           if (controller.isAnimating)
                                                             controller.stop();
                                                           else {
+                                                            timerRunning = true;
                                                             controller.reverse(
                                                                 from: controller.value == 0.0
                                                                     ? 1.0
                                                                     : controller.value);
                                                           }
+                                                          setState(() {
+
+                                                          });
                                                         },
                                                         icon: Icon(controller.isAnimating
                                                             ? Icons.pause
@@ -439,7 +422,8 @@ class _TrainerFightState extends State<TrainerFight>
                                                         foregroundColor: Colors.black87,
                                                         splashColor: Colors.white,
                                                         onPressed: () {
-                                                          if (controller.isAnimating){
+                                                          if (timerRunning){
+                                                            timerRunning = false;
                                                             controller.stop();
                                                             print('nach stop');
                                                             controller.reset();
@@ -447,10 +431,13 @@ class _TrainerFightState extends State<TrainerFight>
                                                             timerType = 2;
                                                             timerColor = timerTypeColor[2];
                                                             timerColorBg = timerTypeColorBg[2];
+                                                            lastRound = false;
+                                                            timerRound = 0;
                                                             print('nach set');
 
                                                             controller.stop();
                                                             print('nach stop');
+
                                                             setState(() {
 
                                                             });
@@ -463,11 +450,11 @@ class _TrainerFightState extends State<TrainerFight>
                                                                     : controller.value);
                                                           }
                                                         },
-                                                        icon: Icon(controller.isAnimating
+                                                        icon: Icon(timerRunning
                                                             ? Icons.replay_sharp
                                                             : Icons.settings),
                                                         label: Text(
-                                                            controller.isAnimating ? "Reset" : "Einstellung")
+                                                            timerRunning ? "Reset" : "Einstellung")
                                                     );
                                                   }),
                                             ],),
@@ -508,7 +495,6 @@ class _TrainerFightState extends State<TrainerFight>
   void stopSound(_mp3) {
     audioPlayer.stop();
   }
-
 }
 
 class CustomTimerPainter extends CustomPainter {
@@ -547,4 +533,5 @@ class CustomTimerPainter extends CustomPainter {
         color != old.color ||
         backgroundColor != old.backgroundColor;
   }
+
 }

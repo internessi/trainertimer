@@ -5,7 +5,7 @@ import 'package:animation_wrappers/animation_wrappers.dart';
 import 'package:trainertimer/MySubs/colorButton.dart';
 import 'package:trainertimer/MySubs/textfield.dart';
 import 'package:trainertimer/Locale/locales.dart';
-import 'package:trainertimer/Theme/colors.dart';
+import 'package:trainertimer/MySubs/colors.dart';
 
 
 

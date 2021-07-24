@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import '/Locale/locales.dart';
-import '/Theme/colors.dart';
+import '../../MySubs/colors.dart';
 import 'package:animation_wrappers/Animations/faded_scale_animation.dart';
 import 'package:animation_wrappers/Animations/faded_slide_animation.dart';
 

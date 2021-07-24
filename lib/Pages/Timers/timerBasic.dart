@@ -6,20 +6,20 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:hive/hive.dart';
 import 'package:trainertimer/Pages/Timers/timerDialog.dart';
 import 'package:trainertimer/Locale/locales.dart';
-import 'package:trainertimer/Theme/colors.dart';
+import 'package:trainertimer/MySubs/colors.dart';
 
-class TimerSimple extends StatefulWidget {
+class TimerBasic extends StatefulWidget {
 
   final String timerLabel;
   final int preDuration, actDuration, pauDuration, timerRounds;
-  TimerSimple(this.timerLabel,this.preDuration,this.actDuration,this.pauDuration,this.timerRounds);
+  TimerBasic (this.timerLabel,this.preDuration,this.actDuration,this.pauDuration,this.timerRounds);
 
   Duration? duration;
   @override
-  _TimerSimpleState createState() => _TimerSimpleState();
+  _TimerBasicState createState() => _TimerBasicState();
 }
 
-class _TimerSimpleState extends State<TimerSimple>
+class _TimerBasicState extends State<TimerBasic >
     with TickerProviderStateMixin {
   late AnimationController controller;
   AudioCache audioCache= AudioCache();

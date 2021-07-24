@@ -3,7 +3,7 @@ import 'package:animation_wrappers/animation_wrappers.dart';
 import '../../MySubs/colorButton.dart';
 import '/Locale/languageCubit.dart';
 import '/Locale/locales.dart';
-import '/Theme/colors.dart';
+import '../../MySubs/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

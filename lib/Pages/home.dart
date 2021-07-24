@@ -5,7 +5,7 @@ import 'package:trainertimer/Locale/locales.dart';
 import 'package:trainertimer/Pages/Workouts/workoutSelection.dart';
 import 'package:trainertimer/MySubs/ttCards.dart';
 import 'package:trainertimer/Pages/Timers/timerSelection.dart';
-import 'package:trainertimer/Theme/colors.dart';
+import 'package:trainertimer/MySubs/colors.dart';
 import 'package:trainertimer/Pages/Drawer/drawer.dart';
 
 class HomePage extends StatelessWidget {

@@ -4,7 +4,7 @@ import 'package:animation_wrappers/Animations/faded_scale_animation.dart';
 import 'package:animation_wrappers/Animations/faded_slide_animation.dart';
 import 'package:trainertimer/Locale/locales.dart';
 import 'package:trainertimer/Pages/Drawer/readBlog.dart';
-import 'package:trainertimer/Theme/colors.dart';
+import 'package:trainertimer/MySubs/colors.dart';
 
 
 class Blogs extends StatelessWidget {

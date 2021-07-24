@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:animation_wrappers/Animations/faded_scale_animation.dart';
 import 'package:animation_wrappers/Animations/faded_slide_animation.dart';
 import 'package:trainertimer/Locale/locales.dart';
-import 'package:trainertimer/Pages/workoutDetails.dart';
-import 'package:trainertimer/Pages/Timers/timerSimple.dart';
+import 'package:trainertimer/Pages/Workouts/workoutDetails.dart';
+import 'package:trainertimer/Pages/Timers/timerBasic.dart';
 import 'package:trainertimer/Pages/Timers/TimerSetting.dart';
-import 'package:trainertimer/Theme/colors.dart';
+import 'package:trainertimer/MySubs/colors.dart';
 import 'package:hive/hive.dart';
 
 class TimerSelection extends StatefulWidget {
@@ -180,7 +180,7 @@ class _TimerSelectionState extends State<TimerSelection> {
                               MaterialPageRoute(
                                   builder:
                                       (context) =>
-                                          TimerSimple(sTimer[index][0],int.parse(sTimer[index][1]),
+                                          TimerBasic(sTimer[index][0],int.parse(sTimer[index][1]),
                                               int.parse(sTimer[index][2]),int.parse(sTimer[index][3])
                                               ,int.parse(sTimer[index][4]))
                               ));

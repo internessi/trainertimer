@@ -5,7 +5,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'basrutten_mp3.dart';
+import '../Workouts/basrutten_mp3.dart';
 import 'training_process.dart';
 
 class TrainerPage extends StatelessWidget {
