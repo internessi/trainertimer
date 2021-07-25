@@ -41,7 +41,8 @@ class TrainingProcessWolf {
     0,  0,  0,  0,  0,  0,  2,  0,  0,  0,
     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-    0,  0, 10, // jaja zählen und so
+    0,  0,  0, 10,  0,  0,  0,  0,  0,  0
+    // jaja zählen und so
   ];
   get preTime => _preTime ;
 

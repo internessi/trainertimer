@@ -160,7 +160,7 @@ class WorkoutSelection extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WorkoutBasic('Boxen 2/1',32,120,60,1)
+                              builder: (context) => WorkoutBasic('Boxen 2/1',35,120,60,1)
                           )
                       );
                     },
