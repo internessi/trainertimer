@@ -7,6 +7,8 @@ import 'package:hive/hive.dart';
 import 'package:trainertimer/Pages/Timers/timerDialog.dart';
 import 'package:trainertimer/Locale/locales.dart';
 import 'package:trainertimer/MySubs/colors.dart';
+import 'package:trainertimer/Pages/Workouts/processWolf.dart';
+import 'mp3Wolf.dart';
 import 'process120.dart';
 import 'mp3Rutten.dart';
 
@@ -27,9 +29,9 @@ class _WorkoutBasicState extends State<WorkoutBasic>
   AudioCache audioCache= AudioCache();
   AudioPlayer audioPlayer = AudioPlayer();
 
-  final List _mp3Rutten  = Mp3Rutten().mp3Rutten;
-  final List<int> _pre20 = TrainingProcess().pre20;
-  final List<int> _act120 = TrainingProcess().act120;
+  final List _mp3List  = Mp3Wolf().mp3Wolf;
+  final List<int> _preTime = TrainingProcessWolf().preTime;
+  final List<int> _act120 = TrainingProcessWolf().act120;
 
   int lastDuration = 0, timerType = 2, timerRounds = 0, timerRound = 0 ;
   int preDuration = 5, actDuration = 10, pauDuration = 10;
@@ -81,17 +83,17 @@ class _WorkoutBasicState extends State<WorkoutBasic>
             int tableTime = 120 - lastDuration;
 
             if (timerType == 2) {
-              if (_pre20[lastDuration] > 0) {
-                print(_mp3Rutten[_pre20[lastDuration]][4]);
-                playSound(_mp3Rutten[_pre20[lastDuration]][4]);
+              if (_preTime[lastDuration] > 0) {
+                print(_mp3List[_preTime[lastDuration]][4]);
+                playSound(_mp3List[_preTime[lastDuration]][4]);
 
 
               }
             }
             if (timerType == 0) {
               if (_act120[tableTime] > 0) {
-                print(_mp3Rutten[_act120[tableTime]][4]);
-                playSound(_mp3Rutten[_act120[tableTime]][4]);
+                print(_mp3List[_act120[tableTime]][4]);
+                playSound(_mp3List[_act120[tableTime]][4]);
               }
             }
 

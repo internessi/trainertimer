@@ -55,6 +55,7 @@ flutter:
   assets:
     - assets/
     - assets/mp3/
+    - assets/mp3/frankwolf/
     - assets/mp3/basrutten/
     - assets/workouts/
     - assets/imgs/
