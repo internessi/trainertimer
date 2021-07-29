@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'dart:math' as math;
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -9,8 +10,7 @@ import 'package:trainertimer/Locale/locales.dart';
 import 'package:trainertimer/MySubs/colors.dart';
 import 'package:trainertimer/Pages/Workouts/processWolf.dart';
 import 'mp3Wolf.dart';
-import 'process120.dart';
-import 'mp3Rutten.dart';
+import 'package:wakelock/wakelock.dart';
 
 class WorkoutBasic extends StatefulWidget {
 
@@ -39,11 +39,18 @@ class _WorkoutBasicState extends State<WorkoutBasic>
 
   Color timerColor = timerColorPrep, timerColorBg = timerColorPrepBg;
 
+  int betweenTime = 1, waitTime = 3, tableTime = 0, nextMp3 = 0;
+
   List timerTypeColor = [timerColorFight,  timerColorPause, timerColorPrep];
   List timerTypeColorBg = [timerColorFightBg, timerColorPauseBg,  timerColorPrepBg];
   List timerTypeColorR = [timerColorFightR, timerColorPauseR,  timerColorPrepR];
   List timerTypeText = ['Aktivzeit', 'Erholungszeit',  'Vorbereitung'];
   List timerDuration = [10, 10, 5];
+  List training = ['1','1'];
+
+  int trainingDuration = 0;
+
+
 
   String get timerString {
     Duration duration = controller.duration! * controller.value;
@@ -80,24 +87,19 @@ class _WorkoutBasicState extends State<WorkoutBasic>
               }
             }
             lastDuration = duration.inSeconds;
-            int tableTime = 120 - lastDuration;
+            tableTime = actDuration - lastDuration;
 
-            if (timerType == 2) {
-              if (_preTime[lastDuration] > 0) {
-                print(_mp3List[_preTime[lastDuration]][4]);
-                playSound(_mp3List[_preTime[lastDuration]][4]);
-
-
+            if (timerType == 0){
+              waitTime = waitTime - 1;
+              if (waitTime == 0) {
+                if ((training.length - 1) > nextMp3) {
+                  print(training[nextMp3][0] + ' ' + training[nextMp3][1] );
+                  playSound(training[nextMp3][1]);
+                  waitTime = int.parse(training[nextMp3][0]);
+                  nextMp3 = nextMp3 + 1;
+                }
               }
             }
-            if (timerType == 0) {
-              if (_act120[tableTime] > 0) {
-                print(_mp3List[_act120[tableTime]][4]);
-                playSound(_mp3List[_act120[tableTime]][4]);
-              }
-            }
-
-
 
             // print(duration.inSeconds);
           }
@@ -109,6 +111,9 @@ class _WorkoutBasicState extends State<WorkoutBasic>
           if (timerType > 1)
             timerType = 0;
           if (timerType == 0)
+            buildTraining();
+            waitTime = 4;
+            nextMp3 = 0;
             timerRound = timerRound + 1;
           if (timerRounds == timerRound)
             lastRound = true;
@@ -140,6 +145,7 @@ class _WorkoutBasicState extends State<WorkoutBasic>
                       icon: Icon(Icons.chevron_left),
                       iconSize: 30,
                       onPressed: () {
+                        Wakelock.disable();
                         if (controller.isAnimating)
                           controller.stop();
                         Navigator.pop(context);
@@ -305,7 +311,7 @@ class _WorkoutBasicState extends State<WorkoutBasic>
 
 
                                               Text(
-                                                  'Runden',
+                                                  'Runde',
                                                   style: TextStyle(fontSize: 38.0)
                                               ),
                                               Row(
@@ -392,9 +398,11 @@ class _WorkoutBasicState extends State<WorkoutBasic>
                                                         foregroundColor: Colors.black87,
                                                         splashColor: Colors.white,
                                                         onPressed: () {
-                                                          if (controller.isAnimating)
-                                                            controller.stop();
+                                                          if (controller.isAnimating){
+                                                            Wakelock.disable();
+                                                            controller.stop();}
                                                           else {
+                                                          Wakelock.enable();
                                                             timerRunning = true;
                                                             controller.reverse(
                                                                 from: controller.value == 0.0
@@ -424,6 +432,7 @@ class _WorkoutBasicState extends State<WorkoutBasic>
                                                         foregroundColor: Colors.black87,
                                                         splashColor: Colors.white,
                                                         onPressed: () {
+                                                          Wakelock.disable();
                                                           if (timerRunning){
                                                             timerRunning = false;
                                                             controller.stop();
@@ -497,6 +506,132 @@ class _WorkoutBasicState extends State<WorkoutBasic>
   void stopSound(_mp3) {
     audioPlayer.stop();
   }
+
+  void buildTraining() {
+    Random rnd = new Random();
+    int com = 0, rest = actDuration - 2;
+    training.clear();
+
+    addStarter();
+    addStandard();
+    addStandard();
+    addExtra();
+    addSimple();
+
+    addStarter();
+    addSpecial();
+    addExtra();
+    addSimple();
+
+    addStarter();
+    addStandard();
+    addAgain();
+    addExtra();
+    addSimple();
+
+    addSimple();
+    addSimple();
+
+    addStarter();
+    addStandard();
+    addExtra();
+    addStandard();
+    addExtra();
+    addStandard();
+    addExtra();
+    addSimple();
+
+    addSimple();
+
+    addStarter();
+    addSpecial();
+    addExtra();
+    addSimple();
+
+    addStarter();
+    addStandard();
+    addAgain();
+    addExtra();
+    addSimple();
+
+    addStarter();
+    addStandard();
+    addStandard();
+    addExtra();
+    addSimple();
+  }
+
+  void addSimple() {
+    // print('Simple ' + trainingDuration.toString());
+    addTraining(0,7);
+  }
+  void addStarter() {
+    // print('Starter ' + trainingDuration.toString());
+    addTraining(3,9);
+  }
+  void addStandard() {
+    // print('Standard ' + trainingDuration.toString());
+    addTraining(6,19);
+  }
+  void addExtra() {
+    // print('Extra ' + trainingDuration.toString());
+    addTraining(19,25);
+  }
+
+  void addUpper() {
+    addTraining(25,33);
+  }
+  void addFiveTen() {
+    addTraining(33,37);
+  }
+  void addLiver() {
+    addTraining(37,42);
+  }
+  void addBody() {
+    addTraining(42,44);
+  }
+
+  void addSpecial() {
+    // print('Special ' + trainingDuration.toString());
+    Random rnd = new Random();
+    int com = rnd.nextInt(4);
+    if (com == 0){
+      addUpper();
+      addUpper();
+    }
+    if (com == 1){
+      addFiveTen();
+    }
+    if (com == 2){
+      addLiver();
+      addLiver();
+    }
+    if (com == 3) {
+      addBody();
+      addExtra();
+      addBody();
+    }
+  }
+
+  void addAgain() {
+    training.add([(int.parse(_mp3List[44][0])+betweenTime).toString(), _mp3List[44][4]+'.mp3']);
+    // print(_mp3List[44][4]+'.mp3');
+    trainingDuration = trainingDuration + int.parse(_mp3List[44][0]);
+  }
+
+  void addTraining(int min, max) {
+        Random rnd = new Random();
+        int com = min + rnd.nextInt(max - min);
+
+        training.add([(int.parse(_mp3List[com][0])+betweenTime).toString(), _mp3List[com][4]+'.mp3']);
+        // print(_mp3List[com][4]+'.mp3');
+        trainingDuration = trainingDuration + int.parse(_mp3List[com][0]) + betweenTime;
+      }
+
+
+
+
+
 }
 
 class CustomTimerPainter extends CustomPainter {

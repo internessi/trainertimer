@@ -7,7 +7,6 @@ import 'package:trainertimer/Pages/Timers/timerDialog.dart';
 import 'package:trainertimer/Locale/locales.dart';
 import 'package:trainertimer/MySubs/colors.dart';
 import 'package:wakelock/wakelock.dart';
-import 'mp3Wolf.dart';
 
 
 
@@ -28,7 +27,6 @@ class _WorkoutIntroState extends State<WorkoutIntro>
   AudioCache audioCache= AudioCache();
   AudioPlayer audioPlayer = AudioPlayer();
 
-  final List _mp3List  = Mp3Intro().mp3Intro;
 
   List _labelIntro = [
     ['Boxen', 'Einführung'], ['Jab', 'linke Grade'], ['Cross', 'rechte Grade'], ['Cross', 'rechte Grade'],
