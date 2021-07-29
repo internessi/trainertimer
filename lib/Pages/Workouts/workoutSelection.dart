@@ -7,6 +7,8 @@ import 'package:trainertimer/MySubs/ttCards.dart';
 import 'package:trainertimer/MySubs/colors.dart';
 import 'package:trainertimer/Pages/Workouts/workoutBasic.dart';
 
+import 'WorkoutIntro.dart';
+
 class WorkoutSelection extends StatelessWidget {
   final String? type;
   final String? level;
@@ -145,7 +147,7 @@ class WorkoutSelection extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WorkoutBasic('Boxen 2/1',10,120,60,1)
+                              builder: (context) => WorkoutIntro('Boxen 2/1',10,120,60,1)
                           )
                       );
                     },
