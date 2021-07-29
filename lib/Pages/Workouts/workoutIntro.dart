@@ -3,14 +3,13 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:hive/hive.dart';
 import 'package:trainertimer/Pages/Timers/timerDialog.dart';
 import 'package:trainertimer/Locale/locales.dart';
 import 'package:trainertimer/MySubs/colors.dart';
-import 'package:trainertimer/Pages/Workouts/processWolf.dart';
+import 'package:wakelock/wakelock.dart';
 import 'mp3Wolf.dart';
-import 'process120.dart';
-import 'mp3Rutten.dart';
+
+
 
 class WorkoutIntro extends StatefulWidget {
 
@@ -29,12 +28,22 @@ class _WorkoutIntroState extends State<WorkoutIntro>
   AudioCache audioCache= AudioCache();
   AudioPlayer audioPlayer = AudioPlayer();
 
-  final List _mp3List  = Mp3Wolf().mp3Wolf;
-  final List<int> _preTime = TrainingProcessWolf().preTime;
-  final List<int> _act120 = TrainingProcessWolf().act120;
+  final List _mp3List  = Mp3Intro().mp3Intro;
 
-  int lastDuration = 0, timerType = 2, timerRounds = 0, timerRound = 0 ;
-  int preDuration = 5, actDuration = 10, pauDuration = 10;
+  List _labelIntro = [
+    ['Boxen', 'Einführung'], ['Jab', 'linke Grade'], ['Cross', 'rechte Grade'], ['Cross', 'rechte Grade'],
+    ['zwei', 'Jab-Cross'], ['zwei', 'Jab-Cross'], ['', 'linker Haken'], ['', 'linker Haken'],
+    ['drei', 'Kombination'], ['drei', 'Kombination'], ['', 'rechter Haken'], ['', 'rechter Haken'],
+    ['vier', 'Kombination'], ['vier', 'Kombination'], ['3 Haken', 'Kombination'], ['3 Haken', 'Kombination'],
+    ['', 'Leberhaken'], ['', 'Leberhaken'], ['rechte', 'zum Körper'], ['rechte', 'zum Körper'],
+    ['rechter', 'Aufwärtshaken'], ['rechter', 'Aufwärtshaken'], ['Boxen', 'Abschluss'], ['Boxen', 'Abschluss'],
+  ];
+
+  String _mp3Intro = 'mp3/frankwolf/intro/intro';
+
+
+  int lastDuration = 0, timerType = 2, timerRounds = 0, timerRound = 0, tableTime = 0;
+  int preDuration = 5, actDuration = 10, pauDuration = 10, introSelection = 0, labelSelection = 0;
   bool resetPressed = false, timerRunning = false, lastRound = false;
 
   Color timerColor = timerColorPrep, timerColorBg = timerColorPrepBg;
@@ -42,8 +51,7 @@ class _WorkoutIntroState extends State<WorkoutIntro>
   List timerTypeColor = [timerColorFight,  timerColorPause, timerColorPrep];
   List timerTypeColorBg = [timerColorFightBg, timerColorPauseBg,  timerColorPrepBg];
   List timerTypeColorR = [timerColorFightR, timerColorPauseR,  timerColorPrepR];
-  List timerTypeText = ['Aktivzeit', 'Erholungszeit',  'Vorbereitung'];
-  List timerDuration = [10, 10, 5];
+  List timerDuration = [20, 10, 35];
 
   String get timerString {
     Duration duration = controller.duration! * controller.value;
@@ -74,37 +82,27 @@ class _WorkoutIntroState extends State<WorkoutIntro>
           if (lastDuration != duration.inSeconds){
             if (duration.inSeconds == 0){
               if (timerType == 0){
-                playSound('mp3/bell.mp3');
+                playSound('mp3/bell0.mp3');
               } else {
-                playSound('mp3/bell.mp3');
+                playSound('mp3/bell0.mp3');
               }
             }
             lastDuration = duration.inSeconds;
-            int tableTime = 120 - lastDuration;
+            tableTime = timerDuration[timerType] - lastDuration;
 
-            if (timerType == 2) {
-              if (_preTime[lastDuration] > 0) {
-                print(_mp3List[_preTime[lastDuration]][4]);
-                playSound(_mp3List[_preTime[lastDuration]][4]);
-
-
-              }
+            if (tableTime == 2) {
+              introSelection = introSelection + 1;
+              if (introSelection == 23)
+                Wakelock.disable();
+              print(_mp3Intro + introSelection.toString() + '.mp3');
+              playSound(_mp3Intro + introSelection.toString() + '.mp3');
             }
-            if (timerType == 0) {
-              if (_act120[tableTime] > 0) {
-                print(_mp3List[_act120[tableTime]][4]);
-                playSound(_mp3List[_act120[tableTime]][4]);
-              }
-            }
-
-
-
-            // print(duration.inSeconds);
           }
         });
       })
       ..addStatusListener((AnimationStatus status) {
         if (controller.isDismissed && timerRunning && !lastRound) {
+          labelSelection = labelSelection + 1;
           timerType = timerType + 1;
           if (timerType > 1)
             timerType = 0;
@@ -140,6 +138,8 @@ class _WorkoutIntroState extends State<WorkoutIntro>
                       icon: Icon(Icons.chevron_left),
                       iconSize: 30,
                       onPressed: () {
+                        Wakelock.disable();
+                        audioPlayer.stop();
                         if (controller.isAnimating)
                           controller.stop();
                         Navigator.pop(context);
@@ -278,15 +278,15 @@ class _WorkoutIntroState extends State<WorkoutIntro>
                                                         CrossAxisAlignment.center,
                                                         children: <Widget>[
                                                           Text(
-                                                            timerTypeText[timerType],
+                                                            _labelIntro[labelSelection][0],
                                                             style: TextStyle(
                                                                 fontSize: 28.0,
                                                                 color: Colors.white),
                                                           ),
                                                           Text(
-                                                            timerString,
+                                                            _labelIntro[labelSelection][1],
                                                             style: TextStyle(
-                                                                fontSize: 102.0,
+                                                                fontSize: 28.0,
                                                                 color: Colors.white),
                                                           ),
                                                         ],
@@ -305,24 +305,12 @@ class _WorkoutIntroState extends State<WorkoutIntro>
 
 
                                               Text(
-                                                  'Runden',
+                                                  'Runde',
                                                   style: TextStyle(fontSize: 38.0)
                                               ),
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
-                                                  IconButton(
-                                                    icon: Icon(Icons.remove_circle_outline),
-                                                    color: Colors.white,
-                                                    iconSize: 50,
-                                                    splashRadius: 40,
-                                                    disabledColor: Colors.blueAccent,
-                                                    onPressed: () {
-                                                      if (timerRounds > 0)
-                                                        timerRounds = timerRounds - 1;
-                                                      setState(() {});
-                                                    },
-                                                  ),
                                                   ElevatedButton(
                                                       child: Text(
                                                           timerRound.toString(),
@@ -361,18 +349,6 @@ class _WorkoutIntroState extends State<WorkoutIntro>
                                                       ),
                                                       onPressed: () => null
                                                   ),
-                                                  IconButton(
-                                                    icon: Icon(Icons.add_circle_outline),
-                                                    color: Colors.white,
-                                                    iconSize: 50,
-                                                    splashRadius: 40,
-                                                    disabledColor: Colors.blueAccent,
-                                                    onPressed: () {
-                                                      timerRounds = timerRounds + 1;
-
-                                                      setState(() {});
-                                                    },
-                                                  ),
                                                 ],
                                               ),
                                             ],
@@ -392,9 +368,12 @@ class _WorkoutIntroState extends State<WorkoutIntro>
                                                         foregroundColor: Colors.black87,
                                                         splashColor: Colors.white,
                                                         onPressed: () {
-                                                          if (controller.isAnimating)
+                                                          audioPlayer.stop();
+                                                          if (controller.isAnimating){
+                                                            Wakelock.disable();
                                                             controller.stop();
-                                                          else {
+                                                          } else {
+                                                            Wakelock.enable();
                                                             timerRunning = true;
                                                             controller.reverse(
                                                                 from: controller.value == 0.0
@@ -424,7 +403,9 @@ class _WorkoutIntroState extends State<WorkoutIntro>
                                                         foregroundColor: Colors.black87,
                                                         splashColor: Colors.white,
                                                         onPressed: () {
+                                                          audioPlayer.stop();
                                                           if (timerRunning){
+                                                            Wakelock.disable();
                                                             timerRunning = false;
                                                             controller.stop();
                                                             print('nach stop');

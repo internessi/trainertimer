@@ -9,6 +9,7 @@ import 'Pages/home.dart';
 import 'MySubs/style.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter/services.dart';
 
 
 void main() async {
@@ -17,7 +18,10 @@ void main() async {
   final addDirectory = await getApplicationDocumentsDirectory();
   Hive.init(addDirectory.path);
 
-  runApp(TrainerTimer());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((value) => runApp(TrainerTimer()));
+
+
 }
 
 class TrainerTimer extends StatelessWidget {

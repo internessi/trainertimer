@@ -1,40 +1,4 @@
 class TrainingProcessWolf {
-//  0 bell2
-//  1 3kocks
-//  2 5sekunden
-//  3 again
-//  4 bell
-//  5 bell2
-//  6 bell3
-//  7 four
-//  8 fourrightstraight
-//  9 fourtworightstraight
-// 10 indro
-// 11 jab
-// 12 jabjab
-// 13 lefthookrightstraight
-// 14 lefthookuppercut
-// 15 leftstraight
-// 16 livershoot
-// 17 livershootrighthooklefthook
-// 18 livershootrightstraight
-// 19 rightbodyshoot
-// 20 rightbodyshootlefthook
-// 21 rightstraight
-// 22 rightstraightlefthook
-// 23 rightstraightlefthookrightstraight
-// 24 round1
-// 25 three
-// 26 threehooks
-// 27 threehooksuppercut
-// 28 threerightstraight
-// 29 two
-// 30 tworightstraight
-// 31 uppercutlefthook
-// 32 uppercutrightstraight
-// 33 3knocks
-
-
 
   List<int> _preTime = [
     // 0 = 0 weil 1 ist Start
