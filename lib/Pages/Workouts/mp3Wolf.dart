@@ -71,7 +71,41 @@ class Mp3Wolf {
     ['3', '0', '0', '0', 'mp3/frankwolf/uppercutlefthook.mp3'],
     ['3', '0', '0', '0', 'mp3/frankwolf/uppercutrightstraight.mp3'],
     ['1', '0', '0', '0', 'mp3/tak.mp3'],
-
   ];
   get mp3Wolf => _mp3Wolf;
+}
+
+class Mp3Intro {
+
+  List _mp3Intro = [
+    // 0 = 0 weil 1 ist Start
+    ['1', '0', '0', '0', 'mp3/bell.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro1.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro2.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro3.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro4.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro5.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro6.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro7.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro8.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro9.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro10.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro11.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro12.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro13.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro14.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro15.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro16.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro17.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro18.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro19.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro20.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro21.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro22.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro23.mp3'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro24.mp3'],
+  ];
+
+  get mp3Intro => _mp3Intro;
+
 }

@@ -6,6 +6,7 @@ import 'package:trainertimer/Pages/Trainers/trainerFight.dart';
 import 'package:trainertimer/MySubs/ttCards.dart';
 import 'package:trainertimer/MySubs/colors.dart';
 import 'package:trainertimer/Pages/Workouts/workoutBasic.dart';
+import 'package:trainertimer/Pages/Workouts/workoutIntro.dart';
 
 class WorkoutSelection extends StatelessWidget {
   final String? type;
@@ -25,11 +26,11 @@ class WorkoutSelection extends StatelessWidget {
     "assets/imgs/Cropped/crop31.png",
     "assets/imgs/Cropped/crop31.png"
   ];
-  List textTrainer = ['Boxen', 'Boxing', 'BOXING 3/1'];
+  List textTrainer = ['Intro', 'Boxen', 'BOXING 3/1'];
   List typeTrainer = ['Frank Wolf', 'Frank Wolf', 'Frank Wolf'];
   List lineTrainer = [
-    'Boxtraining (Deutsch)',
-    'Boxing (English)',
+    'Einführung Boxen',
+    'Boxen 2/1 (deutsch)',
     'Boxtraining 3 Minuten Runden'
   ];
 
@@ -145,7 +146,7 @@ class WorkoutSelection extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WorkoutBasic('Boxen 2/1',10,120,60,1)
+                              builder: (context) => WorkoutIntro('Einführung',30,20,10,12)
                           )
                       );
                     },
@@ -165,7 +166,7 @@ class WorkoutSelection extends StatelessWidget {
                       );
                     },
                     child: TraierTimerCard(textTrainer[1], typeTrainer[1],
-                        lineTrainer[1], imgTrainer[0], 0, 0, 0, 1, 0, 0),
+                        lineTrainer[1], imgTrainer[0], 0, 0, 1, 0, 0, 0),
                   ),
                 ],
               ),

@@ -12,30 +12,57 @@ import 'mp3Wolf.dart';
 import 'process120.dart';
 import 'mp3Rutten.dart';
 
-class WorkoutBasic extends StatefulWidget {
+class WorkoutIntro extends StatefulWidget {
 
   final String timerLabel;
   final int preDuration, actDuration, pauDuration, timerRounds;
-  WorkoutBasic (this.timerLabel,this.preDuration,this.actDuration,this.pauDuration,this.timerRounds);
+  WorkoutIntro (this.timerLabel,this.preDuration,this.actDuration,this.pauDuration,this.timerRounds);
 
   Duration? duration;
   @override
-  _WorkoutBasicState createState() => _WorkoutBasicState();
+  _WorkoutIntroState createState() => _WorkoutIntroState();
 }
 
-class _WorkoutBasicState extends State<WorkoutBasic>
+class _WorkoutIntroState extends State<WorkoutIntro>
     with TickerProviderStateMixin {
   late AnimationController controller;
   AudioCache audioCache= AudioCache();
   AudioPlayer audioPlayer = AudioPlayer();
 
-  final List _mp3List  = Mp3Wolf().mp3Wolf;
-  final List<int> _preTime = TrainingProcessWolf().preTime;
-  final List<int> _act120 = TrainingProcessWolf().act120;
+  List mp3Intro = [
+    // 0 = 0 weil 1 ist Start
+    ['1', '0', '0', '0', 'mp3/bell.mp3', 'Einführung'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro1.mp3', 'Einführung'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro2.mp3', 'Jab'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro3.mp3', 'Cross'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro4.mp3', 'Cross'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro5.mp3', '2 - zwei'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro6.mp3', '2 - zwei'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro7.mp3', 'linker Haken'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro8.mp3', 'linker Haken'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro9.mp3', '3 - drei'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro10.mp3', '3 - drei'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro11.mp3', 'rechter Haken'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro12.mp3', 'rechter Haken'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro13.mp3', '4 - vier'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro14.mp3', '4 - vier'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro15.mp3', 'drei Haken'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro16.mp3', 'drei Haken'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro17.mp3', 'Leberhaken'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro18.mp3', 'Leberhaken'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro19.mp3', 'Körpertreffer'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro20.mp3', 'Körpertreffe'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro21.mp3', 'Aufwärtshaken'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro22.mp3', 'Aufwärtshaken'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro23.mp3', 'Abschluss'],
+    ['1', '0', '0', '0', 'mp3/frankwolf/intro/intro24.mp3', 'Abschluss'],
+  ];
+
 
   int lastDuration = 0, timerType = 2, timerRounds = 0, timerRound = 0 ;
-  int preDuration = 5, actDuration = 10, pauDuration = 10;
+  int preDuration = 5, actDuration = 10, pauDuration = 10, nextIntro = 0;
   bool resetPressed = false, timerRunning = false, lastRound = false;
+
 
   Color timerColor = timerColorPrep, timerColorBg = timerColorPrepBg;
 
@@ -74,28 +101,35 @@ class _WorkoutBasicState extends State<WorkoutBasic>
           if (lastDuration != duration.inSeconds){
             if (duration.inSeconds == 0){
               if (timerType == 0){
-                playSound('mp3/bell3.mp3');
+                playSound('mp3/bell1.mp3');
               } else {
                 playSound('mp3/bell1.mp3');
               }
             }
             lastDuration = duration.inSeconds;
-            int tableTime = 120 - lastDuration;
 
-            if (timerType == 2) {
-              if (_preTime[lastDuration] > 0) {
-                print(_mp3List[_preTime[lastDuration]][4]);
-                playSound(_mp3List[_preTime[lastDuration]][4]);
-
-
+            if (timerType == 2){
+              if (lastDuration == preDuration - 2){
+                nextIntro = nextIntro + 1;
+                print(mp3Intro[nextIntro][4]);
+                playSound(mp3Intro[nextIntro][4]);
               }
             }
-            if (timerType == 0) {
-              if (_act120[tableTime] > 0) {
-                print(_mp3List[_act120[tableTime]][4]);
-                playSound(_mp3List[_act120[tableTime]][4]);
+            if (timerType == 0){
+              if (lastDuration == actDuration - 2){
+                nextIntro = nextIntro + 1;
+                print(mp3Intro[nextIntro][4]);
+                playSound(mp3Intro[nextIntro][4]);
               }
             }
+            if (timerType == 1){
+              if (lastDuration == pauDuration - 2){
+                nextIntro = nextIntro + 1;
+                print(mp3Intro[nextIntro][4]);
+                playSound(mp3Intro[nextIntro][4]);
+              }
+            }
+
 
 
 
@@ -278,15 +312,9 @@ class _WorkoutBasicState extends State<WorkoutBasic>
                                                         CrossAxisAlignment.center,
                                                         children: <Widget>[
                                                           Text(
-                                                            timerTypeText[timerType],
+                                                            mp3Intro[nextIntro][5],
                                                             style: TextStyle(
-                                                                fontSize: 28.0,
-                                                                color: Colors.white),
-                                                          ),
-                                                          Text(
-                                                            timerString,
-                                                            style: TextStyle(
-                                                                fontSize: 102.0,
+                                                                fontSize: 36.0,
                                                                 color: Colors.white),
                                                           ),
                                                         ],
@@ -305,24 +333,13 @@ class _WorkoutBasicState extends State<WorkoutBasic>
 
 
                                               Text(
-                                                  'Runden',
-                                                  style: TextStyle(fontSize: 38.0)
+                                                  'Boxen Intro',
+                                                  style: TextStyle(fontSize: 34.0)
                                               ),
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
-                                                  IconButton(
-                                                    icon: Icon(Icons.remove_circle_outline),
-                                                    color: Colors.white,
-                                                    iconSize: 50,
-                                                    splashRadius: 40,
-                                                    disabledColor: Colors.blueAccent,
-                                                    onPressed: () {
-                                                      if (timerRounds > 0)
-                                                        timerRounds = timerRounds - 1;
-                                                      setState(() {});
-                                                    },
-                                                  ),
+
                                                   ElevatedButton(
                                                       child: Text(
                                                           timerRound.toString(),
@@ -361,18 +378,7 @@ class _WorkoutBasicState extends State<WorkoutBasic>
                                                       ),
                                                       onPressed: () => null
                                                   ),
-                                                  IconButton(
-                                                    icon: Icon(Icons.add_circle_outline),
-                                                    color: Colors.white,
-                                                    iconSize: 50,
-                                                    splashRadius: 40,
-                                                    disabledColor: Colors.blueAccent,
-                                                    onPressed: () {
-                                                      timerRounds = timerRounds + 1;
 
-                                                      setState(() {});
-                                                    },
-                                                  ),
                                                 ],
                                               ),
                                             ],
@@ -392,8 +398,10 @@ class _WorkoutBasicState extends State<WorkoutBasic>
                                                         foregroundColor: Colors.black87,
                                                         splashColor: Colors.white,
                                                         onPressed: () {
-                                                          if (controller.isAnimating)
+                                                          if (controller.isAnimating) {
+                                                            audioPlayer.stop();
                                                             controller.stop();
+                                                          }
                                                           else {
                                                             timerRunning = true;
                                                             controller.reverse(
@@ -410,53 +418,6 @@ class _WorkoutBasicState extends State<WorkoutBasic>
                                                             : Icons.play_arrow),
                                                         label: Text(
                                                             controller.isAnimating ? "Pause" : "Start")
-                                                    );
-                                                  }),
-                                              SizedBox(
-                                                width: 15,
-                                              ),
-                                              AnimatedBuilder(
-                                                  animation: controller,
-                                                  builder: (context, child) {
-                                                    return FloatingActionButton.extended(
-                                                        heroTag: 'Reset/Settings',
-                                                        backgroundColor: timerTypeColor[timerType],
-                                                        foregroundColor: Colors.black87,
-                                                        splashColor: Colors.white,
-                                                        onPressed: () {
-                                                          if (timerRunning){
-                                                            timerRunning = false;
-                                                            controller.stop();
-                                                            print('nach stop');
-                                                            controller.reset();
-                                                            print('nach reset');
-                                                            timerType = 2;
-                                                            timerColor = timerTypeColor[2];
-                                                            timerColorBg = timerTypeColorBg[2];
-                                                            lastRound = false;
-                                                            timerRound = 0;
-                                                            print('nach set');
-
-                                                            controller.stop();
-                                                            print('nach stop');
-
-                                                            setState(() {
-
-                                                            });
-
-                                                          }
-                                                          else {
-                                                            controller.reverse(
-                                                                from: controller.value == 0.0
-                                                                    ? 1.0
-                                                                    : controller.value);
-                                                          }
-                                                        },
-                                                        icon: Icon(timerRunning
-                                                            ? Icons.replay_sharp
-                                                            : Icons.settings),
-                                                        label: Text(
-                                                            timerRunning ? "Reset" : "Einstellung")
                                                     );
                                                   }),
                                             ],),
