@@ -25,9 +25,9 @@ class HomePage extends StatelessWidget {
         "assets/imgs/Cropped/crop12.png",
         "assets/imgs/Cropped/crop13.png"
       ];
-      List textFight = ['Warmup', 'BOXING', 'Muay Thai'];
+      List textFight = ['Warmup', 'BOX', 'Muay Thai'];
       List typeFight = ['TRAINING', 'TRAINING', 'TRAINING'];
-      List lineFight = ['3 Trainer, 3 Workouts', '2 Trainer, 4 Workouts', '1 Trainer, 2 Workouts'];
+      List lineFight = ['3 Trainer, 3 Workouts', 'Geführtes Training mit Ansagen', 'Geführtes Training mit Ansagen'];
     // FITNESS TRAINING
       List imgFitness = [
         "assets/imgs/Cropped/crop21.png",
@@ -54,44 +54,6 @@ class HomePage extends StatelessWidget {
                   locale.workout!,
                   style: TextStyle(fontWeight: FontWeight.normal),
                 ),
-                actions: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => TimerSelection(
-                                  locale.chest, typeTimer[0])));
-                    },
-                    child:
-                      Container(
-                      padding: EdgeInsets.symmetric(horizontal: 18, vertical: 18),
-                      child: RichText(
-                        text: TextSpan(
-                          style: TextStyle(color: greyColor, fontWeight: FontWeight.normal),
-                          children: [
-                            WidgetSpan(
-                              child: Icon(Icons.arrow_forward, color: greyColor, size: 18),
-                            ),
-                            TextSpan(
-                              text: ' Trainer anzeigen',
-                            ),
-                          ],
-                        ),
-                      )
-
-                    ),
-                  ),
-                  IconButton(
-                      icon: Icon(
-                        Icons.fitness_center,
-                        color: greyColor,
-                        size: 18,
-                      ),
-                      onPressed: () {
-
-                      })
-                ],
               ),
             ),
           ),
@@ -133,7 +95,7 @@ class HomePage extends StatelessWidget {
                                       locale.chest, typeTimer[0])));
                         },
                         child:
-                        TraierTimerCard(textTimer[0],typeTimer[0], lineTimer[0], imgTimer[0], 0, 1, 1, 0, 0, 0),
+                        TraierTimerCard(textTimer[0],typeTimer[0], lineTimer[0], imgFight[0], 0, 1, 1, 0, 0, 0),
                       ),
                       SizedBox(
                         height: 15,
@@ -151,11 +113,11 @@ class HomePage extends StatelessWidget {
                         child: ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: 3,
+                          itemCount: 2,
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
                               onTap: () {
-                                if (index ==1)
+                                if (index ==0)
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -164,43 +126,14 @@ class HomePage extends StatelessWidget {
                                             locale.chest, typeFight[index])));
                               },
                               child:
-                                (index ==1)
-                                    ? TraierTimerCard(textFight[index],typeFight[index], lineFight[index], imgFight[index], index, 0, 1, 0, 0, 0)
-                                    : TraierTimerCard(textFight[index],typeFight[index], lineFight[index], imgFight[index], index, 0, 1, 0, 0, 1)
+                                (index ==0)
+                                    ? TraierTimerCard(textFight[index+1],typeFight[index+1], lineFight[index+1], imgFight[index+1], index+1, 0, 1, 0, 0, 0)
+                                    : TraierTimerCard(textFight[index+1],' ', lineFight[index+1], imgFight[index+1], index+1, 0, 1, 1, 0, 1)
                             );
                           },
                         ),
                       ),
-                      SizedBox(
-                        height: 15,
-                      ),
-
-                      // FITNESS TRAINING
-                      Text(
-                        locale.headline3!.toUpperCase(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2!
-                            .copyWith(color: Colors.white60, letterSpacing: 1),
-                      ),
-                      Container(
-                        child: ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: 2,
-                          itemBuilder: (BuildContext context, int index) {
-                            return GestureDetector(
-                              onTap: () {
-
-                              },
-                              child:
-                              TraierTimerCard(textFitness[index],typeFitness[index],
-                                              lineFitness[index], imgFitness[index], index, 0, 1, 1, 0, 1),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
+                                          ],
                   ),
                 ),
               )

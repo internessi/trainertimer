@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:hive/hive.dart';
-import 'package:trainertimer/Pages/Timers/timerDialog.dart';
 import 'package:trainertimer/Locale/locales.dart';
 import 'package:trainertimer/MySubs/colors.dart';
 import 'package:trainertimer/Pages/Workouts/processWolf.dart';
@@ -46,16 +45,20 @@ class _WorkoutBasicState extends State<WorkoutBasic>
   List timerTypeColorR = [timerColorFightR, timerColorPauseR,  timerColorPrepR];
   List timerTypeText = ['Aktivzeit', 'Erholungszeit',  'Vorbereitung'];
   List timerDuration = [10, 10, 5];
-  List training = ['1','1'];
+  List training = ['1','1','1'];
 
-  int trainingDuration = 0;
-
-
+  int trainingDuration = 0, rest = 0;
 
   String get timerString {
     Duration duration = controller.duration! * controller.value;
     return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
   }
+
+  String testTimerString(String sec) {
+    Duration duration = Duration(seconds: int.parse(sec));
+    return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+  }
+
   String durationString(String sec) {
     Duration duration = Duration(seconds: int.parse(sec));
     return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
@@ -89,7 +92,11 @@ class _WorkoutBasicState extends State<WorkoutBasic>
             lastDuration = duration.inSeconds;
             tableTime = actDuration - lastDuration;
 
+
+
             if (timerType == 0){
+              if (duration.inSeconds < 4)
+                waitTime = 5;
               waitTime = waitTime - 1;
               if (waitTime == 0) {
                 if ((training.length - 1) > nextMp3) {
@@ -99,6 +106,11 @@ class _WorkoutBasicState extends State<WorkoutBasic>
                   nextMp3 = nextMp3 + 1;
                 }
               }
+            }else{
+              if (duration.inSeconds == 10) {
+                playSound(_mp3List[46][4]+'.mp3');
+              }
+
             }
 
             // print(duration.inSeconds);
@@ -110,11 +122,14 @@ class _WorkoutBasicState extends State<WorkoutBasic>
           timerType = timerType + 1;
           if (timerType > 1)
             timerType = 0;
-          if (timerType == 0)
+          if (timerType == 0) {
             buildTraining();
             waitTime = 4;
             nextMp3 = 0;
+            print(
+                '*************************************************************************');
             timerRound = timerRound + 1;
+          }
           if (timerRounds == timerRound)
             lastRound = true;
           controller.duration = Duration(seconds: timerDuration[timerType]);
@@ -183,25 +198,39 @@ class _WorkoutBasicState extends State<WorkoutBasic>
                           width: 5,
                         ),
                         IconButton(
-                          icon: Icon(Icons.settings),
-                          color: Colors.white12,
-                          iconSize: 30,
+                          icon: Icon(Icons.replay),
+                          color: Colors.white,
+                          iconSize: 25,
                           splashRadius: 30,
                           disabledColor: Colors.blueAccent,
                           onPressed: () {
-                            Navigator.of(context).push(new MaterialPageRoute<Null>(
-                                builder: (BuildContext context) {
-                                  return new TimerDialog();
-                                },
-                                fullscreenDialog: true
-                            ));
+                            Wakelock.disable();
+                            trainingDuration = 0;
+                            timerRounds = widget.timerRounds;
+                            controller.duration = Duration(seconds: timerDuration[2]);
+                            rest = 0;
+                            timerType = 2;
+                            timerRound = 0;
+                            waitTime = 4;
+                            nextMp3 = 0;
+                            timerColor = timerTypeColor[2];
+                            timerColorBg = timerTypeColorBg[2];
+                            lastRound = false;
+                            if (timerRunning) {
+                              timerRunning = false;
+                              controller.stop();
+                              controller.reset();
+                              controller.stop();
+                            }
+                            setState(() {});
                           },
                         ),
                         SizedBox(
-                          width: 10,
+                          width: 15,
                         ),
                       ],
                     ),
+
 
                   ],
                 ),
@@ -295,7 +324,7 @@ class _WorkoutBasicState extends State<WorkoutBasic>
                                                                 fontSize: 102.0,
                                                                 color: Colors.white),
                                                           ),
-                                                        ],
+                                                         ],
                                                       ),
                                                     ),
                                                   ],
@@ -303,13 +332,9 @@ class _WorkoutBasicState extends State<WorkoutBasic>
                                               ),
                                             ),
                                           ),
-
-
                                           Column(
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             children: [
-
-
                                               Text(
                                                   'Runde',
                                                   style: TextStyle(fontSize: 38.0)
@@ -383,9 +408,6 @@ class _WorkoutBasicState extends State<WorkoutBasic>
                                               ),
                                             ],
                                           ),
-
-
-
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
@@ -420,55 +442,7 @@ class _WorkoutBasicState extends State<WorkoutBasic>
                                                             controller.isAnimating ? "Pause" : "Start")
                                                     );
                                                   }),
-                                              SizedBox(
-                                                width: 15,
-                                              ),
-                                              AnimatedBuilder(
-                                                  animation: controller,
-                                                  builder: (context, child) {
-                                                    return FloatingActionButton.extended(
-                                                        heroTag: 'Reset/Settings',
-                                                        backgroundColor: timerTypeColor[timerType],
-                                                        foregroundColor: Colors.black87,
-                                                        splashColor: Colors.white,
-                                                        onPressed: () {
-                                                          Wakelock.disable();
-                                                          if (timerRunning){
-                                                            timerRunning = false;
-                                                            controller.stop();
-                                                            print('nach stop');
-                                                            controller.reset();
-                                                            print('nach reset');
-                                                            timerType = 2;
-                                                            timerColor = timerTypeColor[2];
-                                                            timerColorBg = timerTypeColorBg[2];
-                                                            lastRound = false;
-                                                            timerRound = 0;
-                                                            print('nach set');
-
-                                                            controller.stop();
-                                                            print('nach stop');
-
-                                                            setState(() {
-
-                                                            });
-
-                                                          }
-                                                          else {
-                                                            controller.reverse(
-                                                                from: controller.value == 0.0
-                                                                    ? 1.0
-                                                                    : controller.value);
-                                                          }
-                                                        },
-                                                        icon: Icon(timerRunning
-                                                            ? Icons.replay_sharp
-                                                            : Icons.settings),
-                                                        label: Text(
-                                                            timerRunning ? "Reset" : "Einstellung")
-                                                    );
-                                                  }),
-                                            ],),
+                                             ],),
 
                                         ],
                                       ),
@@ -509,7 +483,8 @@ class _WorkoutBasicState extends State<WorkoutBasic>
 
   void buildTraining() {
     Random rnd = new Random();
-    int com = 0, rest = actDuration - 2;
+    int com = 0;
+    rest = actDuration - 3;
     training.clear();
 
     addStarter();
@@ -559,7 +534,64 @@ class _WorkoutBasicState extends State<WorkoutBasic>
     addStandard();
     addExtra();
     addSimple();
+
+    addStarter();
+    addStandard();
+    addExtra();
+    addStandard();
+    addExtra();
+    addStandard();
+    addExtra();
+    addSimple();
+
+    addSimple();
+
+    addStarter();
+    addSpecial();
+    addExtra();
+    addSimple();
+
+    addStarter();
+    addStandard();
+    addStandard();
+    addExtra();
+    addSimple();
+
+    addStarter();
+    addStandard();
+    addStandard();
+    addExtra();
+    addSimple();
+
+    addStarter();
+    addStandard();
+    addStandard();
+    addExtra();
+    addSimple();
+
+    addStarter();
+    addStandard();
+    addStandard();
+    addExtra();
+    addSimple();
+
+    addStarter();
+    addStandard();
+    addStandard();
+    addExtra();
+    addSimple();
+
+    addStarter();
+    addStandard();
+    addStandard();
+    addExtra();
+    addSimple();
   }
+
+
+
+
+
 
   void addSimple() {
     // print('Simple ' + trainingDuration.toString());
@@ -614,7 +646,10 @@ class _WorkoutBasicState extends State<WorkoutBasic>
   }
 
   void addAgain() {
-    training.add([(int.parse(_mp3List[44][0])+betweenTime).toString(), _mp3List[44][4]+'.mp3']);
+    int lenTime = int.parse(_mp3List[44][0])+betweenTime;
+    rest = rest - lenTime;
+
+    training.add([lenTime.toString(), _mp3List[44][4]+'.mp3', rest.toString()]);
     // print(_mp3List[44][4]+'.mp3');
     trainingDuration = trainingDuration + int.parse(_mp3List[44][0]);
   }
@@ -622,8 +657,10 @@ class _WorkoutBasicState extends State<WorkoutBasic>
   void addTraining(int min, max) {
         Random rnd = new Random();
         int com = min + rnd.nextInt(max - min);
+        int lenTime = int.parse(_mp3List[com][0])+betweenTime;
+        rest = rest - lenTime;
 
-        training.add([(int.parse(_mp3List[com][0])+betweenTime).toString(), _mp3List[com][4]+'.mp3']);
+        training.add([lenTime.toString(), _mp3List[com][4]+'.mp3', rest.toString()]);
         // print(_mp3List[com][4]+'.mp3');
         trainingDuration = trainingDuration + int.parse(_mp3List[com][0]) + betweenTime;
       }

@@ -53,7 +53,7 @@ class TrainerTimer extends StatelessWidget {
             locale: locale,
             theme: appTheme,
             // home: Language(true),
-            home: HomePage(),
+            home: Login(),
             debugShowCheckedModeBanner: false,
             routes: PageRoutes().routes(),
           );

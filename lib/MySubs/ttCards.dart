@@ -138,7 +138,7 @@ class TraierTimerCard extends StatelessWidget {
                 if (comingSoon == 1)
                   Center(
                     child: Container(
-                      margin: EdgeInsets.all(25),
+                      margin: EdgeInsets.all(20),
                       width: MediaQuery.of(context).size.width,
                       height: 83,
                       decoration: BoxDecoration(
@@ -146,11 +146,14 @@ class TraierTimerCard extends StatelessWidget {
                         color: Colors.black.withOpacity(0.6),
                       ),
                       child: Center(
-                        child: Text(
+                        child: Container(
+                          margin: EdgeInsets.only(top: 15),
+                          child: Text(
                           'COMING SOON',
                           style: TextStyle(
                               color: Colors.white70,
                               fontWeight: FontWeight.normal),
+                          ),
                         ),
                       ),
                     ),

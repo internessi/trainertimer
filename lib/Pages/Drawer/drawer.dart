@@ -8,33 +8,38 @@ import 'package:trainertimer/Pages/home.dart';
 import 'package:trainertimer/MySubs/colors.dart';
 import 'package:flutter/material.dart';
 
+import 'aboutUs.dart';
 import 'blogs.dart';
+import 'contactDetails.dart';
+import 'noTrackingNoAds.dart';
 
 class MyDrawer extends StatelessWidget {
   final List icons = [
-    Icons.alarm_on,
+    Icons.sports_mma,
     Icons.emoji_people,
+    Icons.not_interested,
     Icons.article_outlined,
     Icons.info,
-    Icons.language,
   ];
 
   final List routes = [
     HomePage(),
-    HomePage(),
-    Blogs(),
+    AboutUs(),
+    NoTrackintNoAds(),
     PrivacyPolicy(),
-    Language(),
+    ContactDetails(),
+    // Blogs(),
+    // Language(),
   ];
   @override
   Widget build(BuildContext context) {
     var locale = AppLocalizations.of(context)!;
     List drawerItems = [
       locale.home,
-      locale.setAlarm,
-      locale.blogs,
-      locale.privacyPolicy,
-      locale.selectLanguage,
+      'We want you!',
+      'NoTracking - NoAds',
+      'Datenschutz',
+      'Impressum',
     ];
 
     return ClipRect(
@@ -51,11 +56,11 @@ class MyDrawer extends StatelessWidget {
                     ListTile(
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                      title: Text("Frank Wolf",
+                      title: Text('trainertimer.de',
                           style: Theme.of(context)
                               .textTheme
                               .bodyText2!
-                              .copyWith(fontSize: 17)),
+                              .copyWith(fontSize: 18)),
                       subtitle: GestureDetector(
                         child: Text(locale.viewProfile!,
                             style: Theme.of(context)

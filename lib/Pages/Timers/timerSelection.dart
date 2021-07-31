@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:animation_wrappers/Animations/faded_scale_animation.dart';
 import 'package:animation_wrappers/Animations/faded_slide_animation.dart';
 import 'package:trainertimer/Locale/locales.dart';
-import 'package:trainertimer/Pages/Workouts/workoutDetails.dart';
 import 'package:trainertimer/Pages/Timers/timerBasic.dart';
-import 'package:trainertimer/Pages/Timers/TimerSetting.dart';
+import 'package:trainertimer/Pages/Timers/timerSetting.dart';
 import 'package:trainertimer/MySubs/colors.dart';
 import 'package:hive/hive.dart';
 
@@ -113,7 +112,7 @@ class _TimerSelectionState extends State<TimerSelection> {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(
-                          "assets/imgs/Cropped/Header1.png",
+                          "assets/imgs/Cropped/Header4.png",
                         ),
                         fit: BoxFit.cover)),
               ),
@@ -349,8 +348,48 @@ class _TimerSelectionState extends State<TimerSelection> {
                             iconSize: 15,
                             splashRadius: 15,
                             onPressed: () {
-                              listViewIndex = index;
-                              deleteTimer();
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    backgroundColor: Colors.grey[900]!.withOpacity(0.9),
+                                    content:
+                                      Text('"' + sTimer[index][0].toUpperCase() + '"' + ' löschen?',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2!
+                                            .copyWith(
+                                          color: Colors.white70,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    actions: <Widget>[
+                                      IconButton(
+                                        icon: Icon(Icons.check),
+                                        color: Colors.white70,
+                                        iconSize: 30,
+                                        splashRadius: 30,
+                                        onPressed: () {
+                                          listViewIndex = index;
+                                          deleteTimer();
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      IconButton(
+                                        icon: Icon(Icons.clear),
+                                        color: Colors.white70,
+                                        iconSize: 30,
+                                        splashRadius: 30,
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+
                             },
                           ),
                         ],
@@ -373,6 +412,7 @@ class _TimerSelectionState extends State<TimerSelection> {
           child: FloatingActionButton(
             backgroundColor: Colors.white38,
             onPressed: () {
+              print(sTimer.length);
               sTimer.add([
                 'mein Timer',
                 '10',
@@ -384,6 +424,15 @@ class _TimerSelectionState extends State<TimerSelection> {
               var tBox = Hive.box('TimersBox');
               tBox.put(0, sTimer);
               setState(() {});
+              print(sTimer.length);
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        TimerSetting(sTimer.length-1, sTimer)),
+              ).then((value) => setState(() {}));
+
             },
             tooltip: 'Increment',
             child: Icon(Icons.add),

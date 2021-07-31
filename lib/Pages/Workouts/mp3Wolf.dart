@@ -44,7 +44,7 @@ class Mp3Wolf {
     ['3', '4', '0', '0', 'mp3/frankwolf/boxing/t41'],	//	41	rechte gerade leberhaken und ein linker Haken
     ['2', '5', '0', '0', 'mp3/frankwolf/boxing/t42'],	//	42	rechte grade auf den Körper
     ['3', '5', '0', '0', 'mp3/frankwolf/boxing/t43'],	//	43	rechte grade auf den Körper und ein linker Haken
-    ['1', '6', '0', '0', 'mp3/frankwolf/boxing/t44'],	//	44	und nochmal
+    ['3', '6', '0', '0', 'mp3/frankwolf/boxing/t44'],	//	44	und nochmal
     ['2', '7', '0', '0', 'mp3/frankwolf/boxing/t45'],	//	45	in 5s
     ['2', '7', '0', '0', 'mp3/frankwolf/boxing/t46'],	//	46	in 10s
     ['2', '8', '0', '0', 'mp3/frankwolf/boxing/t47'],	//	47	noch 60s

@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:trainertimer/Pages/Timers/timerDialog.dart';
 import 'package:trainertimer/Locale/locales.dart';
 import 'package:trainertimer/MySubs/colors.dart';
 import 'package:wakelock/wakelock.dart';
@@ -170,28 +169,36 @@ class _WorkoutIntroState extends State<WorkoutIntro>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-
-                        SizedBox(
-                          width: 5,
-                        ),
                         IconButton(
-                          icon: Icon(Icons.settings),
-                          color: Colors.white12,
-                          iconSize: 30,
+                          icon: Icon(Icons.replay),
+                          color: Colors.white,
+                          iconSize: 25,
                           splashRadius: 30,
                           disabledColor: Colors.blueAccent,
                           onPressed: () {
-                            Navigator.of(context).push(new MaterialPageRoute<Null>(
-                                builder: (BuildContext context) {
-                                  return new TimerDialog();
-                                },
-                                fullscreenDialog: true
-                            ));
+                            Wakelock.disable();
+                            timerRounds = widget.timerRounds;
+                            controller.duration = Duration(seconds: timerDuration[2]);
+                            timerType = 2;
+                            timerRound = 0;
+                            introSelection = 0;
+                            labelSelection = 0;
+                            timerColor = timerTypeColor[2];
+                            timerColorBg = timerTypeColorBg[2];
+                            lastRound = false;
+                            if (timerRunning) {
+                              timerRunning = false;
+                              controller.stop();
+                              controller.reset();
+                              controller.stop();
+                            }
+                            setState(() {});
                           },
                         ),
                         SizedBox(
-                          width: 10,
+                          width: 5,
                         ),
+
                       ],
                     ),
 
@@ -387,55 +394,6 @@ class _WorkoutIntroState extends State<WorkoutIntro>
                                                             : Icons.play_arrow),
                                                         label: Text(
                                                             controller.isAnimating ? "Pause" : "Start")
-                                                    );
-                                                  }),
-                                              SizedBox(
-                                                width: 15,
-                                              ),
-                                              AnimatedBuilder(
-                                                  animation: controller,
-                                                  builder: (context, child) {
-                                                    return FloatingActionButton.extended(
-                                                        heroTag: 'Reset/Settings',
-                                                        backgroundColor: timerTypeColor[timerType],
-                                                        foregroundColor: Colors.black87,
-                                                        splashColor: Colors.white,
-                                                        onPressed: () {
-                                                          audioPlayer.stop();
-                                                          if (timerRunning){
-                                                            Wakelock.disable();
-                                                            timerRunning = false;
-                                                            controller.stop();
-                                                            print('nach stop');
-                                                            controller.reset();
-                                                            print('nach reset');
-                                                            timerType = 2;
-                                                            timerColor = timerTypeColor[2];
-                                                            timerColorBg = timerTypeColorBg[2];
-                                                            lastRound = false;
-                                                            timerRound = 0;
-                                                            print('nach set');
-
-                                                            controller.stop();
-                                                            print('nach stop');
-
-                                                            setState(() {
-
-                                                            });
-
-                                                          }
-                                                          else {
-                                                            controller.reverse(
-                                                                from: controller.value == 0.0
-                                                                    ? 1.0
-                                                                    : controller.value);
-                                                          }
-                                                        },
-                                                        icon: Icon(timerRunning
-                                                            ? Icons.replay_sharp
-                                                            : Icons.settings),
-                                                        label: Text(
-                                                            timerRunning ? "Reset" : "Einstellung")
                                                     );
                                                   }),
                                             ],),

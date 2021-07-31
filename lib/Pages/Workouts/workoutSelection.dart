@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:animation_wrappers/Animations/faded_slide_animation.dart';
 import 'package:trainertimer/Locale/locales.dart';
-import 'package:trainertimer/Pages/Trainers/trainerFight.dart';
 import 'package:trainertimer/MySubs/ttCards.dart';
 import 'package:trainertimer/MySubs/colors.dart';
 import 'package:trainertimer/Pages/Workouts/workoutBasic.dart';
@@ -26,12 +25,12 @@ class WorkoutSelection extends StatelessWidget {
     "assets/imgs/Cropped/crop31.png",
     "assets/imgs/Cropped/crop31.png"
   ];
-  List textTrainer = ['Intro', 'Boxen', 'BOXING 3/1'];
+  List textTrainer = ['Einführung', 'BOXEN 2/1', 'BOXEN 3/1'];
   List typeTrainer = ['Frank Wolf', 'Frank Wolf', 'Frank Wolf'];
   List lineTrainer = [
     'Einführung Boxen',
     'Boxen 2/1 (deutsch)',
-    'Boxtraining 3 Minuten Runden'
+    'Boxen 3/1 (deutsch)'
   ];
 
   @override
@@ -102,7 +101,7 @@ class WorkoutSelection extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'TIMER',
+                              'BOX',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText2!
@@ -167,6 +166,21 @@ class WorkoutSelection extends StatelessWidget {
                     },
                     child: TraierTimerCard(textTrainer[1], typeTrainer[1],
                         lineTrainer[1], imgTrainer[0], 0, 0, 1, 0, 0, 0),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => WorkoutBasic('Boxen 3/1',15,180,60,3)
+                          )
+                      );
+                    },
+                    child: TraierTimerCard(textTrainer[2], typeTrainer[2],
+                        lineTrainer[2], imgTrainer[0], 0, 0, 1, 0, 0, 0),
                   ),
                 ],
               ),

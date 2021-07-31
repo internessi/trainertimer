@@ -68,6 +68,8 @@ class _TimerSettingState extends State<TimerSetting> {
                     icon: Icon(Icons.chevron_left),
                     iconSize: 30,
                     onPressed: () {
+                      var tBox = Hive.box('TimersBox');
+                      tBox.put(0, sTimer);
                       Navigator.pop(context);
                     }),
                 titleSpacing: 0,
@@ -81,34 +83,7 @@ class _TimerSettingState extends State<TimerSetting> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ElevatedButton.icon(
-                            icon: Icon(
-                            Icons.save_alt,
-                              color: Colors.white70,
-                              size: 24.0,
-                            ),
-                          label: Text(
-                              'speichern',
-                              style: TextStyle(color: Colors.white70,  fontWeight: FontWeight.normal)
-                          ),
-                          onPressed: () {
-                            var tBox = Hive.box('TimersBox');
-                            tBox.put(0, sTimer);
-                          },
-                          style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  timerColorPauseBg),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.grey[800]!.withOpacity(0.5)),
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      side: BorderSide(
-                                          color: Colors.grey[800]!
-                                              .withOpacity(0.5),
-                                          width: 3)))),
-                          ),
+
                       SizedBox(
                         width: 15,
                       ),
@@ -170,7 +145,7 @@ class _TimerSettingState extends State<TimerSetting> {
                                                 contentPadding: EdgeInsets.zero
                                             ),
                                             onChanged: (text) {
-                                              sTimer[index][0] = text;
+                                              sTimer[index][0] = text.substring(0, 16);
                                             },
                                           ),
                                         ),
@@ -189,7 +164,7 @@ class _TimerSettingState extends State<TimerSetting> {
                       ),
                       ClipRRect(
                         child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
+                          filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
                           child: Container(
                             margin: EdgeInsets.only(top: 5, bottom: 5),
                             decoration: BoxDecoration(
@@ -537,15 +512,15 @@ class _TimerSettingState extends State<TimerSetting> {
                                                 style: TextStyle(fontSize: boxSize, fontWeight: FontWeight.bold)
                                             ),
                                             style: ButtonStyle(
-                                                minimumSize: MaterialStateProperty.all(Size(110,30)),
-                                                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                                                backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!.withOpacity(0.5)),
-                                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                    RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius.circular(18.0),
-                                                        side: BorderSide(color: Colors.white70, width: 5)
-                                                                                                         )
-                                                ),
+                                              minimumSize: MaterialStateProperty.all(Size(110,30)),
+                                              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                                              backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!.withOpacity(0.5)),
+                                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(18.0),
+                                                      side: BorderSide(color: Colors.white70, width: 5)
+                                                  )
+                                              ),
                                             ),
                                             onPressed: () => null
                                         ),
