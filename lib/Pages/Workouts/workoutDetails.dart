@@ -65,11 +65,11 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                                     });
                                   },
                                   child: FadedScaleAnimation(
-                                    Container(
+                                    child: Container(
                                       width: 190,
                                       child: Text('oben'),
                                     ),
-                                    durationInMilliseconds: 500,
+                                  //  durationInMilliseconds: 500,
                                   ),
                                 );
                               },
@@ -192,7 +192,7 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
 
                     },
                     child: FadedScaleAnimation(
-                      Container(
+                      child: Container(
                         height: 55,
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
@@ -207,7 +207,7 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                               fontWeight: FontWeight.normal),
                         )),
                       ),
-                      durationInMilliseconds: 500,
+                     // durationInMilliseconds: 500,
                     ),
                   ),
                 ],

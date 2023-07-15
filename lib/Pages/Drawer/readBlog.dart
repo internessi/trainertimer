@@ -40,14 +40,14 @@ class ReadBlog extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20),
               height: 80,
               child: FadedScaleAnimation(
-                Text(
+                child: Text(
                   title!,
                   style: Theme.of(context)
                       .textTheme
                       .bodyText2!
                       .copyWith(fontSize: 20, color: Colors.white),
                 ),
-                durationInMilliseconds: 1000,
+                // durationInMilliseconds: 1000,
               ),
             ),
             preferredSize: Size.fromHeight(115)),

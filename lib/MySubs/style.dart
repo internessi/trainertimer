@@ -5,7 +5,7 @@ import 'colors.dart';
 final ThemeData appTheme = ThemeData(
   fontFamily: 'Poppins',
   scaffoldBackgroundColor: scaffoldBg,
-  accentColor: buttonColor,
+  //accentColor: buttonColor,
   backgroundColor: scaffoldBg,
   unselectedWidgetColor: greyColor,
   appBarTheme: AppBarTheme(

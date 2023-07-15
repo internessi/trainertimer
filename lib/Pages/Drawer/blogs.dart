@@ -96,7 +96,7 @@ class Blogs extends StatelessWidget {
                                     ReadBlog(title[index], imgs[index])));
                       },
                       child: FadedSlideAnimation(
-                        ClipRect(
+                        child: ClipRect(
                           child: BackdropFilter(
                             filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
                             child: Container(
@@ -110,7 +110,7 @@ class Blogs extends StatelessWidget {
                               child: Row(
                                 children: [
                                   FadedScaleAnimation(
-                                    Container(
+                                    child: Container(
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
                                             image: AssetImage(imgs[index]),
@@ -123,7 +123,7 @@ class Blogs extends StatelessWidget {
                                       height: 110,
                                       width: 100,
                                     ),
-                                    durationInMilliseconds: 1000,
+                                    //durationInMilliseconds: 1000,
                                   ),
                                   Expanded(
                                     child: Padding(

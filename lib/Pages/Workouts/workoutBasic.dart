@@ -465,7 +465,6 @@ class _WorkoutBasicState extends State<WorkoutBasic>
 
   void initSounds() async {
     audioPlayer = AudioPlayer();
-    audioCache = AudioCache(fixedPlayer: audioPlayer);
     // audioCache.loadAll(mp3);
   }
 
@@ -474,7 +473,7 @@ class _WorkoutBasicState extends State<WorkoutBasic>
     if ( audioPlayer.state.index == 1) {
       audioPlayer.stop();
     }
-    audioPlayer = await audioCache.play(fileName);
+    await audioPlayer.play(AssetSource(fileName));
   }
 
   void stopSound(_mp3) {

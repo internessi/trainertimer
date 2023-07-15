@@ -50,62 +50,65 @@ class MyDrawer extends StatelessWidget {
           child: Drawer(
             child: Container(
               color: Colors.grey[900],
-              child: FadedSlideAnimation(
-                ListView(
-                  children: [
-                    ListTile(
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                      title: Text('trainertimer.de',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(fontSize: 18)),
-                      subtitle: GestureDetector(
-                        child: Text(locale.viewProfile!,
+              //child: FadedSlideAnimation(
+                child:
+
+                  ListView(
+                    children: [
+                      ListTile(
+                        contentPadding:
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                        title: Text('trainertimer.de',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText2!
-                                .copyWith(fontSize: 13, color: darkGrey)),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 40,
-                    ),
-                    ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 5,
-                      itemBuilder: (BuildContext context, int index) {
-                        return ListTile(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => routes[index]));
-                          },
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 20, vertical: 3),
-                          leading: Icon(
-                            icons[index],
-                            color: buttonColor,
-                            size: 20,
-                          ),
-                          horizontalTitleGap: 0,
-                          title: Text(drawerItems[index],
+                                .copyWith(fontSize: 18)),
+                        subtitle: GestureDetector(
+                          child: Text(locale.viewProfile!,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText2!
-                                  .copyWith(fontSize: 15)),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-                beginOffset: Offset(-0.4, 0),
-                endOffset: Offset(0, 0),
-                slideCurve: Curves.linearToEaseOut,
-              ),
+                                  .copyWith(fontSize: 13, color: darkGrey)),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: 5,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ListTile(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => routes[index]));
+                            },
+                            contentPadding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 3),
+                            leading: Icon(
+                              icons[index],
+                              color: buttonColor,
+                              size: 20,
+                            ),
+                            horizontalTitleGap: 0,
+                            title: Text(drawerItems[index],
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2!
+                                    .copyWith(fontSize: 15)),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+
+                //beginOffset: Offset(-0.4, 0),
+                //endOffset: Offset(0, 0),
+                //slideCurve: Curves.linearToEaseOut,
+             // ),
             ),
           ),
         ),

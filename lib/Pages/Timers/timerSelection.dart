@@ -155,7 +155,7 @@ class _TimerSelectionState extends State<TimerSelection> {
         preferredSize: Size.fromHeight(115),
       ),
       body: FadedSlideAnimation(
-        Stack(
+        child: Stack(
           children: [
             Container(
               height: MediaQuery.of(context).size.height,
@@ -219,7 +219,7 @@ class _TimerSelectionState extends State<TimerSelection> {
                                 child: Row(
                                   children: [
                                     FadedScaleAnimation(
-                                      Container(
+                                      child: Container(
                                         height: 60,
                                         child: Icon(
                                           iconTimer[
@@ -228,7 +228,7 @@ class _TimerSelectionState extends State<TimerSelection> {
                                           size: 40,
                                         ),
                                       ),
-                                      durationInMilliseconds: 1500,
+                                      //durationInMilliseconds: 1500,
                                     ),
                                     SizedBox(
                                       width: 15,

@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
           preferredSize: Size.fromHeight(AppBar().preferredSize.height)),
       drawer: MyDrawer(),
       body: FadedSlideAnimation(
-        Container(
+        child: Container(
           width: MediaQuery.of(context).size.width,
           child: Stack(
             children: [

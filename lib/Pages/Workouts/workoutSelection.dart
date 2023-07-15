@@ -127,7 +127,7 @@ class WorkoutSelection extends StatelessWidget {
         preferredSize: Size.fromHeight(115),
       ),
       body: FadedSlideAnimation(
-        Stack(
+        child: Stack(
           children: [
             Container(
               height: MediaQuery.of(context).size.height,

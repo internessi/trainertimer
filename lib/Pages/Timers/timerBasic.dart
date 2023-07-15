@@ -52,6 +52,10 @@ class _TimerBasicState extends State<TimerBasic >
     preDuration = widget.preDuration;
     actDuration = widget.actDuration;
     pauDuration = widget.pauDuration;
+    if ((actDuration + pauDuration)==15){
+      actDuration = 3;
+      pauDuration = 7;
+    }
     timerRounds = widget.timerRounds;
     timerDuration = [actDuration, pauDuration, preDuration];
     initSounds();
@@ -408,7 +412,6 @@ class _TimerBasicState extends State<TimerBasic >
 
   void initSounds() async {
     audioPlayer = AudioPlayer();
-    audioCache = AudioCache(fixedPlayer: audioPlayer);
     // audioCache.loadAll(mp3);
   }
 
@@ -417,8 +420,13 @@ class _TimerBasicState extends State<TimerBasic >
     if ( audioPlayer.state.index == 1) {
       audioPlayer.stop();
     }
-    audioPlayer = await audioCache.play(fileName);
+    final player = AudioPlayer();
+    await player.play(AssetSource(fileName));
   }
+
+
+
+
 
   void stopSound(_mp3) {
     audioPlayer.stop();

@@ -157,7 +157,7 @@ class Workouts extends StatelessWidget {
         preferredSize: Size.fromHeight(115),
       ),
       body: FadedSlideAnimation(
-        Stack(
+        child: Stack(
           children: [
             Container(
               height: MediaQuery.of(context).size.height,
@@ -193,11 +193,11 @@ class Workouts extends StatelessWidget {
                           child: Row(
                             children: [
                               FadedScaleAnimation(
-                                Container(
+                                child: Container(
                                   height: 60,
                                   child: Image.asset(excercise[index]),
                                 ),
-                                durationInMilliseconds: 1000,
+                                // durationInMilliseconds: 1000,
                               ),
                               SizedBox(
                                 width: 20,

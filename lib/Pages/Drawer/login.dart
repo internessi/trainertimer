@@ -48,11 +48,11 @@ class _LoginState extends State<Login> {
                       height: 300,
                     ),
                     FadedScaleAnimation(
-                      Container(
+                      child: Container(
                         height: 150,
                         child: Image.asset("assets/logo.png"),
                       ),
-                      durationInMilliseconds: 2000,
+                      // durationInMilliseconds: 2000,
                     ),
                     SizedBox(
                       height: 5,

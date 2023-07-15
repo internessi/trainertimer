@@ -30,12 +30,12 @@ class NoTrackintNoAds extends StatelessWidget {
                     child: Column(
                       children: [
                         FadedScaleAnimation(
-                          Container(
+                    child:  Container(
                             padding: EdgeInsets.symmetric(vertical: 2),
                             height: 80,
                             child: Image.asset("assets/logo.png"),
                           ),
-                          durationInMilliseconds: 1000,
+                          // durationInMilliseconds: 1000,
                         ),
                         SizedBox(
                           height: 10,

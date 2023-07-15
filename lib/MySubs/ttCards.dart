@@ -32,14 +32,14 @@ class TraierTimerCard extends StatelessWidget {
                 Row(
                   children: [
                     FadedScaleAnimation(
-                      Container(
+                      child: Container(
                         height: 110,
                         child: Image.asset(
                           image,
                           fit: BoxFit.cover,
                         ),
                       ),
-                      durationInMilliseconds: 1000,
+                     // durationInMilliseconds: 1000,
                     ),
                     Expanded(
                       child: Column(

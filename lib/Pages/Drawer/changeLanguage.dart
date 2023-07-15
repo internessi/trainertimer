@@ -136,8 +136,8 @@ class _LanguageState extends State<Language> {
                               Navigator.pop(context);
                           },
                           child: FadedScaleAnimation(
-                            ColorButton(locale.submit),
-                            durationInMilliseconds: 1000,
+                            child: ColorButton(locale.submit),
+                            // durationInMilliseconds: 1000,
                           )),
                     ),
                     SizedBox(
