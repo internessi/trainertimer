@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'Locale/locales.dart';
 import 'MySubs/routes.dart';
-import 'Pages/home.dart';
 import 'MySubs/style.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';

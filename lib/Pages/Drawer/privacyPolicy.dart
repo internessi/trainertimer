@@ -80,14 +80,14 @@ Anbieter und Verantwortlicher
                                     ''',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             Text('''
 Alarm4u.de GmbH, Meußlitzer Str. 58, 01259 Dresden, Deutschland, Handelsregister: HRB 28245, Registergericht: Dresden, Vertreten durch: Frank Wolf, E-Mail-Adresse des Anbieters: info@trainertimer.de
 ''',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 10)),
                             SizedBox(
                               height: 20,
@@ -97,7 +97,7 @@ Arten der erhobenen Daten
                             ''',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             Text('''
 Zu den personenbezogenen Daten, die diese Anwendung selbstständig oder durch Dritte verarbeitet, gehören: Vorname; Nachname; Telefonnummer; E-Mail; Profilbild; Tracker; Nutzungsdaten; Eindeutige Gerätekennzeichnung für Werbung (Google-Werbe-ID oder IDFA, beispielsweise); Geografische Position; Sprache; Während der Nutzung des Dienstes übermittelte Daten; Geräteinformationen; Anwendung-Ausführungen; Kalenderberechtigung; Kameraberechtigung; Berechtigung zur Ermittlung des genauen Standorts (nicht kontinuierlich); Berechtigung zur Ermittlung des ungefähren Standorts (nicht kontinuierlich); Mikrofonberechtigung; Bluetooth-Freigabeberechtigung; Fotobibliothekberechtigung; Informationen über die Anwendung; Gerätelogs; verschiedene Datenarten; Geburtsdatum; physische Adresse; Beruf; Land; Staat; Postleitzahl; Stadt; Bild; Arbeitsplatz; Anzahl der Beschäftigten; Tätigkeitsgebiet; Hausnummer.
@@ -110,14 +110,14 @@ Die Nutzer sind für alle personenbezogenen Daten Dritter verantwortlich, die du
                             ''',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 10)),
                             Text('''
 Verarbeitungsmethoden
                             ''',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             Text('''
 Der Anbieter verarbeitet die Nutzerdaten auf ordnungsgemäße Weise und ergreift angemessene Sicherheitsmaßnahmen, um den unbefugten Zugriff und die unbefugte Weiterleitung, Veränderung oder Vernichtung von Daten zu vermeiden.
@@ -125,14 +125,14 @@ Die Datenverarbeitung wird mittels Computern oder IT-basierten Systemen nach org
                             ''',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 10)),
                             Text('''
 Rechtsgrundlagen der Verarbeitung
                             ''',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             Text('''
 Der Anbieter darf personenbezogene Daten von Nutzern nur dann verarbeiten, wenn einer der folgenden Punkte zutrifft:
@@ -145,14 +145,14 @@ In jedem Fall erteilt der Anbieter gerne Auskunft über die konkrete Rechtsgrund
                             ''',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 10)),
                             Text('''
 Ort
                             ''',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             Text('''
 Die Daten werden in der Niederlassung des Anbieters und an allen anderen Orten, an denen sich die an der Datenverarbeitung beteiligten Stellen befinden, verarbeitet.
@@ -162,14 +162,14 @@ Wenn eine solche Übermittlung stattfindet, kann der Nutzer mehr darüber erfahr
                             ''',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 10)),
                             Text('''
 Speicherdauer
                             ''',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             Text('''
 Personenbezogene Daten werden so lange verarbeitet und gespeichert, wie es der Zweck erfordert, zu dem sie erhoben wurden.
@@ -184,21 +184,21 @@ Personenbezogene Daten über den Nutzer werden erhoben, damit der Anbieter den D
                             ''',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 10)),
                             Text('''
 Zwecke der Verarbeitung
                             ''',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             Text('''
 Personenbezogene Daten über den Nutzer werden erhoben, damit der Anbieter den Dienst erbringen und des Weiteren seinen gesetzlichen Verpflichtungen nachkommen, auf Durchsetzungsforderungen reagieren, seine Rechte und Interessen (oder die der Nutzer oder Dritter) schützen, böswillige oder betrügerische Aktivitäten aufdecken kann. Darüber hinaus werden Daten zu folgenden Zwecken erhoben: Registrierung und Anmeldung, Verwalten von Kontakten und Versenden von Nachrichten, Standortbezogene Interaktionen, Hosting und Backend-Infrastruktur, Interaktion mit Live-Chat-Plattformen, Verwaltung von Support- und Kontaktanfragen, Umgang mit Zahlungen, Geräteberechtigungen für den Zugriff auf personenbezogene Daten, Plattform-Dienste und Hosting, Anzeigen von Inhalten externer Plattformen, Werbung, Soziale Funktionen, Analytik, Beta-Tests, Datenübermittlung außerhalb der EU und Registrierung und Anmeldung unmittelbar über diese Anwendung.
                             ''',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 10)),
                           ],
                         ),

@@ -77,12 +77,12 @@ class AboutUs extends StatelessWidget {
                             Text('We want you!',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             Text('(gestalte den Trainertimer mit)',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 11)),
 
                             Text ('''
@@ -100,7 +100,7 @@ Frank Wolf
 ''',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 11)),
                             SizedBox(
                               height: 20,
@@ -108,17 +108,17 @@ Frank Wolf
                             Text('Email: info@trainertimer.de',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             Text('Telefon: +49 (0)351 313 7790',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             Text('(ich melde mich mit Alarm4u.de GmbH ;)',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 9)),
                           ],
                         ),

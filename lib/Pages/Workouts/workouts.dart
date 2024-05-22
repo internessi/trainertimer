@@ -4,7 +4,6 @@ import 'package:animation_wrappers/Animations/faded_scale_animation.dart';
 import 'package:animation_wrappers/Animations/faded_slide_animation.dart';
 import '/Locale/locales.dart';
 import 'workoutDetails.dart';
-import 'package:trainertimer/Pages/Workouts/workoutSelection.dart';
 import '../../MySubs/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -74,14 +73,14 @@ class Workouts extends StatelessWidget {
                               type!,
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText2!
+                                  .bodyMedium!
                                   .copyWith(fontSize: 20),
                             ),
                             Text(
                               level!,
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText2!
+                                  .bodyMedium!
                                   .copyWith(fontSize: 20),
                             ),
                           ],
@@ -96,7 +95,7 @@ class Workouts extends StatelessWidget {
                                 locale.level!,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 12, color: darkGrey),
                               ),
                               Row(
@@ -145,7 +144,7 @@ class Workouts extends StatelessWidget {
                       "11 " + locale.workouts!,
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText2!
+                          .bodyMedium!
                           .copyWith(fontSize: 12, color: darkGrey),
                     ),
                   ],
@@ -217,7 +216,7 @@ class Workouts extends StatelessWidget {
                                         ? Text("x 15",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .bodyText2!
+                                                .bodyMedium!
                                                 .copyWith(
                                                     fontSize: 12,
                                                     color: darkGrey))

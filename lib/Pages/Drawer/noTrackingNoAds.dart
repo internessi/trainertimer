@@ -77,12 +77,12 @@ class NoTrackintNoAds extends StatelessWidget {
                             Text('NoTracking - NoAds - NoSpy',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             Text('(ein paar Worte in eigener Sache)',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 11)),
                             Text ('''
                             
@@ -101,7 +101,7 @@ Frank Wolf
 ''',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 11)),
                             SizedBox(
                               height: 20,

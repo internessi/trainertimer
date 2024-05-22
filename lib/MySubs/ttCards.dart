@@ -125,7 +125,7 @@ class TraierTimerCard extends StatelessWidget {
                                 footer!,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 11, color: darkGrey),
                               )
                             ],

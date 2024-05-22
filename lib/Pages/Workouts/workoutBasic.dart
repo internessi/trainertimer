@@ -2,9 +2,7 @@ import 'dart:ui';
 import 'dart:math' as math;
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:hive/hive.dart';
 import 'package:trainertimer/Locale/locales.dart';
 import 'package:trainertimer/MySubs/colors.dart';
 import 'package:trainertimer/Pages/Workouts/processWolf.dart';
@@ -170,22 +168,22 @@ class _WorkoutBasicState extends State<WorkoutBasic>
                   title: Row(children: [
                     Text(
                         widget.timerLabel + '  ',
-                        style: Theme.of(context).textTheme.bodyText2!.copyWith(color:
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(color:
                         Colors.white, fontSize: 16, fontWeight: FontWeight.bold,
                         )),
                     Text(
                         'V ' + durationString(preDuration.toString()) + '  ',
-                        style: Theme.of(context).textTheme.bodyText2!.copyWith(color:
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(color:
                         timerTypeColor[2], fontSize: 16, fontWeight: FontWeight.bold,
                         )),
                     Text(
                         'A ' + durationString(actDuration.toString()) + '  ',
-                        style: Theme.of(context).textTheme.bodyText2!.copyWith(color:
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(color:
                         timerTypeColor[0], fontSize: 16, fontWeight: FontWeight.bold,
                         )),
                     Text(
                         'P ' + durationString(pauDuration.toString()) + '  ',
-                        style: Theme.of(context).textTheme.bodyText2!.copyWith(color:
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(color:
                         timerTypeColor[1], fontSize: 16, fontWeight: FontWeight.bold,
                         )),
                   ],),

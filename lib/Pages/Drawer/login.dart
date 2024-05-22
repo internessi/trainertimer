@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:trainertimer/Pages/home.dart';
 import 'package:animation_wrappers/animation_wrappers.dart';
@@ -64,13 +63,13 @@ class _LoginState extends State<Login> {
                         Text('TrainerTimer',
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText2!
+                                .bodyMedium!
                                 .copyWith(
                                     fontSize: 16, fontWeight: FontWeight.bold)),
                         Text(' V.0.7.30',
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText2!
+                                .bodyMedium!
                                 .copyWith(fontSize: 12, color: darkGrey))
                       ],
                     ),
@@ -86,7 +85,7 @@ class _LoginState extends State<Login> {
                       },
                       label: Text(
                         'let\'s get ready',
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       icon: const Icon(Icons.sports_mma),

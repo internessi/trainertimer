@@ -15,11 +15,11 @@ class InputField extends StatelessWidget {
         decoration: InputDecoration(
             prefixStyle: Theme.of(context)
                 .textTheme
-                .bodyText1!
+                .bodyLarge!
                 .copyWith(color: Colors.black),
             border: InputBorder.none,
             hintText: title,
-            hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+            hintStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: greyColor, fontSize: 13, fontWeight: FontWeight.bold)),
       ),
     );

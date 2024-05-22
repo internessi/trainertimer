@@ -93,7 +93,7 @@ class _LanguageState extends State<Language> {
                               title: Text(languages[index],
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText1!
+                                      .bodyLarge!
                                       .copyWith(fontSize: 17)),
                               value: index,
                               groupValue: _selectedLanguage,

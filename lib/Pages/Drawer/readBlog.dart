@@ -44,7 +44,7 @@ class ReadBlog extends StatelessWidget {
                   title!,
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText2!
+                      .bodyMedium!
                       .copyWith(fontSize: 20, color: Colors.white),
                 ),
                 // durationInMilliseconds: 1000,
@@ -79,7 +79,7 @@ class ReadBlog extends StatelessWidget {
                         Text("24 March'21",
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText2!
+                                .bodyMedium!
                                 .copyWith(fontSize: 12, color: darkGrey)),
                         SizedBox(
                           height: 10,
@@ -87,7 +87,7 @@ class ReadBlog extends StatelessWidget {
                         Text(locale.lorem!,
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText2!
+                                .bodyMedium!
                                 .copyWith(fontSize: 13)),
                         SizedBox(
                           height: 15,
@@ -95,12 +95,12 @@ class ReadBlog extends StatelessWidget {
                         Text(locale.lorem!,
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText2!
+                                .bodyMedium!
                                 .copyWith(fontSize: 13)),
                         Text(locale.lorem!,
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText2!
+                                .bodyMedium!
                                 .copyWith(fontSize: 13)),
                         SizedBox(
                           height: 15,
@@ -108,12 +108,12 @@ class ReadBlog extends StatelessWidget {
                         Text(locale.lorem!,
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText2!
+                                .bodyMedium!
                                 .copyWith(fontSize: 13)),
                         Text(locale.lorem!,
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText2!
+                                .bodyMedium!
                                 .copyWith(fontSize: 13)),
                       ],
                     ),

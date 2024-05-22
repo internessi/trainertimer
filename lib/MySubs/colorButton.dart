@@ -18,7 +18,7 @@ class ColorButton extends StatelessWidget {
       child: Center(
           child: Text(
         title!,
-        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
             fontSize: 15, color: Colors.white, fontWeight: FontWeight.normal),
       )),
     );
@@ -42,7 +42,7 @@ class ColorButtonGreen extends StatelessWidget {
       child: Center(
           child: Text(
         title,
-        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
             fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
       )),
     );

@@ -1,15 +1,11 @@
 import 'dart:ui';
-import 'package:animation_wrappers/Animations/faded_slide_animation.dart';
-import 'package:animation_wrappers/animation_wrappers.dart';
 import 'package:trainertimer/Locale/locales.dart';
-import 'package:trainertimer/Pages/Drawer/changeLanguage.dart';
 import 'package:trainertimer/Pages/Drawer/privacyPolicy.dart';
 import 'package:trainertimer/Pages/home.dart';
 import 'package:trainertimer/MySubs/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'aboutUs.dart';
-import 'blogs.dart';
 import 'contactDetails.dart';
 import 'noTrackingNoAds.dart';
 
@@ -61,13 +57,13 @@ class MyDrawer extends StatelessWidget {
                         title: Text('trainertimer.de',
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText2!
+                                .bodyMedium!
                                 .copyWith(fontSize: 18)),
                         subtitle: GestureDetector(
                           child: Text(locale.viewProfile!,
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText2!
+                                  .bodyMedium!
                                   .copyWith(fontSize: 13, color: darkGrey)),
                         ),
                       ),
@@ -97,7 +93,7 @@ class MyDrawer extends StatelessWidget {
                             title: Text(drawerItems[index],
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 15)),
                           );
                         },

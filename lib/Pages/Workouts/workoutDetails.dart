@@ -99,14 +99,14 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                                   Text('liste',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText2!
+                                          .bodyMedium!
                                           .copyWith(
                                               fontSize: 17,
                                               fontWeight: FontWeight.bold)),
                                   Text(' unten',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText2!
+                                          .bodyMedium!
                                           .copyWith(
                                               fontSize: 12, color: darkGrey))
                                 ],
@@ -166,7 +166,7 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                               Text(' ',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText2!
+                                      .bodyMedium!
                                       .copyWith(fontSize: 13)),
                               SizedBox(
                                 height: 10,
@@ -174,12 +174,12 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                               Text(' ',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText2!
+                                      .bodyMedium!
                                       .copyWith(fontSize: 13)),
                               Text(' ',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText2!
+                                      .bodyMedium!
                                       .copyWith(fontSize: 13)),
                             ],
                           ),
@@ -201,7 +201,7 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                         child: Center(
                             child: Text(
                           'button',
-                          style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                               fontSize: 17,
                               color: Colors.white,
                               fontWeight: FontWeight.normal),

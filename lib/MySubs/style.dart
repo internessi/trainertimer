@@ -5,8 +5,6 @@ import 'colors.dart';
 final ThemeData appTheme = ThemeData(
   fontFamily: 'Poppins',
   scaffoldBackgroundColor: scaffoldBg,
-  //accentColor: buttonColor,
-  backgroundColor: scaffoldBg,
   unselectedWidgetColor: greyColor,
   appBarTheme: AppBarTheme(
     color: Colors.transparent,
@@ -16,20 +14,21 @@ final ThemeData appTheme = ThemeData(
   //text theme
   textTheme: TextTheme(
     //default text style of Text Widget
-    bodyText1: TextStyle(color: whiteColor, fontSize: 15),
-    bodyText2: TextStyle(color: Colors.white, fontSize: 15),
-    subtitle1: TextStyle(fontWeight: FontWeight.w500, color: Colors.black),
-    headline3:
+    bodyLarge: TextStyle(color: whiteColor, fontSize: 15),
+    bodyMedium: TextStyle(color: Colors.white, fontSize: 15),
+    titleMedium: TextStyle(fontWeight: FontWeight.w500, color: Colors.black),
+    displaySmall:
         TextStyle(color: whiteColor, fontWeight: FontWeight.bold, fontSize: 14),
-    headline5:
+    headlineSmall:
         TextStyle(color: whiteColor, fontWeight: FontWeight.bold, fontSize: 14),
-    headline6:
+    titleLarge:
         TextStyle(color: whiteColor, fontWeight: FontWeight.bold, fontSize: 14),
-    caption:
+    bodySmall:
         TextStyle(color: whiteColor, fontWeight: FontWeight.bold, fontSize: 14),
-    overline: TextStyle(),
-  ) /*.apply(displayColor: Colors.black)*/,
+    labelSmall: TextStyle(),
+  ), //colorScheme: ColorScheme(background: scaffoldBg) /*.apply(displayColor: Colors.black)*/,
 );
+//);
 
 /// NAME         SIZE  WEIGHT  SPACING
 /// headline1    96.0  light   -1.5

@@ -132,14 +132,14 @@ class _TimerSelectionState extends State<TimerSelection> {
                               'Timer',
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText2!
+                                  .bodyMedium!
                                   .copyWith(fontSize: 20),
                             ),
                             Text(
                               'Trainer',
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText2!
+                                  .bodyMedium!
                                   .copyWith(fontSize: 20),
                             ),
                           ],
@@ -241,7 +241,7 @@ class _TimerSelectionState extends State<TimerSelection> {
                                           Text(sTimer[index][0].toUpperCase(),
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .bodyText2!
+                                                  .bodyMedium!
                                                   .copyWith(
                                                     color: Colors.white,
                                                     fontSize: 18,
@@ -259,7 +259,7 @@ class _TimerSelectionState extends State<TimerSelection> {
                                                       '  ',
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .bodyText2!
+                                                      .bodyMedium!
                                                       .copyWith(
                                                         color:
                                                             timerTypeColor[2],
@@ -274,7 +274,7 @@ class _TimerSelectionState extends State<TimerSelection> {
                                                       '  ',
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .bodyText2!
+                                                      .bodyMedium!
                                                       .copyWith(
                                                         color:
                                                             timerTypeColor[0],
@@ -289,7 +289,7 @@ class _TimerSelectionState extends State<TimerSelection> {
                                                       '  ',
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .bodyText2!
+                                                      .bodyMedium!
                                                       .copyWith(
                                                         color:
                                                             timerTypeColor[1],
@@ -303,7 +303,7 @@ class _TimerSelectionState extends State<TimerSelection> {
                                                       '  ',
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .bodyText2!
+                                                      .bodyMedium!
                                                       .copyWith(
                                                         color: greyColor,
                                                         fontSize: 14,
@@ -357,7 +357,7 @@ class _TimerSelectionState extends State<TimerSelection> {
                                       Text('"' + sTimer[index][0].toUpperCase() + '"' + ' löschen?',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyText2!
+                                            .bodyMedium!
                                             .copyWith(
                                           color: Colors.white70,
                                           fontSize: 18,

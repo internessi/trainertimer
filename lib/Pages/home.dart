@@ -83,7 +83,7 @@ class HomePage extends StatelessWidget {
                       locale.headline1!.toUpperCase(),
                       style: Theme.of(context)
                         .textTheme
-                        .bodyText2!
+                        .bodyMedium!
                         .copyWith(color: Colors.white60, letterSpacing: 1),
                   ),
                       GestureDetector(
@@ -106,7 +106,7 @@ class HomePage extends StatelessWidget {
                         locale.headline2!.toUpperCase(),
                         style: Theme.of(context)
                             .textTheme
-                            .bodyText2!
+                            .bodyMedium!
                             .copyWith(color: Colors.white60, letterSpacing: 1),
                       ),
                       Container(

@@ -136,14 +136,14 @@ class Blogs extends StatelessWidget {
                                           Text(title[index],
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .bodyText2!
+                                                  .bodyMedium!
                                                   .copyWith(fontSize: 12)),
                                           Spacer(),
                                           Text(
                                             "13 April' 21",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .bodyText2!
+                                                .bodyMedium!
                                                 .copyWith(
                                                     fontSize: 11,
                                                     color: darkGrey),

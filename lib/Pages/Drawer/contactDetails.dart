@@ -77,22 +77,22 @@ class ContactDetails extends StatelessWidget {
                             Text('Alarm4u.de GmbH',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             Text('Meußlitzer Str. 58',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             Text('01259 Dresden',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             Text('Deutschland',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             SizedBox(
                               height: 20,
@@ -100,17 +100,17 @@ class ContactDetails extends StatelessWidget {
                             Text('Handelsregister: HRB 28245',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             Text('Registergericht: Dresden',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             Text('Vertreten durch: Frank Wolf',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             SizedBox(
                               height: 20,
@@ -118,17 +118,17 @@ class ContactDetails extends StatelessWidget {
                             Text('Internet: trainertimer.de',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             Text('Email: info@trainertimer.de',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             Text('Telefon: +49 (0)351 313 7790',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
 
                             SizedBox(
@@ -137,12 +137,12 @@ class ContactDetails extends StatelessWidget {
                             Text('Lizensierte Bilder: stock.adobe.com',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             Text('ID - Lizenz - Autor',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 11)),
 
                             Text('''
@@ -158,7 +158,7 @@ class ContactDetails extends StatelessWidget {
  #60282534  - Standard - © pio3 	''',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 11)),
 
                             SizedBox(
@@ -167,12 +167,12 @@ class ContactDetails extends StatelessWidget {
                             Text('Entwickelt mit: Flutter SDK',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 13)),
                             Text('flutter.dev',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 11)),
 
                             Text('''
@@ -180,7 +180,7 @@ Danke an Google für das Flutter SDK und and viele andere die Codepakete: audiop
 	''',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(fontSize: 11)),
                             SizedBox(
                               height: 20,

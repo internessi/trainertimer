@@ -46,7 +46,7 @@ class EntryField extends StatelessWidget {
       initialValue: initialValue,
       style: Theme.of(context)
           .textTheme
-          .bodyText2!
+          .bodyMedium!
           .copyWith(color: titleColor, fontSize: 15),
       readOnly: readOnly ?? false,
       keyboardType: keyboardType,
@@ -59,7 +59,7 @@ class EntryField extends StatelessWidget {
         suffixIcon: suffixIcon,
         labelText: label,
         hintText: hint,
-        hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+        hintStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
               // fontSize: 15,
               color: greyColor,
             ),

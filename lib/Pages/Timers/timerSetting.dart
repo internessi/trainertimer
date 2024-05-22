@@ -1,10 +1,8 @@
-import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import '/Locale/locales.dart';
 import '../../MySubs/colors.dart';
 import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart';
 
 
 class TimerSetting extends StatefulWidget {

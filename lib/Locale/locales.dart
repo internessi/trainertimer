@@ -2,16 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show SynchronousFuture;
 import 'dart:async';
-import 'Languages/arabic.dart';
 import 'Languages/german.dart';
 import 'Languages/english.dart';
-import 'Languages/french.dart';
-import 'Languages/indonesian.dart';
-import 'Languages/italian.dart';
-import 'Languages/portuguese.dart';
-import 'Languages/spanish.dart';
-import 'Languages/swahili.dart';
-import 'Languages/turkish.dart';
 
 class AppLocalizations {
   final Locale locale;
